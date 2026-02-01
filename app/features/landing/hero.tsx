@@ -1,10 +1,11 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { ArrowDown, FileDown, Github, Linkedin, Mail } from "lucide-react";
-import { useRef } from "react";
+import { ArrowDown, FileDown, Mail } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { Button } from "~/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "~/components/ui/tooltip";
+import { SimpleIcon, siGithub, siLinkedin } from "~/components/ui/simple-icon";
 import { lazy, Suspense } from "react";
 // Lazy load the heavy 3D background
 const QuantumField = lazy(() => import("~/components/visuals/quantum-field").then(module => ({ default: module.QuantumField })));
@@ -16,6 +17,11 @@ export function Hero() {
     const { t } = useTranslation();
     const { scrollY } = useScroll();
     const isDark = useIsDark();
+
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
 
     // Parallax Logic: "Heavy" & "Smooth" (2026 Feel)
     // We use a spring to dampen the raw scroll value, removing any jitter
@@ -65,8 +71,8 @@ export function Hero() {
                             <Trans i18nKey="hero.role">
                                 Front-End Engineer & <span className="text-black dark:text-white font-medium">Creative Developer</span>
                             </Trans>
-                            <span className="block mt-6 text-base md:text-lg text-zinc-500 dark:text-zinc-400 font-mono">
-                                {t('hero.tagline')}
+                            <span className="block mt-6 text-base md:text-lg text-zinc-500 dark:text-zinc-400 font-mono min-h-[1.75rem]">
+                                {mounted ? t('hero.tagline') : ""}
                             </span>
                         </p>
                     </motion.div>
@@ -84,20 +90,20 @@ export function Hero() {
                                 document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
                             }}
                         >
-                            {t('hero.cta')}
+                            {mounted ? t('hero.cta') : ""}
                             <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
                         </Button>
 
                         <div className="flex gap-4">
                             <SocialIcon
                                 href="https://github.com/santiago-correa-wegrix-dev"
-                                icon={<Github className="w-5 h-5" />}
+                                icon={<SimpleIcon icon={siGithub} />}
                                 label="GitHub Profile"
                                 tooltip="Most repos are private! 🕵️‍♂️"
                             />
                             <SocialIcon
                                 href="https://www.linkedin.com/in/wegrix/"
-                                icon={<Linkedin className="w-5 h-5" />}
+                                icon={<SimpleIcon icon={siLinkedin} />}
                                 label="LinkedIn Profile"
                                 tooltip="Let's Connect"
                             />
@@ -125,7 +131,7 @@ export function Hero() {
                     transition={{ delay: 0.8, duration: 0.8 }}
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
                 >
-                    <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-2">{t('hero.scroll')}</span>
+                    <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-2">{mounted ? t('hero.scroll') : ""}</span>
                     <div className="w-[1px] h-16 bg-zinc-300 dark:bg-zinc-800 overflow-hidden">
                         <motion.div
                             className="w-full h-1/2 bg-zinc-900 dark:bg-zinc-400"
