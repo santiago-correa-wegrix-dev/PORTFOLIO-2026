@@ -1,33 +1,9 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-@font-face {
-  font-family: "Geist";
-  src: url("https://assets.vercel.com/raw/upload/v1/fonts/geist/geist-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist";
-  src: url("https://assets.vercel.com/raw/upload/v1/fonts/geist/geist-medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist";
-  src: url("https://assets.vercel.com/raw/upload/v1/fonts/geist/geist-bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  --font-display: "Geist", "Inter", sans-serif;
-  --font-sans: "Geist", "Inter", sans-serif;
+  --font-display: "Inter", sans-serif;
+  --font-sans: "Inter", sans-serif;
   --font-mono: "Geist Mono", monospace;
 
   /* Default Light Mode */

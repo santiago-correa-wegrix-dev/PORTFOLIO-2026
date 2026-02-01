@@ -5,7 +5,10 @@ import { Trans, useTranslation } from "react-i18next";
 
 import { Button } from "~/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "~/components/ui/tooltip";
-import { QuantumField } from "~/components/visuals/quantum-field";
+import { lazy, Suspense } from "react";
+// Lazy load the heavy 3D background
+const QuantumField = lazy(() => import("~/components/visuals/quantum-field").then(module => ({ default: module.QuantumField })));
+
 import { useIsDark } from "~/hooks/use-is-dark";
 
 export function Hero() {
@@ -29,7 +32,9 @@ export function Hero() {
             <section ref={containerRef} className="min-h-screen relative flex items-center justify-center overflow-hidden bg-background pt-20 md:pt-0">
                 {/* Full Screen Quantum Field - Next Level Background */}
                 <div className="absolute inset-0 z-0">
-                    <QuantumField key={isDark ? 'dark' : 'light'} isDark={isDark} />
+                    <Suspense fallback={<div className="w-full h-full bg-background" />}>
+                        <QuantumField key={isDark ? 'dark' : 'light'} isDark={isDark} />
+                    </Suspense>
                 </div>
 
                 {/* Radial Gradient Overlay - Visibility Control */}

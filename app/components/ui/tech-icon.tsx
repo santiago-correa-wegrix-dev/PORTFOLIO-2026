@@ -19,7 +19,7 @@ import {
     siVuedotjs,
     siWebflow,
     siZapier
-} from "simple-icons/icons";
+} from "simple-icons";
 
 
 

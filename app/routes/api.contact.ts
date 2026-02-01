@@ -21,9 +21,17 @@ export async function action({ request }: ActionFunctionArgs) {
         const result = contactSchema.safeParse(payload);
 
         if (!result.success) {
+            const details = result.error.issues.reduce((acc: Record<string, string[]>, curr) => {
+                const key = curr.path[0] as string;
+                if (!acc[key]) acc[key] = [];
+                acc[key].push(curr.message);
+                return acc;
+            }, {});
+
+            console.error("Validation Failed:", details);
             return data({
-                error: "Validation failed",
-                details: result.error.flatten().fieldErrors
+                error: "Please check the form for errors.",
+                details
             }, { status: 400 });
         }
 

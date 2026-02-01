@@ -1,11 +1,13 @@
 import { realProjects } from "~/data/projects";
 import { skillsList } from "~/data/skills";
-import { Contact } from "~/features/landing/contact";
-import { ExperienceTimeline } from "~/features/landing/experience";
+import { lazy, Suspense } from "react";
 import { Hero } from "~/features/landing/hero";
-import { Kudos } from "~/features/landing/kudos";
-import { Projects } from "~/features/landing/projects";
-import { SkillGalaxy } from "~/features/landing/skills";
+
+const SkillsList = lazy(() => import("~/features/landing/skills").then(module => ({ default: module.SkillGalaxy })));
+const Projects = lazy(() => import("~/features/landing/projects").then(module => ({ default: module.Projects })));
+const ExperienceTimeline = lazy(() => import("~/features/landing/experience").then(module => ({ default: module.ExperienceTimeline })));
+const Contact = lazy(() => import("~/features/landing/contact").then(module => ({ default: module.Contact })));
+const Kudos = lazy(() => import("~/features/landing/kudos").then(module => ({ default: module.Kudos })));
 
 import type { Route } from "./+types/_index";
 
@@ -36,11 +38,13 @@ export default function Index({ loaderData }: Route.ComponentProps) {
     return (
         <div className="min-h-screen bg-background text-foreground selection:bg-zinc-800 selection:text-white">
             <Hero />
-            <Kudos />
-            <Projects id="projects" data={projects} />
-            <ExperienceTimeline />
-            <SkillGalaxy data={skills} />
-            <Contact />
+            <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
+                <Kudos />
+                <Projects id="projects" data={projects} />
+                <ExperienceTimeline />
+                <SkillsList data={skills} />
+                <Contact />
+            </Suspense>
         </div>
     );
 }

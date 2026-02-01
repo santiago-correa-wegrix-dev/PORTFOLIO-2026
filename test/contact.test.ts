@@ -39,7 +39,7 @@ describe('Contact Action Logic', () => {
         const response = await action({ request, params: {}, context: {} });
         const json = await parseResponse(response);
 
-        expect(json.error).toBe("Validation failed");
+        expect(json.error).toBe("Please check the form for errors.");
         expect(json.details.name).toBeDefined();
     });
 
@@ -48,7 +48,7 @@ describe('Contact Action Logic', () => {
         const response = await action({ request, params: {}, context: {} });
         const json = await parseResponse(response);
 
-        expect(json.error).toBe("Validation failed");
+        expect(json.error).toBe("Please check the form for errors.");
         expect(json.details.email).toBeDefined();
     });
 
@@ -57,7 +57,7 @@ describe('Contact Action Logic', () => {
         const response = await action({ request, params: {}, context: {} });
         const json = await parseResponse(response);
 
-        expect(json.error).toBe("Validation failed");
+        expect(json.error).toBe("Please check the form for errors.");
         expect(json.details.message).toBeDefined();
     });
 
