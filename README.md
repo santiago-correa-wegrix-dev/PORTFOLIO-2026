@@ -1,87 +1,71 @@
-# Welcome to React Router!
+# Santiago Correa Portfolio
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A high-performance, award-winning portfolio site built with modern web technologies.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+![Portfolio Preview](public/og-image.jpg)
 
-## Features
+## 🚀 Tech Stack
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- **Framework**: [Remix](https://remix.run/) (React Router 7)
+- **Language**: TypeScript
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/)
+- **3D Visuals**: [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/) (Three.js)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Internationalization**: i18next
 
-## Getting Started
+## ✨ Key Features
 
-### Installation
+- **"Quantum Field"**: Interactive 3D particle background system.
+- **Zero-Latency Navigation**: Single Page Application feel with Remix loaders.
+- **Theme System**: Robust Dark/Light mode with system preference detection and persistence.
+- **Kinetic UI**: Magnetic buttons, scroll-driven animations, and reveal effects.
+- **Internationalization**: Fully localized in English, Spanish, German, and French.
 
-Install the dependencies:
+## 🛠️ Development
 
-```bash
-npm install
-```
+### Prerequisites
 
-### Development
+- Node.js (v20+)
+- pnpm
 
-Start the development server with HMR:
+### Setup
 
-```bash
-npm run dev
-```
+1.  **Install Dependencies**
+    ```bash
+    pnpm install
+    ```
 
-Your application will be available at `http://localhost:5173`.
+2.  **Start Dev Server**
+    ```bash
+    pnpm run dev
+    ```
 
-## Building for Production
+3.  **Build for Production**
+    ```bash
+    pnpm run build
+    ```
 
-Create a production build:
+## 📐 Engineering Standards
 
-```bash
-npm run build
-```
+See [ENGINEERING_GUIDELINES.md](./ENGINEERING_GUIDELINES.md) for detailed architectural documentation.
 
-## Deployment
+## 📂 Project Structure
 
-### Docker Deployment
+- `app/routes`: Remix routing and server-side loaders.
+- `app/components`: Shared UI components (Atomic Design).
+- `app/features`: Feature-specific logic (Hero, Projects, Skills).
+- `app/store`: Global Zustand stores.
+- `app/data`: Static content data.
 
-To build and run using Docker:
+## 🌍 Localization
 
-```bash
-docker build -t my-app .
+Translations are managed in `public/locales`.
+To add a new language:
+1. Create a folder in `public/locales/{code}`.
+2. Add `translation.json`.
+3. Update `app/i18n.ts` configuration.
 
-# Run the container
-docker run -p 3000:3000 my-app
-```
+## 📄 License
 
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+MIT © [Santiago Correa](https://github.com/scorrea-dev)

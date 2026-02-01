@@ -1,0 +1,63 @@
+{
+    "hero": {
+        "role": "Senior Front-End Entwickler & <1>Creative Developer</1>",
+        "tagline": "Entwicklung skalierbarer, preisgekrönter digitaler Erlebnisse.",
+        "cta": "Arbeiten ansehen",
+        "scroll": "Scrollen"
+    },
+    "nav": {
+        "projects": "Projekte",
+        "about": "Über mich",
+        "contact": "Kontakt"
+    },
+    "projects": {
+        "title": "Ausgewählte <1>Arbeiten</1>",
+        "years": "(2023 — 2025)",
+        "view": "Fallstudie ansehen"
+    },
+    "skills": {
+        "title": "Tech <1>Stack</1>",
+        "desc": "Ein kuratiertes Arsenal an Tools für resiliente, skalierbare und schöne digitale Produkte."
+    },
+    "experience": {
+        "title": "Beruflicher <1>Werdegang</1>",
+        "desc": "Ein Zeitstrahl technischer Führung und Produktentwicklung.",
+        "jobs": {
+            "statista": {
+                "role": "Senior Frontend Engineer",
+                "period": "Jan 2024 — Heute",
+                "description": "Migration von Legacy-Produkten auf einen modernen Stack mit Remix, React und TypeScript bei gleichzeitiger Wartung bestehender Vue- und PHP-Anwendungen. Entwicklung sicherer AWS CDK-Infrastruktur zur Optimierung der Datenbankbereitstellung und des Verbindungsmanagements für das Team. Verbesserung der Übersetzungsabläufe für dynamische Texte und Mitwirkung an der technischen Planung, Dokumentation und Tooling-Konfiguration."
+            },
+            "dnl": {
+                "role": "Frontend Engineer",
+                "period": "Mai 2021 — Jan 2024",
+                "description": "Entwicklung eines effizienten, skalierbaren und datengesteuerten Produkts von Grund auf mit Vue.js. Proaktive Identifizierung und Minderung technischer Einschränkungen und Entwicklungsrisiken zur Beschleunigung der Feature-Bereitstellung. Enge Zusammenarbeit mit Backend-Ingenieuren und Produktteams während der technischen Planung, um komplexe funktionsübergreifende Probleme zu lösen und Architekturentscheidungen an den Geschäftszielen auszurichten."
+            },
+            "globant": {
+                "role": "Frontend Engineer",
+                "period": "Dez 2020 — Mai 2021",
+                "description": "Leitung der Frontend-Migration einer Legacy-Finanzanwendung zu Vue.js, Etablierung moderner Coding-Standards für ein Team von 10+ Entwicklern. Mentoring von Junior-Ingenieuren in Best Practices für Komponenten und Implementierung eines robusten Designsystems zur Gewährleistung der UI-Konsistenz in der gesamten Suite."
+            },
+            "adk": {
+                "role": "Frontend Engineer",
+                "period": "Aug 2019 — Dez 2020",
+                "description": "Lieferung von 10+ hochwertigen Produktionswebsites für diverse Kunden mit Fokus auf Performance-Optimierung und Barrierefreiheit. Signifikante Verbesserung der Ladezeiten und SEO-Rankings durch Optimierung der Bundle-Größen und Implementierung von Progressive Enhancement-Techniken wie Code Splitting und Lazy Loading."
+            },
+            "freelance": {
+                "role": "Full Stack Developer",
+                "period": "2017 — 2019",
+                "description": "Entwicklung maßgeschneiderter Weblösungen für kleine Unternehmen und Startups. Management des gesamten Lebenszyklus von Kundenanforderungen bis zum Deployment, Aufbau von E-Commerce-Seiten und Portfolio-Plattformen mit modernen JavaScript-Frameworks."
+            }
+        }
+    },
+    "contact": {
+        "title_1": "Lass uns",
+        "title_2": "etwas",
+        "title_3": "zusammen bauen.",
+        "desc": "Hast du ein Projekt im Sinn? Lass uns zusammen etwas Außergewöhnliches bauen.",
+        "name": "Name",
+        "email": "E-Mail",
+        "message": "Nachricht",
+        "send": "Nachricht senden"
+    }
+}
