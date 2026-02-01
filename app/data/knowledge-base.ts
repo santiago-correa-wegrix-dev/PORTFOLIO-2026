@@ -76,9 +76,10 @@ export const KNOWLEDGE_BASE: KnowledgeItem[] = [
             "technologie", "technologien",
             "react", "vue", "remix", "nextjs", "typescript", "node", "tailwind", "hubspot",
             "what is your tech stack", "tech stack",
-            "webflow", "spotify", "zapier", "n8n", "automation"
+            "webflow", "spotify", "zapier", "n8n", "automation",
+            "skills", "skill", "habilidades", "skills set"
         ],
-        content: "I align perfectly with the **Modern Stack**: React, Next.js/Remix, Tailwind, and TypeScript. I also excel at **Integrations & Automation** (Zapier, N8N, HubSpot) and No-Code platforms like **Webflow**.",
+        content: "My expertise is anchored in the **Modern Stack**: React, Next.js, Remix, Tailwind, and TypeScript. I also specialize in **Integrations & Automation** (Zapier, N8N, HubSpot) and leverage No-Code platforms like **Webflow**.",
         url: undefined
     },
     {

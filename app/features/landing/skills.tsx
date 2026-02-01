@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 
 import { TechIcon } from "~/components/ui/tech-icon";
@@ -12,11 +12,6 @@ interface SkillGalaxyProps {
 export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
     const { t } = useTranslation();
     const [viewMode, setViewMode] = useState<'3d' | 'list'>('3d');
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     return (
         <section className="py-24 px-6 md:px-12 lg:px-24 relative overflow-hidden transition-colors duration-700">
@@ -30,14 +25,12 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
                     <div className="flex flex-col items-center w-full gap-8 md:px-8 mb-16 relative z-20">
                         <div className="text-center">
                             <h2 className="text-5xl md:text-7xl font-display font-bold text-foreground tracking-tighter mb-4 min-h-[1em]">
-                                {mounted && (
-                                    <Trans i18nKey="skills.title">
-                                        Tech <span className="text-muted-foreground">Stack</span>
-                                    </Trans>
-                                )}
+                                <Trans i18nKey="skills.title">
+                                    Tech <span className="text-muted-foreground">Stack</span>
+                                </Trans>
                             </h2>
                             <p className="text-muted-foreground font-light text-xl leading-relaxed max-w-2xl mx-auto min-h-[1.5em]">
-                                {mounted ? t('skills.desc') : ""}
+                                {t('skills.desc')}
                             </p>
                         </div>
 

@@ -1,6 +1,5 @@
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { Briefcase, Calendar } from "lucide-react";
-import { useEffect, useState } from "react";
 
 import type { Job } from "~/data/experience";
 
@@ -8,13 +7,8 @@ import { useTranslation } from "react-i18next";
 
 export function SpotlightCard({ job, index }: { job: Job; index: number }) {
     const { t } = useTranslation();
-    const [mounted, setMounted] = useState(false);
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
         const { left, top } = currentTarget.getBoundingClientRect();
@@ -58,18 +52,18 @@ export function SpotlightCard({ job, index }: { job: Job; index: number }) {
 
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div className="flex flex-col">
-                        <h3 className="text-2xl font-bold text-foreground transition-colors duration-200 md:min-h-[1em]">{mounted ? t(`experience.jobs.${job.id}.role`) : ""}</h3>
+                        <h3 className="text-2xl font-bold text-foreground transition-colors duration-200 md:min-h-[1em]">{t(`experience.jobs.${job.id}.role`)}</h3>
                         <span className="text-muted-foreground font-medium flex items-center gap-2">
                             <Briefcase className="w-4 h-4" /> {job.company}
                         </span>
                     </div>
                     <span className="font-mono text-sm text-muted-foreground border border-border px-3 py-1 rounded-full flex items-center gap-2 w-fit bg-background/50 md:min-h-[1.5em] h-fit">
-                        <Calendar className="w-3 h-3" /> {mounted ? t(`experience.jobs.${job.id}.period`) : ""}
+                        <Calendar className="w-3 h-3" /> {t(`experience.jobs.${job.id}.period`)}
                     </span>
                 </div>
 
                 <p className="text-foreground/80 leading-relaxed font-light min-h-[1.5em]">
-                    {mounted ? t(`experience.jobs.${job.id}.description`) : ""}
+                    {t(`experience.jobs.${job.id}.description`)}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mt-2">

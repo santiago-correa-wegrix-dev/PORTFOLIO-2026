@@ -25,10 +25,8 @@ export function Contact() {
     const isSubmitting = state === "submitting";
     const isSuccess = data?.success;
     const formRef = useRef<HTMLFormElement>(null);
-    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
         if (isSuccess) {
             formRef.current?.reset();
             const duration = 5 * 1000;
@@ -75,14 +73,14 @@ export function Contact() {
                         className="flex flex-col gap-8"
                     >
                         <h2 className="text-6xl md:text-8xl font-display font-bold tracking-tighter leading-[0.9] min-h-[1em]">
-                            {mounted ? t('contact.title_1') : ""} <br />
-                            <span className="text-foreground">{mounted ? t('contact.title_2') : ""}</span> <br />
-                            <span className="text-foreground">{mounted ? t('contact.title_3') : ""}</span>
+                            {t('contact.title_1')} <br />
+                            <span className="text-foreground">{t('contact.title_2')}</span> <br />
+                            <span className="text-foreground">{t('contact.title_3')}</span>
                         </h2>
 
                         <div className="flex flex-col gap-6 mt-8">
                             <p className="text-xl text-muted-foreground max-w-md leading-relaxed min-h-[1.5em]">
-                                {mounted ? t('contact.desc') : ""}
+                                {t('contact.desc')}
                             </p>
 
                             <div className="flex gap-4">
@@ -139,8 +137,8 @@ export function Contact() {
                                 <fetcher.Form ref={formRef} method="post" action="/api/contact" className="flex flex-col gap-6 relative z-10">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <div className="flex flex-col gap-2">
-                                            <label htmlFor="name" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">{mounted ? t('contact.name') : ""}</label>
-                                            <input name="name" id="name" type="text" required className="bg-background border border-border rounded-lg p-3 text-foreground focus:outline-none focus:border-zinc-500 transition-colors" placeholder={mounted ? "John Doe" : ""} />
+                                            <label htmlFor="name" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">{t('contact.name')}</label>
+                                            <input name="name" id="name" type="text" required className="bg-background border border-border rounded-lg p-3 text-foreground focus:outline-none focus:border-zinc-500 transition-colors" placeholder="John Doe" />
                                             <AnimatePresence mode="wait">
                                                 <AnimatePresence mode="wait">
                                                     {data?.details?.name && (
@@ -158,8 +156,8 @@ export function Contact() {
                                             </AnimatePresence>
                                         </div>
                                         <div className="flex flex-col gap-2">
-                                            <label htmlFor="email" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">{mounted ? t('contact.email') : ""}</label>
-                                            <input name="email" id="email" type="email" required className="bg-background border border-border rounded-lg p-3 text-foreground focus:outline-none focus:border-zinc-500 transition-colors" placeholder={mounted ? "john@example.com" : ""} />
+                                            <label htmlFor="email" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">{t('contact.email')}</label>
+                                            <input name="email" id="email" type="email" required className="bg-background border border-border rounded-lg p-3 text-foreground focus:outline-none focus:border-zinc-500 transition-colors" placeholder="john@example.com" />
                                             <AnimatePresence mode="wait">
                                                 <AnimatePresence mode="wait">
                                                     {data?.details?.email && (
@@ -179,8 +177,8 @@ export function Contact() {
                                     </div>
 
                                     <div className="flex flex-col gap-2">
-                                        <label htmlFor="message" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">{mounted ? t('contact.message') : ""}</label>
-                                        <textarea name="message" id="message" rows={4} required className="bg-background border border-border rounded-lg p-3 text-foreground focus:outline-none focus:border-zinc-500 transition-colors resize-none" placeholder={mounted ? "Tell me about your project..." : ""} />
+                                        <label htmlFor="message" className="text-sm font-mono text-muted-foreground uppercase tracking-wider">{t('contact.message')}</label>
+                                        <textarea name="message" id="message" rows={4} required className="bg-background border border-border rounded-lg p-3 text-foreground focus:outline-none focus:border-zinc-500 transition-colors resize-none" placeholder="Tell me about your project..." />
                                         <AnimatePresence mode="wait">
                                             <AnimatePresence mode="wait">
                                                 {data?.details?.message && (
@@ -199,7 +197,7 @@ export function Contact() {
                                     </div>
 
                                     <Button disabled={isSubmitting} className="h-14 mt-2 bg-foreground text-background hover:opacity-90 text-lg font-medium w-full rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]">
-                                        {isSubmitting ? "Sending..." : (mounted ? t('contact.send') : "")}
+                                        {isSubmitting ? "Sending..." : t('contact.send')}
                                         <Send className="w-4 h-4 ml-2" />
                                     </Button>
 

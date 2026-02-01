@@ -11,6 +11,10 @@ const Kudos = lazy(() => import("~/features/landing/kudos").then(module => ({ de
 
 import type { Route } from "./+types/_index";
 
+export const handle = {
+    i18n: "translation",
+};
+
 export function meta() {
     return [
         { title: "Santiago Correa | Creative Frontend Engineer" },

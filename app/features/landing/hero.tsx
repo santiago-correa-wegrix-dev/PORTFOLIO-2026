@@ -18,11 +18,6 @@ export function Hero() {
     const { scrollY } = useScroll();
     const isDark = useIsDark();
 
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
     // Parallax Logic: "Heavy" & "Smooth" (2026 Feel)
     // We use a spring to dampen the raw scroll value, removing any jitter
     const springConfig = { mass: 0.1, stiffness: 100, damping: 20 };
@@ -72,7 +67,7 @@ export function Hero() {
                                 Front-End Engineer & <span className="text-black dark:text-white font-medium">Creative Developer</span>
                             </Trans>
                             <span className="block mt-6 text-base md:text-lg text-zinc-500 dark:text-zinc-400 font-mono min-h-[1.75rem]">
-                                {mounted ? t('hero.tagline') : ""}
+                                {t('hero.tagline')}
                             </span>
                         </p>
                     </motion.div>
@@ -90,7 +85,7 @@ export function Hero() {
                                 document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
                             }}
                         >
-                            {mounted ? t('hero.cta') : ""}
+                            {t('hero.cta')}
                             <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
                         </Button>
 
@@ -131,7 +126,7 @@ export function Hero() {
                     transition={{ delay: 0.8, duration: 0.8 }}
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
                 >
-                    <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-2">{mounted ? t('hero.scroll') : ""}</span>
+                    <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-widest mb-2">{t('hero.scroll')}</span>
                     <div className="w-[1px] h-16 bg-zinc-300 dark:bg-zinc-800 overflow-hidden">
                         <motion.div
                             className="w-full h-1/2 bg-zinc-900 dark:bg-zinc-400"

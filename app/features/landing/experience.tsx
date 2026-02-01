@@ -8,16 +8,11 @@ import { SpotlightCard } from "./experience/spotlight-card";
 
 export function ExperienceTimeline() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [mounted, setMounted] = useState(false);
     const { t } = useTranslation();
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start 80%", "end 50%"],
     });
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     const scaleY = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -31,21 +26,25 @@ export function ExperienceTimeline() {
             <div className="absolute inset-0 z-0 opacity-[0.05] dark:opacity-[0.1] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_100%,transparent_0%)]" />
 
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col md:flex-row gap-16 md:gap-24 relative">
-
-                    {/* Sticky Header - UX Best Practice for long lists */}
-                    <div className="md:w-1/3 md:sticky md:top-32 h-fit z-10">
-                        <h2 className="text-5xl md:text-7xl font-display font-bold text-foreground tracking-tighter mb-6 min-h-[1em]">
-                            {mounted && (
-                                <Trans i18nKey="experience.title">
-                                    Career <span className="text-muted-foreground">History</span>
-                                </Trans>
-                            )}
+                <motion.div
+                    className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-20 relative z-10"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                >
+                    <div className="space-y-2">
+                        <h2 className="text-4xl md:text-6xl font-display font-bold min-h-[1em]">
+                            <Trans i18nKey="experience.title">
+                                Career <span className="text-muted-foreground">History</span>
+                            </Trans>
                         </h2>
-                        <p className="text-muted-foreground text-lg max-w-sm min-h-[1.5em]">
-                            {mounted ? t('experience.desc') : ""}
+                        <p className="text-muted-foreground font-mono max-w-xl leading-relaxed min-h-[1.5em]">
+                            {t('experience.desc')}
                         </p>
                     </div>
+                </motion.div>
+
+                <div className="flex flex-col md:flex-row gap-16 md:gap-24 relative">
 
                     {/* Timeline Content */}
                     <div className="md:w-2/3 relative flex flex-col gap-16 pl-8 md:pl-0">

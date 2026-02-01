@@ -15,7 +15,7 @@ export const PATTERNS = {
     JIBBERISH: /^(blah|asdf|qwerty|test|lorem)/i,
     HELP: /\b(help|menu|options|start|restart)\b/i,
     CREATOR: /(who made you|who built you|creator|developer|author)/i,
-    WHO_AM_I: /(who are you|quien eres)/i,
+    WHO_AM_I: /(who are you|quien eres|what are you|que eres|bot|system)/i,
     FUN: /(love|hate|date|marry|kiss|age|old|birthday|favourite color|food|pizza)/i,
     WORK_LOC: /where.*(work|worked)|donde.*(trabajad|trabajo)/i,
 };

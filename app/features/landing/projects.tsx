@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Trans, useTranslation } from "react-i18next";
 
 import type { realProjects } from "~/data/projects";
@@ -14,12 +15,7 @@ interface ProjectsProps {
 export function Projects({ id, data: projects }: ProjectsProps) {
     const [hoveredProject, setHoveredProject] = useState<string | null>(null);
     const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
-    const [mounted, setMounted] = useState(false);
     const { t } = useTranslation();
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     const handleMouseMove = (e: React.MouseEvent) => {
         setCursorPos({ x: e.clientX, y: e.clientY });
@@ -34,18 +30,21 @@ export function Projects({ id, data: projects }: ProjectsProps) {
         <section id={id} className="py-32 px-6 md:px-12 lg:px-24 bg-zinc-50 dark:bg-black text-foreground relative transition-colors duration-700" onMouseMove={handleMouseMove}>
 
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-24">
-                    <h2 className="text-5xl md:text-8xl font-display font-bold tracking-tighter min-h-[1em]">
-                        {mounted && (
+                <motion.div
+                    className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-20 relative z-10"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                >
+                    <div className="space-y-2">
+                        <h2 className="text-4xl md:text-6xl font-display font-bold min-h-[1em]">
                             <Trans i18nKey="projects.title">
-                                Selected <span className="text-muted-foreground">Works</span>
+                                Selected <span className="text-muted-foreground">Work</span>
                             </Trans>
-                        )}
-                    </h2>
-                    <span className="font-mono text-muted-foreground text-sm hidden md:block min-h-[1.5em]">
-                        {mounted ? t('projects.years') : ""}
-                    </span>
-                </div>
+                        </h2>
+                        <p className="text-muted-foreground font-mono min-h-[1.5em]">{t('projects.years')}</p>
+                    </div>
+                </motion.div>
 
                 <div className="relative">
                     {/* Project List */}

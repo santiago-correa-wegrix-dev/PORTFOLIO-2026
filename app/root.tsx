@@ -46,11 +46,24 @@ import { ControlCenter } from "~/components/ui/control-center";
 import { Noise } from "~/components/ui/noise";
 import { ChatWidget } from "~/features/chat/chat-widget";
 
+import { useChangeLanguage } from "remix-i18next/react";
+import i18next from "./i18n.server";
+import { type LoaderFunctionArgs, useLoaderData } from "react-router";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  let locale = await i18next.getLocale(request);
+  return { locale };
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  const loaderData = useLoaderData<typeof loader>();
+  const locale = loaderData?.locale ?? "en";
+
+  useChangeLanguage(locale);
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
