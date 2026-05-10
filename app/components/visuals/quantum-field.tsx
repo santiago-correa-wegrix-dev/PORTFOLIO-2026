@@ -9,13 +9,14 @@ interface Particle {
   vy: number;
   size: number;
   opacity: number;
+  phase: number;
+  speed: number;
+  amplitude: number;
 }
 
-const PARTICLE_COUNT = 3000;
-const REPULSION_RADIUS = 120;
-const REPULSION_STRENGTH = 0.6;
-const DRIFT_SPEED = 0.4;
-const RETURN_SPEED = 0.002;
+const PARTICLE_COUNT = 2500;
+const REPULSION_RADIUS = 140;
+const REPULSION_STRENGTH = 0.8;
 
 export function QuantumField({ isDark }: { isDark: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -36,8 +37,11 @@ export function QuantumField({ isDark }: { isDark: boolean }) {
         baseY: y,
         vx: 0,
         vy: 0,
-        size: Math.random() * 3 + 1.5,
-        opacity: Math.random() * 0.5 + 0.2,
+        size: Math.random() * 2.5 + 1,
+        opacity: Math.random() * 0.5 + 0.15,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.3 + 0.1,
+        amplitude: Math.random() * 20 + 8,
       });
     }
     particlesRef.current = particles;
@@ -50,14 +54,17 @@ export function QuantumField({ isDark }: { isDark: boolean }) {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
+    let currentWidth = 0;
+    let currentHeight = 0;
+
     const resizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio, 2);
       const rect = canvas.getBoundingClientRect();
+      currentWidth = rect.width;
+      currentHeight = rect.height;
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       if (particlesRef.current.length === 0) {
         initParticles(rect.width, rect.height);
@@ -79,60 +86,57 @@ export function QuantumField({ isDark }: { isDark: boolean }) {
     };
 
     const animate = () => {
-      const rect = canvas.getBoundingClientRect();
-      const width = rect.width;
-      const height = rect.height;
-      timeRef.current += 0.01;
+      timeRef.current += 0.008;
       const time = timeRef.current;
 
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, currentWidth, currentHeight);
 
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
       const baseColor = isDark ? 255 : 0;
 
       for (let i = 0; i < particles.length; i++) {
-        const particle = particles[i];
+        const p = particles[i];
 
-        // Quantum drift
-        particle.vx +=
-          Math.cos(time + particle.baseY * 0.01) * DRIFT_SPEED * 0.1;
-        particle.vy +=
-          Math.sin(time * 0.8 + particle.baseX * 0.01) * DRIFT_SPEED * 0.1;
+        // Each particle orbits its base position independently
+        const targetX =
+          p.baseX + Math.cos(time * p.speed + p.phase) * p.amplitude;
+        const targetY =
+          p.baseY + Math.sin(time * p.speed * 0.7 + p.phase) * p.amplitude;
+
+        // Smoothly move toward orbital target
+        p.vx += (targetX - p.x) * 0.01;
+        p.vy += (targetY - p.y) * 0.01;
 
         // Mouse repulsion
-        const dx = mouse.x - particle.x;
-        const dy = mouse.y - particle.y;
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
         const distSq = dx * dx + dy * dy;
         const radiusSq = REPULSION_RADIUS * REPULSION_RADIUS;
 
-        if (distSq < radiusSq) {
+        if (distSq < radiusSq && distSq > 0) {
           const dist = Math.sqrt(distSq);
           const force =
             ((REPULSION_RADIUS - dist) / REPULSION_RADIUS) *
             REPULSION_STRENGTH;
           const angle = Math.atan2(dy, dx);
-          particle.vx -= Math.cos(angle) * force;
-          particle.vy -= Math.sin(angle) * force;
+          p.vx -= Math.cos(angle) * force;
+          p.vy -= Math.sin(angle) * force;
         }
 
-        // Return to base position
-        particle.vx += (particle.baseX - particle.x) * RETURN_SPEED;
-        particle.vy += (particle.baseY - particle.y) * RETURN_SPEED;
-
         // Damping
-        particle.vx *= 0.95;
-        particle.vy *= 0.95;
+        p.vx *= 0.92;
+        p.vy *= 0.92;
 
         // Apply velocity
-        particle.x += particle.vx;
-        particle.y += particle.vy;
+        p.x += p.vx;
+        p.y += p.vy;
 
         // Draw
-        ctx.globalAlpha = particle.opacity * (isDark ? 0.6 : 0.8);
+        ctx.globalAlpha = p.opacity * (isDark ? 0.6 : 0.85);
         ctx.fillStyle = `rgb(${baseColor}, ${baseColor}, ${baseColor})`;
         ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       }
 
@@ -158,11 +162,7 @@ export function QuantumField({ isDark }: { isDark: boolean }) {
     <div
       className={`absolute inset-0 -z-10 h-full w-full transition-colors duration-700 ${isDark ? "bg-black" : "bg-transparent"}`}
     >
-      <canvas
-        ref={canvasRef}
-        className="h-full w-full"
-        aria-hidden="true"
-      />
+      <canvas ref={canvasRef} className="h-full w-full" aria-hidden="true" />
     </div>
   );
 }
