@@ -30,10 +30,10 @@ export function Hero() {
       </div>
 
       <div
-        className={`pointer-events-none absolute inset-0 z-0 transition-opacity duration-700 ${isDark ? "opacity-0" : "bg-[radial-gradient(circle_at_center,transparent_0%,_#ffffff_100%)] opacity-80"}`}
+        className={`pointer-events-none absolute inset-0 z-0 transition-opacity duration-700 ${isDark ? "opacity-0" : "bg-[radial-gradient(circle_at_center,transparent_0%,#ffffff_100%)] opacity-80"}`}
       />
       {isDark && (
-        <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_20%,_#000000_100%)] opacity-60" />
+        <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_20%,#000000_100%)] opacity-60" />
       )}
 
       <motion.div
