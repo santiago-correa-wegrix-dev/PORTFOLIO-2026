@@ -66,7 +66,7 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
-        className="max-w-7xl mx-auto mb-40 min-h-[60vh] md:h-[80vh] w-full bg-card/50 rounded-none md:rounded-3xl overflow-hidden relative border border-border shadow-[0_0_100px_-20px_rgba(255,255,255,0.1)]"
+        className="max-w-7xl mx-auto mb-40 min-h-[40vh] md:h-[80vh] w-full bg-card/50 rounded-xl md:rounded-3xl overflow-hidden relative border border-0 md:border md:border-border shadow-[0_0_100px_-20px_rgba(255,255,255,0.1)]"
       >
         {project.imageUrl ? (
           <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
