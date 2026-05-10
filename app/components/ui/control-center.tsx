@@ -91,7 +91,8 @@ export function ControlCenter() {
       </AnimatePresence>
 
       <motion.button
-        aria-label="Tweak settings button"
+        aria-label="Settings"
+        aria-expanded={isOpen}
         layoutId="control-trigger"
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
@@ -108,10 +109,11 @@ function CapsuleAction({ icon, label, to }: { icon: React.ReactNode; label: stri
   return (
     <Link
       to={to}
-      className="group flex flex-col items-center justify-center gap-1 rounded-2xl p-2 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
+      aria-label={label}
+      className="group relative flex flex-col items-center justify-center gap-1 rounded-2xl p-2 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
     >
       {icon}
-      <span className="pointer-events-none absolute -top-8 rounded-md bg-foreground px-2 py-1 text-[10px] font-medium text-background opacity-0 transition-opacity group-hover:opacity-100">
+      <span aria-hidden="true" className="pointer-events-none absolute -top-8 rounded-md bg-foreground px-2 py-1 text-[10px] font-medium text-background opacity-0 transition-opacity group-hover:opacity-100">
         {label}
       </span>
     </Link>
