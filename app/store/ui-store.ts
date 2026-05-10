@@ -17,7 +17,7 @@ interface UIState {
 export const useUIStore = create<UIState>()(
     persist(
         (set) => ({
-            theme: 'system',
+            theme: 'light',
             setTheme: (theme) => set({ theme }),
             showCustomCursor: true,
             toggleCustomCursor: () => set((state) => ({ showCustomCursor: !state.showCustomCursor })),

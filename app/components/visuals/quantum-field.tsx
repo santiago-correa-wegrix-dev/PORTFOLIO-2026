@@ -14,8 +14,8 @@ interface Particle {
 const PARTICLE_COUNT = 3000;
 const REPULSION_RADIUS = 120;
 const REPULSION_STRENGTH = 0.6;
-const DRIFT_SPEED = 0.15;
-const RETURN_SPEED = 0.003;
+const DRIFT_SPEED = 0.4;
+const RETURN_SPEED = 0.002;
 
 export function QuantumField({ isDark }: { isDark: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -36,7 +36,7 @@ export function QuantumField({ isDark }: { isDark: boolean }) {
         baseY: y,
         vx: 0,
         vy: 0,
-        size: Math.random() * 1.5 + 0.5,
+        size: Math.random() * 3 + 1.5,
         opacity: Math.random() * 0.5 + 0.2,
       });
     }

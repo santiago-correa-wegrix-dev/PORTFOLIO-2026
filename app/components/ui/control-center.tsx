@@ -3,6 +3,7 @@ import {
   Home,
   LayoutGrid,
   Mail,
+  Monitor,
   Moon,
   MousePointer2,
   Settings,
@@ -22,8 +23,23 @@ export function ControlCenter() {
   const navigate = useNavigate();
 
   const cycleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    const order = ["light", "dark", "system"] as const;
+    const currentIndex = order.indexOf(theme);
+    const nextIndex = (currentIndex + 1) % order.length;
+    setTheme(order[nextIndex]);
   };
+
+  const themeIcon =
+    theme === "dark" ? (
+      <Moon className="h-4 w-4" />
+    ) : theme === "system" ? (
+      <Monitor className="h-4 w-4" />
+    ) : (
+      <Sun className="h-4 w-4" />
+    );
+
+  const themeLabel =
+    theme === "dark" ? "Dark" : theme === "system" ? "System" : "Light";
 
   const handleNav = (id: string) => {
     if (location.pathname !== "/") {
@@ -75,16 +91,10 @@ export function ControlCenter() {
 
             <div className="flex flex-col gap-1 p-1">
               <CapsuleToggle
-                label={theme === "dark" ? "Dark" : "Light"}
-                icon={
-                  theme === "dark" ? (
-                    <Moon className="h-4 w-4" />
-                  ) : (
-                    <Sun className="h-4 w-4" />
-                  )
-                }
+                label={themeLabel}
+                icon={themeIcon}
                 onClick={cycleTheme}
-                active
+                active={theme !== "light"}
               />
               <CapsuleToggle
                 label={showCustomCursor ? "Cursor On" : "Cursor Off"}

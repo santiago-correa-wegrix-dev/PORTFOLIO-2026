@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 
+import { SectionSkeleton } from "~/components/ui/skeleton";
 import { realProjects } from "~/data/projects";
 import { skillsList } from "~/data/skills";
 import { Hero } from "~/features/landing/hero";
@@ -74,9 +75,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-zinc-800 selection:text-white">
       <Hero />
-      <Suspense
-        fallback={<div className="py-20 text-center">Loading...</div>}
-      >
+      <Suspense fallback={<SectionSkeleton />}>
         <Kudos />
         <Projects id="projects" data={projects} />
         <ExperienceTimeline />

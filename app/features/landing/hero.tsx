@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, FileDown, Mail } from "lucide-react";
 import { lazy, Suspense, useRef } from "react";
 import { useIntlayer } from "react-intlayer";
@@ -21,14 +21,13 @@ const QuantumField = lazy(() =>
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { headline, tagline, subline, cta, scroll } = useIntlayer("hero");
+  const { tagline, subline, cta, scroll } = useIntlayer("hero");
   const { scrollY } = useScroll();
   const isDark = useIsDark();
 
-  const springConfig = { mass: 0.1, stiffness: 100, damping: 20 };
-  const smoothScrollY = useSpring(scrollY, springConfig);
-  const textY = useTransform(smoothScrollY, [0, 600], [0, 150]);
-  const opacity = useTransform(smoothScrollY, [0, 600], [1, 0.2]);
+  // Lenis already smooths scroll — no need for useSpring (avoids double-interpolation jank)
+  const textY = useTransform(scrollY, [0, 600], [0, 150]);
+  const opacity = useTransform(scrollY, [0, 600], [1, 0.2]);
 
   return (
     <TooltipProvider>
