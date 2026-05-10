@@ -9,3 +9,7 @@
 
 # Engineering guidelines (local only)
 ENGINEERING_GUIDELINES.md
+
+# Agent skills (local tooling)
+.agents/
+skills-lock.json

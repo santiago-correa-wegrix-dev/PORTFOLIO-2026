@@ -44,7 +44,6 @@ import { SmoothScroll } from "~/components/layout/smooth-scroll";
 import { ThemeManager } from "~/components/layout/theme-manager";
 import { ControlCenter } from "~/components/ui/control-center";
 import { Noise } from "~/components/ui/noise";
-import { ChatWidget } from "~/features/chat/chat-widget";
 
 import { useChangeLanguage } from "remix-i18next/react";
 import i18next from "./i18n.server";
@@ -73,7 +72,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="bg-background text-foreground overflow-x-hidden selection:bg-zinc-200 selection:text-black dark:selection:bg-zinc-800 dark:selection:text-white">
         {/* Theme & Chat Managers */}
         <ThemeManager />
-        <ChatWidget />
         <SmoothScroll>
           <MouseFollower />
           <Grain />
