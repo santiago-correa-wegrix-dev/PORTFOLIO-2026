@@ -15,7 +15,7 @@
     "test": "vitest",
     "test:run": "wireit",
     "check": "wireit",
-    "prepare": "husky"
+    "prepare": "[ -d .git ] && husky || true"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.4",
