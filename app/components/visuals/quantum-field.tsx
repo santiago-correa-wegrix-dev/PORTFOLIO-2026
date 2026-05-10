@@ -1,181 +1,168 @@
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useEffect,useMemo, useRef } from "react";
-import * as THREE from "three";
+import { useCallback, useEffect, useRef } from "react";
 
-
-
-function ParticleSystem({ isDark }: { isDark: boolean }) {
-    const count = 4000;
-    const mesh = useRef<THREE.Points>(null!);
-    const light = useRef<THREE.PointLight>(null!);
-
-    const mouse = useRef(new THREE.Vector2());
-
-    // Generate particles & Texture
-    const { positions, colors, texture } = useMemo(() => {
-        const temp = new Float32Array(count * 3);
-        const colors = new Float32Array(count * 3);
-
-        for (let i = 0; i < count; i++) {
-            // eslint-disable-next-line react-hooks/purity
-            const x = (Math.random() - 0.5) * 50;
-            // eslint-disable-next-line react-hooks/purity
-            const y = (Math.random() - 0.5) * 50;
-            // eslint-disable-next-line react-hooks/purity
-            const z = (Math.random() - 0.5) * 50;
-            temp[i * 3] = x;
-            temp[i * 3 + 1] = y;
-            temp[i * 3 + 2] = z;
-
-            const base = isDark ? 0.8 : 0.2; // Dark Mode: Soft White (0.8), Light Mode: Dark Grey (0.2)
-            // eslint-disable-next-line react-hooks/purity
-            const variance = Math.random() * 0.4;
-            const shade = base + (isDark ? 0 : variance);
-
-            colors[i * 3] = shade;
-            colors[i * 3 + 1] = shade;
-            colors[i * 3 + 2] = shade;
-        }
-
-        // Generate Circular Texture Programmatically
-        const canvas = document.createElement('canvas');
-        canvas.width = 32;
-        canvas.height = 32;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-            ctx.beginPath();
-            ctx.arc(16, 16, 14, 0, 2 * Math.PI);
-            ctx.fillStyle = '#ffffff';
-            ctx.fill();
-        }
-        const texture = new THREE.CanvasTexture(canvas);
-
-        return { positions: temp, colors, texture };
-    }, [count, isDark]);
-
-    // Reactive Color Update
-    useEffect(() => {
-        if (!mesh.current) return;
-
-        // Update Material Props
-        const material = mesh.current.material as THREE.PointsMaterial;
-        if (material) {
-            material.color = new THREE.Color(isDark ? '#ffffff' : '#000000');
-            // User Feedback: Light mode was invisible. Dark mode was perfect.
-            // Dark Mode: 0.6 Opacity
-            // Light Mode: Boosted to 0.8 Opacity
-            material.opacity = isDark ? 0.6 : 0.8;
-            material.needsUpdate = true;
-        }
-
-        // Force re-computation of colors in useMemo if needed, but actually we can just rely on the material color override if verifyColors corresponds.
-        // But since we use vertexColors, we MUST update the attributes.
-        // The useMemo changes the 'colors' array prop. 
-        // We need to tell Three.js that the attribute needs update.
-        if (mesh.current.geometry.attributes.color) {
-            mesh.current.geometry.attributes.color.needsUpdate = true;
-        }
-    }, [isDark, colors]);
-
-    useFrame((state) => {
-        const time = state.clock.getElapsedTime();
-        const positions = (mesh.current.geometry.attributes.position as THREE.BufferAttribute).array as Float32Array;
-
-        // ... existing movement logic ...
-        // Smooth mouse interpolation could occur here, but direct is snappier for "physics" feel
-        mouse.current.x = (state.pointer.x * state.viewport.width) / 2;
-        mouse.current.y = (state.pointer.y * state.viewport.height) / 2;
-
-        for (let i = 0; i < count; i++) {
-            let x = positions[i * 3];
-            let y = positions[i * 3 + 1];
-            let z = positions[i * 3 + 2];
-
-            // "Quantum" Movement
-            y += Math.sin(time * 0.2 + x * 0.5) * 0.01;
-            x += Math.cos(time * 0.15 + z * 0.5) * 0.01;
-            z += Math.sin(time * 0.1 + y * 0.5) * 0.01;
-
-            // Mouse Repulsion
-            const dx = mouse.current.x - x;
-            const dy = mouse.current.y - y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const repulsionRadius = 6;
-
-            if (dist < repulsionRadius) {
-                const force = (repulsionRadius - dist) / repulsionRadius;
-                const angle = Math.atan2(dy, dx);
-                const strength = 0.8;
-
-                x -= Math.cos(angle) * force * strength;
-                y -= Math.sin(angle) * force * strength;
-            }
-
-            // Bounds
-            if (x > 25) x = -25;
-            if (x < -25) x = 25;
-            if (y > 25) y = -25;
-            if (y < -25) y = 25;
-
-            positions[i * 3] = x;
-            positions[i * 3 + 1] = y;
-            positions[i * 3 + 2] = z;
-        }
-
-        (mesh.current.geometry.attributes.position as THREE.BufferAttribute).needsUpdate = true;
-        mesh.current.rotation.y = time * 0.02;
-    });
-
-    return (
-        <>
-            <pointLight ref={light} distance={40} intensity={8} color={isDark ? "white" : "black"} />
-            <points ref={mesh}>
-                <bufferGeometry>
-                    <bufferAttribute
-                        attach="attributes-position"
-                        count={positions.length / 3}
-                        array={positions}
-                        itemSize={3}
-                        args={[positions, 3]}
-                    />
-                    <bufferAttribute
-                        attach="attributes-color"
-                        count={colors.length / 3}
-                        array={colors}
-                        itemSize={3}
-                        args={[colors, 3]}
-                    />
-                </bufferGeometry>
-                <pointsMaterial
-                    size={0.25}
-                    map={texture}
-                    alphaTest={0.5}
-                    vertexColors // Uses the colors attribute we set above
-                    transparent
-                    opacity={isDark ? 0.6 : 0.8} // Boosted light mode opacity
-                    sizeAttenuation={true}
-                    depthWrite={false}
-                    blending={THREE.NormalBlending}
-                />
-            </points>
-        </>
-    );
+interface Particle {
+  x: number;
+  y: number;
+  baseX: number;
+  baseY: number;
+  vx: number;
+  vy: number;
+  size: number;
+  opacity: number;
 }
 
+const PARTICLE_COUNT = 3000;
+const REPULSION_RADIUS = 120;
+const REPULSION_STRENGTH = 0.6;
+const DRIFT_SPEED = 0.15;
+const RETURN_SPEED = 0.003;
+
 export function QuantumField({ isDark }: { isDark: boolean }) {
-    // Internal detection removed, now controlled by parent
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particlesRef = useRef<Particle[]>([]);
+  const mouseRef = useRef({ x: -9999, y: -9999 });
+  const rafRef = useRef<number>(0);
+  const timeRef = useRef(0);
 
+  const initParticles = useCallback((width: number, height: number) => {
+    const particles: Particle[] = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      particles.push({
+        x,
+        y,
+        baseX: x,
+        baseY: y,
+        vx: 0,
+        vy: 0,
+        size: Math.random() * 1.5 + 0.5,
+        opacity: Math.random() * 0.5 + 0.2,
+      });
+    }
+    particlesRef.current = particles;
+  }, []);
 
-    return (
-        <div className={`absolute inset-0 w-full h-full -z-10 transition-colors duration-700 ${isDark ? 'bg-black' : 'bg-transparent'}`}>
-            <Canvas
-                camera={{ position: [0, 0, 15], fov: 75 }}
-                dpr={[1, 2]}
-                gl={{ antialias: true, alpha: true }}
-            >
-                {!isDark && <fog attach="fog" args={['#ffffff', 10, 40]} />}
-                <ParticleSystem isDark={isDark} />
-            </Canvas>
-        </div>
-    );
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    const resizeCanvas = () => {
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+
+      if (particlesRef.current.length === 0) {
+        initParticles(rect.width, rect.height);
+      }
+    };
+
+    resizeCanvas();
+
+    const handleMouseMove = (event: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top,
+      };
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current = { x: -9999, y: -9999 };
+    };
+
+    const animate = () => {
+      const rect = canvas.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+      timeRef.current += 0.01;
+      const time = timeRef.current;
+
+      ctx.clearRect(0, 0, width, height);
+
+      const particles = particlesRef.current;
+      const mouse = mouseRef.current;
+      const baseColor = isDark ? 255 : 0;
+
+      for (let i = 0; i < particles.length; i++) {
+        const particle = particles[i];
+
+        // Quantum drift
+        particle.vx +=
+          Math.cos(time + particle.baseY * 0.01) * DRIFT_SPEED * 0.1;
+        particle.vy +=
+          Math.sin(time * 0.8 + particle.baseX * 0.01) * DRIFT_SPEED * 0.1;
+
+        // Mouse repulsion
+        const dx = mouse.x - particle.x;
+        const dy = mouse.y - particle.y;
+        const distSq = dx * dx + dy * dy;
+        const radiusSq = REPULSION_RADIUS * REPULSION_RADIUS;
+
+        if (distSq < radiusSq) {
+          const dist = Math.sqrt(distSq);
+          const force =
+            ((REPULSION_RADIUS - dist) / REPULSION_RADIUS) *
+            REPULSION_STRENGTH;
+          const angle = Math.atan2(dy, dx);
+          particle.vx -= Math.cos(angle) * force;
+          particle.vy -= Math.sin(angle) * force;
+        }
+
+        // Return to base position
+        particle.vx += (particle.baseX - particle.x) * RETURN_SPEED;
+        particle.vy += (particle.baseY - particle.y) * RETURN_SPEED;
+
+        // Damping
+        particle.vx *= 0.95;
+        particle.vy *= 0.95;
+
+        // Apply velocity
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Draw
+        ctx.globalAlpha = particle.opacity * (isDark ? 0.6 : 0.8);
+        ctx.fillStyle = `rgb(${baseColor}, ${baseColor}, ${baseColor})`;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1;
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("resize", resizeCanvas);
+
+    rafRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("resize", resizeCanvas);
+    };
+  }, [isDark, initParticles]);
+
+  return (
+    <div
+      className={`absolute inset-0 -z-10 h-full w-full transition-colors duration-700 ${isDark ? "bg-black" : "bg-transparent"}`}
+    >
+      <canvas
+        ref={canvasRef}
+        className="h-full w-full"
+        aria-hidden="true"
+      />
+    </div>
+  );
 }
