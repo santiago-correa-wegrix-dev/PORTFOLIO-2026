@@ -17,6 +17,7 @@ ENGINEERING_GUIDELINES.md
 
 # Agent skills (local tooling)
 .agents/
+.claude/
 skills-lock.json
 
 # Local Netlify folder

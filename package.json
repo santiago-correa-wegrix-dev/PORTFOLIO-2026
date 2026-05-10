@@ -5,6 +5,7 @@
   "scripts": {
     "build": "react-router build",
     "analyze": "ANALYZE=true react-router build",
+    "dev:netlify": "netlify dev",
     "dev": "react-router dev",
     "start": "react-router build && react-router-serve ./build/server/index.js",
     "typecheck": "wireit",
