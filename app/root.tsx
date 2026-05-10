@@ -22,6 +22,7 @@ import { Noise } from "~/components/ui/noise";
 import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
+  { href: "/favicon.svg", rel: "icon", type: "image/svg+xml" },
   { href: "https://fonts.googleapis.com", rel: "preconnect" },
   {
     crossOrigin: "anonymous",
