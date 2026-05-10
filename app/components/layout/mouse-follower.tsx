@@ -51,7 +51,8 @@ export function MouseFollower() {
 
   return (
     <motion.div
-      className="fixed left-0 top-0 w-8 h-8 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference" // Max z-index
+      aria-hidden="true"
+      className="fixed left-0 top-0 w-8 h-8 bg-white rounded-full pointer-events-none z-9999 mix-blend-difference"
       style={{ x, y }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{

@@ -7,7 +7,7 @@ export function ThemeManager() {
 
   // Handle Theme Changes
   useEffect(() => {
-    const root = globalThis.document.documentElement;
+    const root = document.documentElement;
     root.classList.remove("light", "dark");
 
     const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
@@ -56,7 +56,7 @@ export function ThemeManager() {
 
   // Handle Cursor Preferences
   useEffect(() => {
-    const root = globalThis.document.documentElement;
+    const root = document.documentElement;
     root.classList.toggle("custom-cursor-active", showCustomCursor);
   }, [showCustomCursor]);
 
