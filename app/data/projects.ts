@@ -1,130 +1,158 @@
 export interface Project {
-    id: string;
-    title: string;
-    category: string;
-    year: string;
-    description: string;
-    imageColor: string;
-    url?: string;
-    imageUrl?: string;
-    // Detail specific fields
-    challenge?: string;
-    solution?: string;
-    stack?: string[];
-    role?: string;
+  category: string;
+  challenge?: string;
+  description: string;
+  id: string;
+  imageColor: string;
+  imageUrl?: string;
+  role?: string;
+  solution?: string;
+  stack?: string[];
+  title: string;
+  url?: string;
+  year: string;
 }
 
 export const realProjects: Project[] = [
-    {
-        id: "dispatch",
-        title: "Dispatch",
-        category: "AI Newsletter",
-        year: "2025 — Present",
-        description: "AI-curated daily brief on models, tools, and research. Human-edited, zero spam.",
-        imageColor: "#1a1a1a",
-        url: "https://deliver-ai.xyz/",
-        imageUrl: "/images/projects/dispatch.webp",
-        role: "Curator & Editor",
-        stack: ["AI Curation", "Editorial"],
-        challenge: "Filtering signal from noise across hundreds of daily AI publications, papers, and launches.",
-        solution: "Built a curation pipeline that surfaces the highest-impact stories, then applies human editorial judgement before every send."
-    },
-    {
-        id: "statista",
-        title: "Statista",
-        category: "Data Platform",
-        year: "2024 — Present",
-        description: "Global business intelligence portal. React, Remix, Vue, Node.js.",
-        imageColor: "#004e93",
-        url: "https://www.statista.com/",
-        imageUrl: "/images/projects/statista.webp",
-        role: "Senior Frontend Engineer",
-        stack: ["Remix", "React", "AWS CDK", "Node.js", "TypeScript", "Vitest", "Playwright", "Tailwind", "SCSS", 'PHP', 'Vue.js', "Figma"],
-        challenge: "Modernizing a legacy monolithic architecture serving millions of daily users while maintaining zero downtime.",
-        solution: "Architecting the migration to Remix, significantly improving Core Web Vitals and developer velocity through component modularization."
-    },
-    {
-        id: "dnl",
-        title: "Deep Neuron Lab",
-        category: "AI Research",
-        year: "2023",
-        description: "AI-powered data analysis platform. Vue, Python.",
-        imageColor: "#4f46e5",
-        url: "https://www.dnl.ai",
-        imageUrl: "/images/projects/dnl.webp",
-        role: "Frontend Engineer",
-        stack: ["Vue.js", "TypeScript", "Python Integration", "Figma"],
-        challenge: "Visualizing complex, high-dimensional AI datasets in a performant, browser-based interface.",
-        solution: "Engineered a custom WebGL-accelerated visualization library, enabling real-time interaction with large-scale data models."
-    },
-    {
-        id: "toyota",
-        title: "Toyota Forklift",
-        category: "Industrial",
-        year: "2022",
-        description: "Global dealer logistics platform.",
-        imageColor: "#cc0000",
-        url: "https://www.toyotaforklift.com/",
-        imageUrl: "/images/projects/toyota.webp",
-        role: "Frontend Developer",
-        stack: ["Vue.js", "Google Maps API", "Laravel"],
-        challenge: "Unifying fragmented regional data into a seamless global dealer locator experience.",
-        solution: "Developed a robust geospatial search engine integration, reducing query times and improving lead generation conversion."
-    },
-    {
-        id: "tresr",
-        title: "Tresr",
-        category: "Web3",
-        year: "2022",
-        description: "Tokenized real-world asset marketplace.",
-        imageColor: "#10b981",
-        url: "https://www.tresr.com/",
-        imageUrl: "/images/projects/tresr.webp",
-        role: "Lead Frontend",
-        stack: ["React", "Web3.js", "Solidity", "Tailwind"],
-        challenge: "Bridging the UX gap between traditional e-commerce and complex blockchain interactions.",
-        solution: "Led the frontend architecture, implementing seamless wallet integration and a friction-free checkout flow for non-crypto natives."
-    },
-    {
-        id: "buk",
-        title: "Buk",
-        category: "HR SaaS",
-        year: "2021",
-        description: "Enterprise HR management platform.",
-        imageColor: "#3b82f6",
-        url: "https://www.buk.cl/",
-        imageUrl: "/images/projects/buk.webp",
-        role: "Full Stack Engineer",
-        stack: ["Ruby on Rails", "React", "PostgreSQL"],
-        challenge: "Scaling complex payroll and benefits workflows for thousands of enterprise clients.",
-        solution: "Designed and implemented modular micro-frontends for the HR suite, reducing deployment conflicts and enabling parallel feature development."
-    },
-    {
-        id: "unreal",
-        title: "Unreal Snacks",
-        category: "E-commerce",
-        year: "2020",
-        description: "DTC healthy snacking brand.",
-        imageColor: "#f59e0b",
-        url: "https://www.unrealsnacks.com/",
-        imageUrl: "/images/projects/unreal.webp",
-        role: "Frontend Developer",
-        stack: ["Shopify", "Liquid", "JavaScript", "GSAP"],
-        challenge: "Translating a high-energy brand identity into a high-conversion digital storefront.",
-        solution: "Developed a custom headless-style Shopify theme with performant GSAP animations, increasing engagement and conversion rates."
-    },
-    {
-        id: "globant",
-        title: "Globant",
-        category: "Consultancy",
-        year: "2020",
-        description: "Enterprise digital transformation.",
-        imageColor: "#bfdbfe",
-        url: "https://www.globant.com/",
-        imageUrl: "/images/projects/globant.webp",
-        role: "Frontend Engineer",
-        stack: ["Vue.js", "TypeScript", "React", "Figma"],
-        challenge: "Delivering enterprise-grade software solutions within strict regulatory and timeline constraints.",
-        solution: "Collaborated in distributed agile teams to ship scalable features for Fortune 500 financial and healthcare clients."
-    }
+  {
+    category: "AI Newsletter",
+    challenge:
+      "Filtering signal from noise across hundreds of daily AI publications, papers, and launches.",
+    description: "AI-curated daily brief on models, tools, and research. Human-edited, zero spam.",
+    id: "dispatch",
+    imageColor: "#1a1a1a",
+    imageUrl: "/images/projects/dispatch.webp",
+    role: "Curator & Editor",
+    solution:
+      "Built a curation pipeline that surfaces the highest-impact stories, then applies human editorial judgement before every send.",
+    stack: ["AI Curation", "Editorial"],
+    title: "Dispatch",
+    url: "https://deliver-ai.xyz/",
+    year: "2025 — Present",
+  },
+  {
+    category: "Data Platform",
+    challenge:
+      "Modernizing a legacy monolithic architecture serving millions of daily users while maintaining zero downtime.",
+    description: "Global business intelligence portal. React, Remix, Vue, Node.js.",
+    id: "statista",
+    imageColor: "#004e93",
+    imageUrl: "/images/projects/statista.webp",
+    role: "Senior Frontend Engineer",
+    solution:
+      "Architecting the migration to Remix, significantly improving Core Web Vitals and developer velocity through component modularization.",
+    stack: [
+      "Remix",
+      "React",
+      "AWS CDK",
+      "Node.js",
+      "TypeScript",
+      "Vitest",
+      "Playwright",
+      "Tailwind",
+      "SCSS",
+      "PHP",
+      "Vue.js",
+      "Figma",
+    ],
+    title: "Statista",
+    url: "https://www.statista.com/",
+    year: "2024 — Present",
+  },
+  {
+    category: "AI Research",
+    challenge:
+      "Visualizing complex, high-dimensional AI datasets in a performant, browser-based interface.",
+    description: "AI-powered data analysis platform. Vue, Python.",
+    id: "dnl",
+    imageColor: "#4f46e5",
+    imageUrl: "/images/projects/dnl.webp",
+    role: "Frontend Engineer",
+    solution:
+      "Engineered a custom WebGL-accelerated visualization library, enabling real-time interaction with large-scale data models.",
+    stack: ["Vue.js", "TypeScript", "Python Integration", "Figma"],
+    title: "Deep Neuron Lab",
+    url: "https://www.dnl.ai",
+    year: "2023",
+  },
+  {
+    category: "Industrial",
+    challenge:
+      "Unifying fragmented regional data into a seamless global dealer locator experience.",
+    description: "Global dealer logistics platform.",
+    id: "toyota",
+    imageColor: "#cc0000",
+    imageUrl: "/images/projects/toyota.webp",
+    role: "Frontend Developer",
+    solution:
+      "Developed a robust geospatial search engine integration, reducing query times and improving lead generation conversion.",
+    stack: ["Vue.js", "Google Maps API", "Laravel"],
+    title: "Toyota Forklift",
+    url: "https://www.toyotaforklift.com/",
+    year: "2022",
+  },
+  {
+    category: "Web3",
+    challenge:
+      "Bridging the UX gap between traditional e-commerce and complex blockchain interactions.",
+    description: "Tokenized real-world asset marketplace.",
+    id: "tresr",
+    imageColor: "#10b981",
+    imageUrl: "/images/projects/tresr.webp",
+    role: "Lead Frontend",
+    solution:
+      "Led the frontend architecture, implementing seamless wallet integration and a friction-free checkout flow for non-crypto natives.",
+    stack: ["React", "Web3.js", "Solidity", "Tailwind"],
+    title: "Tresr",
+    url: "https://www.tresr.com/",
+    year: "2022",
+  },
+  {
+    category: "HR SaaS",
+    challenge:
+      "Scaling complex payroll and benefits workflows for thousands of enterprise clients.",
+    description: "Enterprise HR management platform.",
+    id: "buk",
+    imageColor: "#3b82f6",
+    imageUrl: "/images/projects/buk.webp",
+    role: "Full Stack Engineer",
+    solution:
+      "Designed and implemented modular micro-frontends for the HR suite, reducing deployment conflicts and enabling parallel feature development.",
+    stack: ["Ruby on Rails", "React", "PostgreSQL"],
+    title: "Buk",
+    url: "https://www.buk.cl/",
+    year: "2021",
+  },
+  {
+    category: "E-commerce",
+    challenge:
+      "Translating a high-energy brand identity into a high-conversion digital storefront.",
+    description: "DTC healthy snacking brand.",
+    id: "unreal",
+    imageColor: "#f59e0b",
+    imageUrl: "/images/projects/unreal.webp",
+    role: "Frontend Developer",
+    solution:
+      "Developed a custom headless-style Shopify theme with performant GSAP animations, increasing engagement and conversion rates.",
+    stack: ["Shopify", "Liquid", "JavaScript", "GSAP"],
+    title: "Unreal Snacks",
+    url: "https://www.unrealsnacks.com/",
+    year: "2020",
+  },
+  {
+    category: "Consultancy",
+    challenge:
+      "Delivering enterprise-grade software solutions within strict regulatory and timeline constraints.",
+    description: "Enterprise digital transformation.",
+    id: "globant",
+    imageColor: "#bfdbfe",
+    imageUrl: "/images/projects/globant.webp",
+    role: "Frontend Engineer",
+    solution:
+      "Collaborated in distributed agile teams to ship scalable features for Fortune 500 financial and healthcare clients.",
+    stack: ["Vue.js", "TypeScript", "React", "Figma"],
+    title: "Globant",
+    url: "https://www.globant.com/",
+    year: "2020",
+  },
 ];
