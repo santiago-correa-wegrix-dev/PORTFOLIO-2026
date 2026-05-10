@@ -28,9 +28,15 @@ export function ProjectRow({ project, onMouseEnter, onMouseLeave }: ProjectRowPr
 
       <div className="mt-4 md:mt-0 flex items-center gap-8 opacity-0 md:opacity-100 md:group-hover:opacity-100 md:translate-x-4 md:group-hover:translate-x-0 transition-all duration-300">
         <span className="font-mono text-muted-foreground">{project.year}</span>
-        <div className="p-3 rounded-full border border-border bg-card text-foreground group-hover:bg-foreground group-hover:text-background transition-colors shadow-lg">
-          <ArrowUpRight className="w-5 h-5" />
-        </div>
+        {project.comingSoon ? (
+          <span className="px-3 py-1 rounded-full border border-border text-xs font-mono text-muted-foreground">
+            Soon
+          </span>
+        ) : (
+          <div className="p-3 rounded-full border border-border bg-card text-foreground group-hover:bg-foreground group-hover:text-background transition-colors shadow-lg">
+            <ArrowUpRight className="w-5 h-5" />
+          </div>
+        )}
       </div>
     </Link>
   );

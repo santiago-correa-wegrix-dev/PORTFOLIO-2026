@@ -1,6 +1,7 @@
 export interface Project {
   category: string;
   challenge?: string;
+  comingSoon?: boolean;
   description: string;
   id: string;
   imageColor: string;
@@ -14,6 +15,21 @@ export interface Project {
 }
 
 export const realProjects: Project[] = [
+  {
+    category: "Personal AI",
+    challenge:
+      "I think better by speaking than typing. Context I need — tasks, research, notes — is always split across a dozen different places.",
+    comingSoon: true,
+    description: "A personal AI trained on my own data to organize how I think and work.",
+    id: "cortex",
+    imageColor: "#0f0f0f",
+    role: "Builder",
+    solution:
+      "Training a personal model on my own data, using Whisper for voice capture and Groq for fast inference. Cortex becomes a second brain that knows how I think.",
+    stack: ["Python", "Groq", "Whisper", "Hugging Face", "MongoDB"],
+    title: "Cortex",
+    year: "2025 - Present",
+  },
   {
     category: "AI Newsletter",
     challenge:

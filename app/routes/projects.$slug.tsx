@@ -6,9 +6,38 @@ import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { SplitText } from "~/components/ui/split-text";
 import { TechIcon } from "~/components/ui/tech-icon";
-import { realProjects } from "~/data/projects";
-
+import { type Project, realProjects } from "~/data/projects";
 import type { Route } from "./+types/projects.$slug";
+
+function HeroMedia({ project }: { project: Project }) {
+  if (project.imageUrl) {
+    return <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />;
+  }
+
+  if (project.comingSoon) {
+    return (
+      <div className="w-full h-full flex flex-col items-center justify-center gap-4 bg-card">
+        <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
+          Under Construction
+        </span>
+        <div className="flex gap-1.5">
+          {Array.from({ length: 8 }).map((_item, idx) => (
+            <div key={idx} className="w-8 h-1.5 rounded-full bg-foreground/10" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className="w-full h-full flex items-center justify-center text-4xl md:text-6xl font-display font-bold tracking-tighter opacity-40"
+      style={{ backgroundColor: project.imageColor }}
+    >
+      {project.title}
+    </div>
+  );
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -78,6 +107,12 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
             {project.category}
           </p>
 
+          {project.comingSoon && (
+            <span className="inline-block mb-4 md:mb-6 px-3 py-1 rounded-full border border-border text-xs font-mono text-muted-foreground">
+              Coming Soon
+            </span>
+          )}
+
           <h1 className="text-[13vw] sm:text-7xl md:text-9xl font-display font-bold tracking-tighter mb-8 md:mb-12 text-foreground leading-[0.9]">
             <SplitText>{project.title.toUpperCase()}</SplitText>
           </h1>
@@ -114,20 +149,7 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
         className="px-4 sm:px-6 md:px-8 lg:px-16 mb-14 md:mb-24"
       >
         <div className="max-w-7xl mx-auto h-[56vw] min-h-[240px] max-h-[680px] rounded-2xl md:rounded-3xl overflow-hidden border border-border/40 shadow-[0_0_80px_-20px_rgba(255,255,255,0.07)]">
-          {project.imageUrl ? (
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div
-              className="w-full h-full flex items-center justify-center text-4xl md:text-6xl font-display font-bold tracking-tighter opacity-40"
-              style={{ backgroundColor: project.imageColor }}
-            >
-              {project.title}
-            </div>
-          )}
+          <HeroMedia project={project} />
         </div>
       </motion.div>
 
