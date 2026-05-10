@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { loader } from "~/routes/projects.$slug";
 import { realProjects } from "~/data/projects";
+import { loader } from "~/routes/projects.$slug";
 
-// Mock Params
 const createLoaderArgs = (slug: string) => ({
   context: {},
   params: { slug },
@@ -10,34 +9,35 @@ const createLoaderArgs = (slug: string) => ({
 });
 
 describe("Projects Loader Logic", () => {
-  it("should return project data for valid slug", async () => {
-    const [project] = realProjects;
-    const validSlug = project.id;
-    const response = await loader(createLoaderArgs(validSlug));
+  it("should return project, prev and next for valid slug", async () => {
+    const firstProject = realProjects[0];
+    const secondProject = realProjects[1];
 
-    // Loader returns direct object in testing env usually, or we parse if it's a response
-    const data = response.json ? await response.json() : response;
+    const result = await loader(createLoaderArgs(secondProject.id));
+    const data = result as { project: typeof secondProject; prev: typeof firstProject | null; next: typeof secondProject | null };
 
-    // Handle Remix "defer" or simple json
-    const projectData = data.project || data;
+    expect(data.project).toBeDefined();
+    expect(data.project.id).toBe(secondProject.id);
+    expect(data.prev?.id).toBe(firstProject.id);
+  });
 
-    expect(projectData).toBeDefined();
-    if (projectData.id) {
-      expect(projectData.id).toBe(validSlug);
-    }
+  it("should return null prev for first project", async () => {
+    const [first] = realProjects;
+    const result = await loader(createLoaderArgs(first.id));
+    const data = result as { prev: null };
+
+    expect(data.prev).toBeNull();
+  });
+
+  it("should return null next for last project", async () => {
+    const last = realProjects[realProjects.length - 1];
+    const result = await loader(createLoaderArgs(last.id));
+    const data = result as { next: null };
+
+    expect(data.next).toBeNull();
   });
 
   it("should throw 404 for invalid slug", async () => {
-    try {
-      await loader(createLoaderArgs("invalid-slug-123"));
-    } catch (error: unknown) {
-      if (error instanceof Response) {
-        const notFoundStatus = 404;
-
-        expect(error.status).toBe(notFoundStatus);
-      } else {
-        throw error;
-      }
-    }
+    await expect(loader(createLoaderArgs("invalid-slug-123"))).rejects.toBeInstanceOf(Response);
   });
 });

@@ -6,6 +6,11 @@ import { useUIStore } from "~/store/ui-store";
 export function MouseFollower() {
   const { showCustomCursor } = useUIStore();
   const [active, setActive] = useState(false);
+  const [isPointerDevice, setIsPointerDevice] = useState(true);
+
+  useEffect(() => {
+    setIsPointerDevice(globalThis.matchMedia("(pointer: fine)").matches);
+  }, []);
 
   // Use motion values for better performance than state
   const cursorX = useMotionValue(-100);
@@ -49,7 +54,7 @@ export function MouseFollower() {
     };
   }, [cursorX, cursorY, showCustomCursor]);
 
-  if (!showCustomCursor) {
+  if (!showCustomCursor || !isPointerDevice) {
     return null;
   }
 

@@ -10,7 +10,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
 import { useUIStore } from "~/store/ui-store";
@@ -18,6 +18,18 @@ import { useUIStore } from "~/store/ui-store";
 export function ControlCenter() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme, showCustomCursor, toggleCustomCursor } = useUIStore();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) { return; }
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
 
   const cycleTheme = () => {
     const order = ["light", "dark", "system"] as const;
@@ -37,7 +49,7 @@ export function ControlCenter() {
   const themeLabel = themeLabels[theme];
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start">
+    <div ref={containerRef} className="fixed bottom-6 left-6 z-50 flex flex-col items-start">
       <AnimatePresence mode="popLayout">
         {isOpen && (
           <motion.div
