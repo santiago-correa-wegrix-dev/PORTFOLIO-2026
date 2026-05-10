@@ -6,51 +6,52 @@ FROM node:24-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@10.17.1 --activate
 
 WORKDIR /app
 
-# -------- Dev Dependencies --------
-FROM base AS development-dependencies-env
+# -------- Dependencies --------
+FROM base AS deps
 
 COPY package.json pnpm-lock.yaml ./
+COPY .npmrc .npmrc
 
-RUN pnpm install --frozen-lockfile
-
-# -------- Production Dependencies --------
-FROM base AS production-dependencies-env
-
-COPY package.json pnpm-lock.yaml ./
-
-RUN pnpm install --prod --frozen-lockfile
+# Cache pnpm store between builds
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile
 
 # -------- Build --------
-FROM base AS build-env
+FROM base AS build
 
 COPY . .
-COPY --from=development-dependencies-env /app/node_modules ./node_modules
+
+COPY --from=deps /app/node_modules ./node_modules
 
 RUN pnpm build
 
+# -------- Production Dependencies --------
+FROM base AS prod-deps
+
+COPY package.json pnpm-lock.yaml ./
+COPY .npmrc .npmrc
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --prod --frozen-lockfile
+
 # -------- Runtime --------
-FROM node:24-alpine
+FROM base AS runtime
 
 ENV NODE_ENV=production
 ENV PORT=8080
 
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-
-RUN corepack enable
-
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
-COPY --from=production-dependencies-env /app/node_modules ./node_modules
+COPY --from=prod-deps /app/node_modules ./node_modules
 
-COPY --from=build-env /app/build ./build
-COPY --from=build-env /app/public ./public
+COPY --from=build /app/build ./build
+COPY --from=build /app/public ./public
 
 EXPOSE 8080
 
