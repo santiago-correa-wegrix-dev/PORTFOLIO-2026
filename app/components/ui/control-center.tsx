@@ -17,8 +17,7 @@ import { useUIStore } from "~/store/ui-store";
 
 export function ControlCenter() {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, setTheme, showCustomCursor, toggleCustomCursor } =
-    useUIStore();
+  const { theme, setTheme, showCustomCursor, toggleCustomCursor } = useUIStore();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -32,29 +31,28 @@ export function ControlCenter() {
   const themeIcon =
     theme === "dark" ? (
       <Moon className="h-4 w-4" />
-    ) : theme === "system" ? (
+    ) : (theme === "system" ? (
       <Monitor className="h-4 w-4" />
     ) : (
       <Sun className="h-4 w-4" />
-    );
+    ));
 
-  const themeLabel =
-    theme === "dark" ? "Dark" : theme === "system" ? "System" : "Light";
+  const themeLabel = theme === "dark" ? "Dark" : (theme === "system" ? "System" : "Light");
 
   const handleNav = (id: string) => {
     if (location.pathname !== "/") {
       navigate("/");
       setTimeout(() => {
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+        document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
       }, 100);
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const goHome = () => {
-    if (location.pathname !== "/") navigate("/");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (location.pathname !== "/") {navigate("/");}
+    window.scrollTo({ behavior: "smooth", top: 0 });
   };
 
   return (
@@ -66,15 +64,11 @@ export function ControlCenter() {
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            transition={{ damping: 25, stiffness: 300, type: "spring" }}
             className="flex min-w-[200px] flex-col gap-2 rounded-3xl border border-border bg-card/90 p-2 shadow-2xl backdrop-blur-xl"
           >
             <div className="grid grid-cols-3 gap-1 p-1">
-              <CapsuleAction
-                onClick={goHome}
-                icon={<Home className="h-4 w-4" />}
-                label="Home"
-              />
+              <CapsuleAction onClick={goHome} icon={<Home className="h-4 w-4" />} label="Home" />
               <CapsuleAction
                 onClick={() => handleNav("projects")}
                 icon={<LayoutGrid className="h-4 w-4" />}
@@ -114,11 +108,7 @@ export function ControlCenter() {
         whileTap={{ scale: 0.95 }}
         className={`mt-4 rounded-full p-4 shadow-lg transition-all duration-300 ${isOpen ? "rotate-90 bg-foreground text-background" : "border border-border bg-card text-foreground"}`}
       >
-        {isOpen ? (
-          <X className="h-5 w-5" />
-        ) : (
-          <Settings className="h-5 w-5" />
-        )}
+        {isOpen ? <X className="h-5 w-5" /> : <Settings className="h-5 w-5" />}
       </motion.button>
     </div>
   );

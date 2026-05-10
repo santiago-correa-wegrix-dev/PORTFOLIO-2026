@@ -3,15 +3,11 @@ import { useEffect } from "react";
 import { useLocation } from "react-router";
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
-    const location = useLocation();
+  const location = useLocation();
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [location.pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
-    return (
-        <ReactLenis root>
-            {children}
-        </ReactLenis>
-    );
+  return <ReactLenis root>{children}</ReactLenis>;
 }
