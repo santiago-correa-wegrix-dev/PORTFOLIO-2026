@@ -32,11 +32,13 @@ A high-performance, award-winning portfolio site built with modern web technolog
 ### Setup
 
 1.  **Install Dependencies**
+
     ```bash
     pnpm install
     ```
 
 2.  **Start Dev Server**
+
     ```bash
     pnpm run dev
     ```
@@ -62,6 +64,7 @@ See [ENGINEERING_GUIDELINES.md](./ENGINEERING_GUIDELINES.md) for detailed archit
 
 Translations are managed in `public/locales`.
 To add a new language:
+
 1. Create a folder in `public/locales/{code}`.
 2. Add `translation.json`.
 3. Update `app/i18n.ts` configuration.
