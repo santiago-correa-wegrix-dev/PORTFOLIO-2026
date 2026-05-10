@@ -154,33 +154,33 @@ export function Contact() {
                     name="name"
                     label={content.nameLabel}
                     type="text"
-                    placeholder="John Doe"
                     error={data?.details?.name?.[0]}
                   />
                   <FormField
                     name="email"
                     label={content.emailLabel}
                     type="email"
-                    placeholder="john@example.com"
                     error={data?.details?.email?.[0]}
                   />
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <label
-                    htmlFor="message"
-                    className="font-mono text-sm uppercase tracking-wider text-muted-foreground"
-                  >
-                    {content.messageLabel}
-                  </label>
-                  <textarea
-                    name="message"
-                    id="message"
-                    rows={4}
-                    required
-                    className="resize-none rounded-lg border border-border bg-background p-3 text-foreground transition-colors focus:border-zinc-500 focus:outline-none"
-                    placeholder={content.messagePlaceholder as string}
-                  />
+                <div className="flex flex-col gap-1.5">
+                  <div className="relative pt-5">
+                    <label
+                      htmlFor="message"
+                      className="pointer-events-none absolute left-0 top-5 font-mono text-sm text-muted-foreground transition-all duration-200 peer-focus:top-0 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-foreground peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:text-[10px] peer-[&:not(:placeholder-shown)]:uppercase peer-[&:not(:placeholder-shown)]:tracking-widest"
+                    >
+                      {content.messageLabel}
+                    </label>
+                    <textarea
+                      name="message"
+                      id="message"
+                      rows={4}
+                      required
+                      placeholder=" "
+                      className="peer w-full resize-none rounded-lg border border-border bg-background px-3 py-3 text-sm text-foreground transition-colors focus:border-zinc-500 focus:outline-none"
+                    />
+                  </div>
                   <AnimatePresence mode="wait">
                     {data?.details?.message && (
                       <motion.p
@@ -229,34 +229,34 @@ export function Contact() {
 }
 
 function FormField({
-  name,
-  label,
-  type,
-  placeholder,
   error,
+  label,
+  name,
+  type,
 }: {
-  name: string;
-  label: string;
-  type: string;
-  placeholder: string;
   error?: string;
+  label: string;
+  name: string;
+  type: string;
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <label
-        htmlFor={name}
-        className="font-mono text-sm uppercase tracking-wider text-muted-foreground"
-      >
-        {label}
-      </label>
-      <input
-        name={name}
-        id={name}
-        type={type}
-        required
-        className="rounded-lg border border-border bg-background p-3 text-foreground transition-colors focus:border-zinc-500 focus:outline-none"
-        placeholder={placeholder}
-      />
+    <div className="flex flex-col gap-1.5">
+      <div className="relative pt-5">
+        <label
+          htmlFor={name}
+          className="pointer-events-none absolute left-0 top-5 font-mono text-sm text-muted-foreground transition-all duration-200 peer-focus:top-0 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-foreground peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:text-[10px] peer-[&:not(:placeholder-shown)]:uppercase peer-[&:not(:placeholder-shown)]:tracking-widest"
+        >
+          {label}
+        </label>
+        <input
+          name={name}
+          id={name}
+          type={type}
+          required
+          placeholder=" "
+          className="peer w-full rounded-lg border border-border bg-background px-3 py-3 text-sm text-foreground transition-colors focus:border-zinc-500 focus:outline-none"
+        />
+      </div>
       <AnimatePresence mode="wait">
         {error && (
           <motion.p
