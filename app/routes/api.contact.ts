@@ -2,6 +2,8 @@ import { type ActionFunctionArgs, data } from "react-router";
 import { Resend } from "resend";
 import { z } from "zod";
 
+import logger from "~/lib/logger";
+
 const escapeHtml = (str: string) =>
   str
     .replaceAll("&", "&amp;")
@@ -35,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
         return acc;
       }, {});
 
-      console.error("Validation Failed:", details);
+      logger.warn({ details, event: "contact.validation_failed" });
       return data(
         {
           details,
@@ -68,17 +70,18 @@ export async function action({ request }: ActionFunctionArgs) {
       });
 
       if (emailResult.error) {
-        console.error("Resend API Error:", emailResult.error);
+        logger.error({ err: emailResult.error, event: "contact.resend_api_error" });
         throw new Error("Failed to send email via Resend");
       }
     } catch (emailError) {
-      console.error("Resend Execution Error:", emailError);
+      logger.error({ err: emailError, event: "contact.resend_send_failed" });
       return data({ error: "Failed to send email service" }, { status: 500 });
     }
 
+    logger.info({ event: "contact.sent" });
     return data({ message: "Email sent successfully!", success: true });
   } catch (error) {
-    console.error("Contact Form Error:", error);
+    logger.error({ err: error, event: "contact.unexpected_error" });
     return data({ error: "Failed to send message" }, { status: 500 });
   }
 }
