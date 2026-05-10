@@ -51,19 +51,19 @@ export const experiences: Job[] = [
   {
     company: "ADK Group",
     description:
-      "Delivered 10+ high-quality production websites for diverse clients, focusing on performance optimization and accessibility compliance. Significantly improved load times and SEO rankings by optimizing bundle sizes and implementing progressive enhancement techniques such as code splitting and lazy loading.",
+      "Built and redesigned 10+ client websites using Vue, React, and WordPress. Improved site performance through progressive enhancement and led accessibility improvements aligned with WCAG standards.",
     id: "adk",
     period: "Aug 2019 - Dec 2020",
     role: "Frontend Engineer",
     stack: ["React", "Vue", "TypeScript", "Figma"],
   },
   {
-    company: "Freelance",
+    company: "Upwork",
     description:
-      "Developed custom web solutions for small businesses and startups. Managed the full lifecycle from client requirements to deployment, building e-commerce sites and portfolio platforms using modern JavaScript frameworks.",
+      "Freelance frontend work delivering websites and SPAs for clients across various industries. Built with HTML, CSS, JavaScript, Angular, and React. Used Node.js, PHP, and MongoDB for backend work where needed.",
     id: "freelance",
     period: "2017 - 2019",
-    role: "Full Stack Developer",
-    stack: ["JavaScript", "React", "Node.js", "Shopify", "Wordpress", "Hubspot", "Wix"],
+    role: "Frontend Developer",
+    stack: ["JavaScript", "React", "Node.js", "Shopify", "WordPress"],
   },
 ];

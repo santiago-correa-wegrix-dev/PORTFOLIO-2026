@@ -38,6 +38,8 @@ export function ProjectReveal({ hoveredProject, cursorPos, projects }: ProjectRe
                 src={project.imageUrl}
                 alt={`${hoveredProject} project preview`}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
             ) : (
               <div className="w-full h-full" style={{ backgroundColor: project?.imageColor }} />

@@ -36,7 +36,13 @@ describe("Projects Loader Logic", () => {
     expect(data.next).toBeNull();
   });
 
-  it("should throw 404 for invalid slug", async () => {
-    await expect(loader(createLoaderArgs("invalid-slug-123"))).rejects.toBeInstanceOf(Response);
+  it("should throw 404 for invalid slug", () => {
+    let thrown: unknown;
+    try {
+      loader(createLoaderArgs("invalid-slug-123"));
+    } catch (error) {
+      thrown = error;
+    }
+    expect(thrown).toMatchObject({ status: 404 });
   });
 });

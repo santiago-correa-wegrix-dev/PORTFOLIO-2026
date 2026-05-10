@@ -11,7 +11,7 @@ import type { Route } from "./+types/projects.$slug";
 
 function HeroMedia({ project }: { project: Project }) {
   if (project.imageUrl) {
-    return <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />;
+    return <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" decoding="async" fetchPriority="high" />;
   }
 
   if (project.comingSoon) {
