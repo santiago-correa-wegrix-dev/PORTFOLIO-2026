@@ -32,11 +32,12 @@ vector search via MongoDB Atlas. Building a second brain that knows how I think.
 Tech: Python, Groq, Whisper, Hugging Face, MongoDB
 
 ### Dispatch (2025 - Present)
-Daily AI newsletter powered by the Anthropic API. Claude reads and scores hundreds of
-sources daily, surfacing the highest-signal stories. Human editorial judgment makes the
-final call before every send.
+Daily AI newsletter powered by the Anthropic API. Claude Haiku 4.5 handles high-volume
+source ingestion and initial scoring across hundreds of daily publications. Claude Sonnet
+4.6 makes the editorial quality decisions. Human judgment makes the final call before
+every send.
 URL: https://deliver-ai.xyz/
-Tech: Anthropic API, Claude, TypeScript, Node.js
+Tech: Anthropic API, Claude Haiku 4.5, Claude Sonnet 4.6, TypeScript, Node.js
 
 ### Statista (2024 - Present)
 Registration and personalization platform serving 1M+ monthly users. Built the team's

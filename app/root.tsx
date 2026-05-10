@@ -23,16 +23,6 @@ import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
   { href: "/favicon.svg", rel: "icon", type: "image/svg+xml" },
-  { href: "https://fonts.googleapis.com", rel: "preconnect" },
-  {
-    crossOrigin: "anonymous",
-    href: "https://fonts.gstatic.com",
-    rel: "preconnect",
-  },
-  {
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap",
-    rel: "stylesheet",
-  },
 ];
 
 export const meta: Route.MetaFunction = () => [
@@ -50,6 +40,40 @@ export const meta: Route.MetaFunction = () => [
     content: "#000000",
     media: "(prefers-color-scheme: dark)",
     name: "theme-color",
+  },
+  {
+    "script:ld+json": {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "DE",
+        addressLocality: "Berlin",
+      },
+      email: "scorrea.dev@gmail.com",
+      jobTitle: "Senior Frontend Engineer",
+      knowsAbout: [
+        "React",
+        "TypeScript",
+        "Remix",
+        "Node.js",
+        "Anthropic API",
+        "Claude",
+        "Python",
+        "Three.js",
+      ],
+      name: "Santiago Correa",
+      sameAs: [
+        "https://github.com/scorrea-ui",
+        "https://www.linkedin.com/in/wegrix/",
+        "https://deliver-ai.xyz/",
+      ],
+      url: "https://wegrix.dev",
+      worksFor: {
+        "@type": "Organization",
+        name: "Statista",
+      },
+    },
   },
 ];
 
