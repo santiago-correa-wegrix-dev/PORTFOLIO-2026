@@ -19,7 +19,7 @@ export function meta({ data }: Route.MetaArgs) {
 }
 
 export function loader({ params }: Route.LoaderArgs) {
-  const project = realProjects.find((p) => p.id === params.slug);
+  const project = realProjects.find((item) => item.id === params.slug);
   if (!project) {throw new Response("Not Found", { status: 404 });}
   return project;
 }

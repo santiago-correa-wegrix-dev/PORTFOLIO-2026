@@ -8,8 +8,8 @@ import { Button } from "~/components/ui/button";
 import { useIsDark } from "~/hooks/use-is-dark";
 
 const QuantumField = lazy(() =>
-  import("~/components/visuals/quantum-field").then((m) => ({
-    default: m.QuantumField,
+  import("~/components/visuals/quantum-field").then((module) => ({
+    default: module.QuantumField,
   })),
 );
 

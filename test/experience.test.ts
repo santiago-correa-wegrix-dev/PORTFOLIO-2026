@@ -18,7 +18,7 @@ describe("Experience Data Logic", () => {
 
   it("should be sorted by date (latest first)", () => {
     // Simple check: "Present" usually comes first
-    const first = experiences[0];
+    const [first] = experiences;
     expect(first.period).toContain("Present");
   });
 });

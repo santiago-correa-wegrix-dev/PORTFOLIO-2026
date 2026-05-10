@@ -21,14 +21,15 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
 
   return (
     <div className="flex flex-col gap-12">
-      {/* Main Swiper Content - Fixed Height for Stability */}
-      <div className="relative h-[500px] w-full">
+      {/* Main Swiper Content */}
+      <div className="relative w-full">
         <Swiper
           modules={[Autoplay]}
           spaceBetween={50}
           slidesPerView={1}
           loop={true}
           speed={600}
+          autoHeight={true}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
@@ -36,7 +37,7 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
           }}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          className="h-full w-full"
+          className="w-full"
         >
           {testimonials.map((current) => (
             <SwiperSlide key={current.id} className="h-full w-full">
@@ -50,7 +51,7 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
       <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-8 mt-0">
         <div className="flex gap-2">
           {/* Indicators */}
-          {testimonials.map((_, idx) => (
+          {testimonials.map((_testimonial, idx) => (
             <button
               key={idx}
               onClick={() => swiperRef.current?.slideToLoop(idx)}

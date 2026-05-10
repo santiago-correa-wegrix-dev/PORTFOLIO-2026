@@ -26,8 +26,8 @@ export function Magnetic({
   const rotateX = useTransform(smoothY, [-50, 50], [15, -15]); // Max tilt 15deg
   const rotateY = useTransform(smoothX, [-50, 50], [-15, 15]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { clientX, clientY } = e;
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = event;
     const { left, top, width, height } = ref.current!.getBoundingClientRect();
 
     const centerX = left + width / 2;

@@ -9,6 +9,7 @@ export const streamTimeout = 5000;
 const HTTP_STATUS_INTERNAL_SERVER_ERROR = 500;
 const ABORT_DELAY_MS = 1000;
 
+// eslint-disable-next-line max-params
 export default function handleRequest(
   request: Request,
   responseStatusCode: number,

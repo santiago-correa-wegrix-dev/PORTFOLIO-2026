@@ -48,7 +48,7 @@ export const createParticle = (width: number, height: number): Particle => {
   };
 };
 
-export const createParticles = (width: number, height: number, count: number): Particle[] =>
+export const createParticles = ({ count, height, width }: { count: number; height: number; width: number }): Particle[] =>
   Array.from({ length: count }, () => createParticle(width, height));
 
 interface MousePos {
@@ -58,7 +58,7 @@ interface MousePos {
 
 const radiusSq = REPULSION_RADIUS * REPULSION_RADIUS;
 
-export const updateParticle = (particle: Particle, time: number, mouse: MousePos): void => {
+export const updateParticle = ({ mouse, particle, time }: { mouse: MousePos; particle: Particle; time: number }): void => {
   const targetX =
     particle.baseX + Math.cos(time * particle.speed + particle.phase) * particle.amplitude;
   const targetY =
@@ -87,11 +87,15 @@ export const updateParticle = (particle: Particle, time: number, mouse: MousePos
   particle.posY += particle.vy;
 };
 
-export const drawParticles = (
-  ctx: CanvasRenderingContext2D,
-  particles: Particle[],
-  opacityMultiplier: number,
-): void => {
+export const drawParticles = ({
+  ctx,
+  opacityMultiplier,
+  particles,
+}: {
+  ctx: CanvasRenderingContext2D;
+  opacityMultiplier: number;
+  particles: Particle[];
+}): void => {
   for (const particle of particles) {
     ctx.globalAlpha = particle.opacity * opacityMultiplier;
     ctx.beginPath();

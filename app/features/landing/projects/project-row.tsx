@@ -5,7 +5,7 @@ import type { Project } from "~/data/projects";
 
 interface ProjectRowProps {
   project: Project;
-  onMouseEnter: (e: React.MouseEvent, projectId: string) => void;
+  onMouseEnter: (event: React.MouseEvent, projectId: string) => void;
   onMouseLeave: () => void;
 }
 
@@ -14,7 +14,7 @@ export function ProjectRow({ project, onMouseEnter, onMouseLeave }: ProjectRowPr
     <Link
       to={`/projects/${project.id}`}
       className="group border-t border-border py-12 flex flex-col md:flex-row justify-between md:items-center transition-colors hover:bg-muted/10 px-4 md:px-8 cursor-pointer relative z-10"
-      onMouseEnter={(e) => onMouseEnter(e, project.id)}
+      onMouseEnter={(event) => onMouseEnter(event, project.id)}
       onMouseLeave={onMouseLeave}
     >
       <div className="flex flex-col gap-2">

@@ -37,9 +37,9 @@ export function ProjectReveal({ hoveredProject, cursorPos, projects }: ProjectRe
             transition={{ damping: 20, mass: 0.1, stiffness: 150, type: "spring" }}
             className="absolute left-0 top-0 w-[400px] h-[300px] rounded-xl overflow-hidden shadow-2xl border border-white/20 bg-black/50 backdrop-blur-sm"
           >
-            {projects.find((p) => p.id === hoveredProject)?.imageUrl ? (
+            {projects.find((project) => project.id === hoveredProject)?.imageUrl ? (
               <img
-                src={projects.find((p) => p.id === hoveredProject)?.imageUrl}
+                src={projects.find((project) => project.id === hoveredProject)?.imageUrl}
                 alt="Project Preview"
                 className="w-full h-full object-cover"
               />
@@ -47,7 +47,7 @@ export function ProjectReveal({ hoveredProject, cursorPos, projects }: ProjectRe
               <div
                 className="w-full h-full"
                 style={{
-                  backgroundColor: projects.find((p) => p.id === hoveredProject)?.imageColor,
+                  backgroundColor: projects.find((project) => project.id === hoveredProject)?.imageColor,
                 }}
               />
             )}

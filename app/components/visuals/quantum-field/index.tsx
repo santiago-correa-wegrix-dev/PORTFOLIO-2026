@@ -34,7 +34,7 @@ export const QuantumField = ({ isDark }: { isDark: boolean }) => {
   const timeRef = useRef(INITIAL_TIME);
 
   const initParticles = useCallback((width: number, height: number) => {
-    particlesRef.current = createParticles(width, height, PARTICLE_COUNT);
+    particlesRef.current = createParticles({ count: PARTICLE_COUNT, height, width });
   }, []);
 
   useEffect(() => {
@@ -83,10 +83,10 @@ export const QuantumField = ({ isDark }: { isDark: boolean }) => {
       const opacityMultiplier = isDark ? DARK_OPACITY_MULTIPLIER : LIGHT_OPACITY_MULTIPLIER;
 
       for (const particle of particles) {
-        updateParticle(particle, time, mouse);
+        updateParticle({ mouse, particle, time });
       }
 
-      drawParticles(ctx, particles, opacityMultiplier);
+      drawParticles({ ctx, opacityMultiplier, particles });
 
       rafRef.current = requestAnimationFrame(runAnimationFrame);
     };

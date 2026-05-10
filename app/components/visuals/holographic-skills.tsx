@@ -9,39 +9,39 @@ import { useIsDark } from "~/hooks/use-is-dark";
 
 function HelixStrand({ isDark }: { isDark: boolean }) {
   const points = useMemo(() => {
-    const p: THREE.Vector3[] = [];
+    const vertices: THREE.Vector3[] = [];
     const radius = 2.5;
     const height = 12; // Compact
     const turns = 3.5;
     const segments = 100;
 
-    for (let i = 0; i <= segments; i++) {
-      const t = i / segments;
-      const angle = t * Math.PI * 2 * turns;
-      const y = (t - 0.5) * height;
+    for (let index = 0; index <= segments; index++) {
+      const progress = index / segments;
+      const angle = progress * Math.PI * 2 * turns;
+      const y = (progress - 0.5) * height;
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
-      p.push(new THREE.Vector3(x, y, z));
+      vertices.push(new THREE.Vector3(x, y, z));
     }
-    return p;
+    return vertices;
   }, []);
 
   const points2 = useMemo(() => {
-    const p: THREE.Vector3[] = [];
+    const vertices: THREE.Vector3[] = [];
     const radius = 2.5;
     const height = 12; // Compact
     const turns = 3.5;
     const segments = 100;
 
-    for (let i = 0; i <= segments; i++) {
-      const t = i / segments;
-      const angle = t * Math.PI * 2 * turns + Math.PI; // Offset by 180 deg
-      const y = (t - 0.5) * height;
+    for (let index = 0; index <= segments; index++) {
+      const progress = index / segments;
+      const angle = progress * Math.PI * 2 * turns + Math.PI; // Offset by 180 deg
+      const y = (progress - 0.5) * height;
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
-      p.push(new THREE.Vector3(x, y, z));
+      vertices.push(new THREE.Vector3(x, y, z));
     }
-    return p;
+    return vertices;
   }, []);
 
   return (
@@ -125,16 +125,16 @@ function HelixStructure({ isDark }: { isDark: boolean }) {
   const turns = 3.5;
 
   // Distribute skills along the helix
-  const nodes = useMemo(() => skills.map((skill, i) => {
-      const t = i / (skills.length - 1);
+  const nodes = useMemo(() => skills.map((skill, index) => {
+      const progress = index / (skills.length - 1);
       // Alternate strands
-      const strandOffset = i % 2 === 0 ? 0 : Math.PI;
-      const angle = t * Math.PI * 2 * turns + strandOffset;
-      const y = (t - 0.5) * height;
+      const strandOffset = index % 2 === 0 ? 0 : Math.PI;
+      const angle = progress * Math.PI * 2 * turns + strandOffset;
+      const y = (progress - 0.5) * height;
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
 
-      const color = i % 2 === 0 ? (isDark ? "#4f46e5" : "#6366f1") : (isDark ? "#ec4899" : "#f472b6");
+      const color = index % 2 === 0 ? (isDark ? "#4f46e5" : "#6366f1") : (isDark ? "#ec4899" : "#f472b6");
 
       return { color, name: skill, pos: new THREE.Vector3(x, y, z) };
     }), [isDark]);
@@ -162,9 +162,9 @@ function HelixStructure({ isDark }: { isDark: boolean }) {
   return (
     <group ref={groupRef}>
       <HelixStrand isDark={isDark} />
-      {nodes.map((node, i) => (
+      {nodes.map((node, index) => (
         <SkillNode
-          key={i}
+          key={index}
           name={node.name}
           position={node.pos}
           color={node.color}
@@ -179,7 +179,7 @@ export function HolographicSkills() {
   const isDark = useIsDark();
 
   return (
-    <div className="w-full h-[600px] relative cursor-grab active:cursor-grabbing -mt-12">
+    <div className="w-full h-150 relative cursor-grab active:cursor-grabbing -mt-12">
       <Canvas camera={{ fov: 45, position: [0, 0, 14] }} gl={{ alpha: true, antialias: true }}>
         <Suspense fallback={null}>
           <ambientLight intensity={1} />

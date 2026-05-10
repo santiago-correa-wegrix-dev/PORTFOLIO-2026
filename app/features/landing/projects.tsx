@@ -17,12 +17,12 @@ export function Projects({ id, data: projects }: ProjectsProps) {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const { title, titleAccent, years } = useIntlayer("projects");
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setCursorPos({ x: e.clientX, y: e.clientY });
+  const handleMouseMove = (event: React.MouseEvent) => {
+    setCursorPos({ x: event.clientX, y: event.clientY });
   };
 
-  const handleProjectHover = (e: React.MouseEvent, projectId: string) => {
-    setCursorPos({ x: e.clientX, y: e.clientY });
+  const handleProjectHover = (event: React.MouseEvent, projectId: string) => {
+    setCursorPos({ x: event.clientX, y: event.clientY });
     setHoveredProject(projectId);
   };
 

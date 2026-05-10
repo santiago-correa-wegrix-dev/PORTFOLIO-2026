@@ -5,8 +5,8 @@ import { useIntlayer } from "react-intlayer";
 import { TechIcon } from "~/components/ui/tech-icon";
 
 const HolographicSkills = lazy(() =>
-  import("~/components/visuals/holographic-skills").then((m) => ({
-    default: m.HolographicSkills,
+  import("~/components/visuals/holographic-skills").then((module) => ({
+    default: module.HolographicSkills,
   })),
 );
 

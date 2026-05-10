@@ -21,12 +21,12 @@ describe("Contact Action Logic", () => {
   };
 
   // Helper to parse response
-  const parseResponse = async (response: any) => {
-    if (typeof response.json === "function") {
+  const parseResponse = async (response: unknown) => {
+    if (response instanceof Response) {
       return response.json();
     }
-    if (response.data) {
-      return response.data;
+    if (response !== null && typeof response === "object" && "data" in response) {
+      return (response as Record<string, unknown>).data;
     }
     return response;
   };

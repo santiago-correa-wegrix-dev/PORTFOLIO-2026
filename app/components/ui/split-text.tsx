@@ -18,8 +18,8 @@ export function SplitText({ children, className }: { children: string; className
   return (
     <span className={`inline-block overflow-hidden ${className}`}>
       <span className="inline-block">
-        {[...children].map((char, i) => (
-          <motion.span key={i} variants={charVariants} className="inline-block">
+        {[...children].map((char, index) => (
+          <motion.span key={index} variants={charVariants} className="inline-block">
             {char === " " ? "\u00A0" : char}
           </motion.span>
         ))}

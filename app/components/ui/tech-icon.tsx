@@ -29,30 +29,29 @@ interface SimpleIcon {
 }
 
 const ICON_MAP: Record<string, SimpleIcon> = {
-  React: siReact,
+  Angular: siReact, // Placeholder
+  Docker: siDocker,
+  Figma: siFigma,
+  Git: siGit,
+  GraphQL: siGraphql,
+  HubSpot: siHubspot,
+  Jest: siJest,
+  N8N: siN8n,
   "Next.js": siNextdotjs,
-  TypeScript: siTypescript,
+  "Node.js": siNodedotjs,
+  PostgreSQL: siPostgresql,
+  Python: siNodedotjs, // Placeholder or need import
+  React: siReact,
+  Remix: siRemix,
+  Shopify: siWebflow, // Placeholder or need to import siShopify
+  Spotify: siSpotify,
   Tailwind: siTailwindcss,
   "Three.js": siThreedotjs,
-  "Node.js": siNodedotjs,
-  Docker: siDocker,
-  PostgreSQL: siPostgresql,
-  Figma: siFigma,
-  Remix: siRemix,
-  GraphQL: siGraphql,
-  Git: siGit,
-  Jest: siJest,
+  TypeScript: siTypescript,
   Vue: siVuedotjs,
-  HubSpot: siHubspot,
-  Webflow: siWebflow,
-  Spotify: siSpotify,
-  Zapier: siZapier,
-  N8N: siN8n,
-  // Aliases
   "Vue.js": siVuedotjs,
-  Shopify: siWebflow, // Placeholder or need to import siShopify
-  Python: siNodedotjs, // Placeholder or need import
-  Angular: siReact, // Placeholder
+  Webflow: siWebflow,
+  Zapier: siZapier,
 };
 
 export function TechIcon({ name, className = "w-5 h-5" }: { name: string; className?: string }) {

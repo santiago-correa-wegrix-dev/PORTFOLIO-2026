@@ -19,14 +19,14 @@ export function MouseFollower() {
   useEffect(() => {
     if (!showCustomCursor) {return;}
 
-    const moveMouse = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 16); // Center the 32px cursor
-      cursorY.set(e.clientY - 16);
+    const moveMouse = (event: MouseEvent) => {
+      cursorX.set(event.clientX - 16); // Center the 32px cursor
+      cursorY.set(event.clientY - 16);
     };
 
-    const handleMouseOver = (e: MouseEvent) => {
+    const handleMouseOver = (event: MouseEvent) => {
       // Check if hovering actionable element
-      const target = e.target as HTMLElement;
+      const target = event.target as HTMLElement;
       if (
         target.tagName === "BUTTON" ||
         target.tagName === "A" ||
