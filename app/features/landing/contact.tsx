@@ -165,13 +165,7 @@ export function Contact() {
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <div className="relative pt-5">
-                    <label
-                      htmlFor="message"
-                      className="pointer-events-none absolute left-0 top-5 font-mono text-sm text-muted-foreground transition-all duration-200 peer-focus:top-0 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-foreground peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:text-[10px] peer-[&:not(:placeholder-shown)]:uppercase peer-[&:not(:placeholder-shown)]:tracking-widest"
-                    >
-                      {content.messageLabel}
-                    </label>
+                  <div className="relative mt-6">
                     <textarea
                       name="message"
                       id="message"
@@ -180,6 +174,12 @@ export function Contact() {
                       placeholder=" "
                       className="peer w-full resize-none rounded-lg border border-border bg-background px-3 py-3 text-sm text-foreground transition-colors focus:border-zinc-500 focus:outline-none"
                     />
+                    <label
+                      htmlFor="message"
+                      className="pointer-events-none absolute left-3 top-3 font-mono text-sm text-muted-foreground transition-all duration-200 peer-focus:left-0 peer-focus:-top-5 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-foreground peer-not-placeholder-shown:left-0 peer-not-placeholder-shown:-top-5 peer-not-placeholder-shown:text-[10px] peer-not-placeholder-shown:uppercase peer-not-placeholder-shown:tracking-widest"
+                    >
+                      {content.messageLabel}
+                    </label>
                   </div>
                   <AnimatePresence mode="wait">
                     {data?.details?.message && (
@@ -241,13 +241,7 @@ function FormField({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="relative pt-5">
-        <label
-          htmlFor={name}
-          className="pointer-events-none absolute left-0 top-5 font-mono text-sm text-muted-foreground transition-all duration-200 peer-focus:top-0 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-foreground peer-[&:not(:placeholder-shown)]:top-0 peer-[&:not(:placeholder-shown)]:text-[10px] peer-[&:not(:placeholder-shown)]:uppercase peer-[&:not(:placeholder-shown)]:tracking-widest"
-        >
-          {label}
-        </label>
+      <div className="relative mt-6">
         <input
           name={name}
           id={name}
@@ -256,6 +250,12 @@ function FormField({
           placeholder=" "
           className="peer w-full rounded-lg border border-border bg-background px-3 py-3 text-sm text-foreground transition-colors focus:border-zinc-500 focus:outline-none"
         />
+        <label
+          htmlFor={name}
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 font-mono text-sm text-muted-foreground transition-all duration-200 peer-focus:left-0 peer-focus:-top-5 peer-focus:translate-y-0 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-widest peer-focus:text-foreground peer-not-placeholder-shown:left-0 peer-not-placeholder-shown:-top-5 peer-not-placeholder-shown:translate-y-0 peer-not-placeholder-shown:text-[10px] peer-not-placeholder-shown:uppercase peer-not-placeholder-shown:tracking-widest"
+        >
+          {label}
+        </label>
       </div>
       <AnimatePresence mode="wait">
         {error && (
