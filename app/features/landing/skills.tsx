@@ -1,9 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 
 import { TechIcon } from "~/components/ui/tech-icon";
-import { HolographicSkills } from "~/components/visuals/holographic-skills";
+
+const HolographicSkills = lazy(() =>
+  import("~/components/visuals/holographic-skills").then((m) => ({
+    default: m.HolographicSkills,
+  })),
+);
 
 interface SkillGalaxyProps {
   data: string[];
@@ -11,7 +16,7 @@ interface SkillGalaxyProps {
 
 export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
   const { title, titleAccent, description } = useIntlayer("skills");
-  const [viewMode, setViewMode] = useState<"3d" | "list">("3d");
+  const [viewMode, setViewMode] = useState<"3d" | "list">("list");
 
   return (
     <section className="relative overflow-hidden px-6 py-24 transition-colors duration-700 md:px-12 lg:px-24">
@@ -22,8 +27,7 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
           <div className="relative z-20 mb-16 flex w-full flex-col items-center gap-8 md:px-8">
             <div className="text-center">
               <h2 className="mb-4 min-h-[1em] font-display text-5xl font-bold tracking-tighter text-foreground md:text-7xl">
-                {title}{" "}
-                <span className="text-muted-foreground">{titleAccent}</span>
+                {title} <span className="text-muted-foreground">{titleAccent}</span>
               </h2>
               <p className="mx-auto min-h-[1.5em] max-w-2xl text-xl leading-relaxed font-light text-muted-foreground">
                 {description}
@@ -57,7 +61,15 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
                   transition={{ duration: 0.5 }}
                   className="w-full"
                 >
-                  <HolographicSkills />
+                  <Suspense
+                    fallback={
+                      <div className="flex min-h-[500px] items-center justify-center text-muted-foreground">
+                        Loading 3D view…
+                      </div>
+                    }
+                  >
+                    <HolographicSkills />
+                  </Suspense>
                 </motion.div>
               ) : (
                 <motion.div

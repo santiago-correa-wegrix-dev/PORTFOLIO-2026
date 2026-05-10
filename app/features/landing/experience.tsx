@@ -10,14 +10,14 @@ export function ExperienceTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { title, titleAccent, description } = useIntlayer("experience");
   const { scrollYProgress } = useScroll({
-    target: containerRef,
     offset: ["start 80%", "end 50%"],
+    target: containerRef,
   });
 
   const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
     damping: 30,
     restDelta: 0.001,
+    stiffness: 100,
   });
 
   return (
@@ -37,8 +37,7 @@ export function ExperienceTimeline() {
         >
           <div className="space-y-2">
             <h2 className="min-h-[1em] font-display text-4xl font-bold md:text-6xl">
-              {title}{" "}
-              <span className="text-muted-foreground">{titleAccent}</span>
+              {title} <span className="text-muted-foreground">{titleAccent}</span>
             </h2>
             <p className="min-h-[1.5em] max-w-xl font-mono leading-relaxed text-muted-foreground">
               {description}

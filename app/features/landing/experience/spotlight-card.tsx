@@ -7,11 +7,7 @@ export function SpotlightCard({ job, index }: { job: Job; index: number }) {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  function handleMouseMove({
-    currentTarget,
-    clientX,
-    clientY,
-  }: React.MouseEvent) {
+  function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
     const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
@@ -19,14 +15,14 @@ export function SpotlightCard({ job, index }: { job: Job; index: number }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50, rotateX: -10 }}
-      whileInView={{ opacity: 1, x: 0, rotateX: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      initial={{ opacity: 0, rotateX: -10, x: 50 }}
+      whileInView={{ opacity: 1, rotateX: 0, x: 0 }}
+      viewport={{ margin: "-50px", once: true }}
       transition={{
-        type: "spring",
-        stiffness: 50,
         damping: 20,
         delay: index * 0.1,
+        stiffness: 50,
+        type: "spring",
       }}
       className="group perspective-1000 relative isolate overflow-hidden rounded-2xl border border-border bg-card/50 p-8 backdrop-blur-sm"
       onMouseMove={handleMouseMove}

@@ -41,12 +41,9 @@ export function Projects({ id, data: projects }: ProjectsProps) {
         >
           <div className="space-y-2">
             <h2 className="min-h-[1em] font-display text-4xl font-bold md:text-6xl">
-              {title}{" "}
-              <span className="text-muted-foreground">{titleAccent}</span>
+              {title} <span className="text-muted-foreground">{titleAccent}</span>
             </h2>
-            <p className="min-h-[1.5em] font-mono text-muted-foreground">
-              {years}
-            </p>
+            <p className="min-h-[1.5em] font-mono text-muted-foreground">{years}</p>
           </div>
         </motion.div>
 
