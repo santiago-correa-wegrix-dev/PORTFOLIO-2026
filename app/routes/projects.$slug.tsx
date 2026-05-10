@@ -6,38 +6,9 @@ import { Link } from "react-router";
 import { Button } from "~/components/ui/button";
 import { SplitText } from "~/components/ui/split-text";
 import { TechIcon } from "~/components/ui/tech-icon";
-import { type Project, realProjects } from "~/data/projects";
+import { realProjects } from "~/data/projects";
+import { HeroMedia } from "~/features/projects/hero-media";
 import type { Route } from "./+types/projects.$slug";
-
-function HeroMedia({ project }: { project: Project }) {
-  if (project.imageUrl) {
-    return <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" decoding="async" fetchPriority="high" />;
-  }
-
-  if (project.comingSoon) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center gap-4 bg-card">
-        <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest">
-          Under Construction
-        </span>
-        <div className="flex gap-1.5">
-          {Array.from({ length: 8 }).map((_item, idx) => (
-            <div key={idx} className="w-8 h-1.5 rounded-full bg-foreground/10" />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="w-full h-full flex items-center justify-center text-4xl md:text-6xl font-display font-bold tracking-tighter opacity-40"
-      style={{ backgroundColor: project.imageColor }}
-    >
-      {project.title}
-    </div>
-  );
-}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -52,9 +23,23 @@ export function meta({ data }: Route.MetaArgs) {
   if (!data) {
     return [{ title: "Project Not Found" }];
   }
+  const { project } = data;
+  const title = `${project.title} | Santiago Correa`;
+  const image = project.imageUrl
+    ? `https://wegrix.dev${project.imageUrl}`
+    : "https://wegrix.dev/og-image.jpg";
   return [
-    { title: `${data.project.title} | Case Study` },
-    { content: data.project.description, name: "description" },
+    { title },
+    { content: project.description, name: "description" },
+    { content: title, property: "og:title" },
+    { content: project.description, property: "og:description" },
+    { content: "website", property: "og:type" },
+    { content: `https://wegrix.dev/projects/${project.id}`, property: "og:url" },
+    { content: image, property: "og:image" },
+    { content: "summary_large_image", property: "twitter:card" },
+    { content: title, property: "twitter:title" },
+    { content: project.description, property: "twitter:description" },
+    { content: image, property: "twitter:image" },
   ];
 }
 
