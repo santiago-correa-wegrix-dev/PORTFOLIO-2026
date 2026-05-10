@@ -1,25 +1,22 @@
-import { isbot } from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
-import {
-  type AppLoadContext,
-  type EntryContext,
-  ServerRouter,
-} from "react-router";
 import { createReadableStreamFromReadable } from "@react-router/node";
+import { isbot } from "isbot";
 import { PassThrough } from "node:stream";
+import { renderToPipeableStream } from "react-dom/server";
+import { type AppLoadContext, type EntryContext, ServerRouter } from "react-router";
 
-export const streamTimeout = 5_000;
+export const streamTimeout = 5000;
 
-export default async function handleRequest(
+const HTTP_STATUS_INTERNAL_SERVER_ERROR = 500;
+const ABORT_DELAY_MS = 1000;
+
+export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   routerContext: EntryContext,
   _loadContext: AppLoadContext,
 ) {
-  const callbackName = isbot(request.headers.get("user-agent"))
-    ? "onAllReady"
-    : "onShellReady";
+  const callbackName = isbot(request.headers.get("user-agent")) ? "onAllReady" : "onShellReady";
 
   return new Promise((resolve, reject) => {
     let shellRendered = false;
@@ -42,18 +39,18 @@ export default async function handleRequest(
 
           pipe(body);
         },
-        onShellError(error: unknown) {
-          reject(error);
-        },
         onError(error: unknown) {
-          responseStatusCode = 500;
+          responseStatusCode = HTTP_STATUS_INTERNAL_SERVER_ERROR;
           if (shellRendered) {
             console.error(error);
           }
         },
+        onShellError(error: unknown) {
+          reject(error);
+        },
       },
     );
 
-    setTimeout(abort, streamTimeout + 1_000);
+    setTimeout(abort, streamTimeout + ABORT_DELAY_MS);
   });
 }

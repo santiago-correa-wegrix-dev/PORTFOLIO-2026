@@ -1,34 +1,26 @@
-import { create } from 'zustand';
-import { createJSONStorage,persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from "zustand/middleware";
+import { create } from "zustand";
 
-export type Theme = 'light' | 'dark' | 'system';
+export type Theme = "light" | "dark" | "system";
 
 interface UIState {
-    theme: Theme;
-    setTheme: (theme: Theme) => void;
-    showCustomCursor: boolean;
-    toggleCustomCursor: () => void;
-    soundEnabled: boolean;
-    toggleSound: () => void;
-    reducedMotion: boolean;
-    toggleReducedMotion: () => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  showCustomCursor: boolean;
+  toggleCustomCursor: () => void;
 }
 
 export const useUIStore = create<UIState>()(
-    persist(
-        (set) => ({
-            theme: 'light',
-            setTheme: (theme) => set({ theme }),
-            showCustomCursor: true,
-            toggleCustomCursor: () => set((state) => ({ showCustomCursor: !state.showCustomCursor })),
-            soundEnabled: true,
-            toggleSound: () => set((state) => ({ soundEnabled: !state.soundEnabled })),
-            reducedMotion: false,
-            toggleReducedMotion: () => set((state) => ({ reducedMotion: !state.reducedMotion })),
-        }),
-        {
-            name: 'portfolio-ui-storage',
-            storage: createJSONStorage(() => localStorage),
-        }
-    )
+  persist(
+    (set) => ({
+      setTheme: (theme) => set({ theme }),
+      showCustomCursor: true,
+      theme: "light",
+      toggleCustomCursor: () => set((state) => ({ showCustomCursor: !state.showCustomCursor })),
+    }),
+    {
+      name: "portfolio-ui-storage",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
 );

@@ -13,8 +13,12 @@
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "no-explicit-any": "error",
     "eqeqeq": "error",
+    "sort-imports": "error",
     "no-var": "error",
-    "prefer-const": "error"
+    "prefer-const": "error",
+    "id-length": ["warn", { "min": 2, "exceptions": ["i", "x", "y"] }],
+    "max-params": ["warn", { "max": 6 }],
+    "numeric-separators-style": "off"
   },
   "ignorePatterns": ["dist", "build", ".react-router", "node_modules"]
 }
