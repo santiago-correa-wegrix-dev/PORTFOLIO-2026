@@ -6,3 +6,6 @@
 # React Router
 /.react-router/
 /build/
+
+# Engineering guidelines (local only)
+ENGINEERING_GUIDELINES.md
