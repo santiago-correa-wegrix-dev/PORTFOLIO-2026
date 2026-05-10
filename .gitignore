@@ -1,5 +1,6 @@
 .DS_Store
 .env
+.env.*
 /node_modules/
 *.tsbuildinfo
 
@@ -18,4 +19,11 @@ ENGINEERING_GUIDELINES.md
 skills-lock.json
 
 # Local Netlify folder
-.netlify
+.netlify/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+Thumbs.db

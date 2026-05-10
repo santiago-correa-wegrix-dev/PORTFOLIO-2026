@@ -1,12 +1,12 @@
-import { Locales, type IntlayerConfig } from "intlayer";
+import { type IntlayerConfig, Locales } from "intlayer";
 
 const config: IntlayerConfig = {
-  internationalization: {
-    locales: [Locales.ENGLISH],
-    defaultLocale: Locales.ENGLISH,
-  },
   content: {
     contentDir: ["./app"],
+  },
+  internationalization: {
+    defaultLocale: Locales.ENGLISH,
+    locales: [Locales.ENGLISH],
   },
 };
 
