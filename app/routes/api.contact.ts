@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { z } from "zod";
 
 import logger from "~/lib/logger";
+import { getClientIp, isRateLimited } from "~/lib/rate-limit";
 
 const escapeHtml = (str: string) =>
   str
@@ -20,6 +21,12 @@ const contactSchema = z.object({
 export async function action({ request }: ActionFunctionArgs) {
   if (request.method !== "POST") {
     return data({ error: "Method not allowed" }, { status: 405 });
+  }
+
+  const ip = getClientIp(request);
+  if (isRateLimited(ip)) {
+    logger.warn({ event: "contact.rate_limited", ip });
+    return data({ error: "Too many requests. Please wait a minute before trying again." }, { status: 429 });
   }
 
   try {

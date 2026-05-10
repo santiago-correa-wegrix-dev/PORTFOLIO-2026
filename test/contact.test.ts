@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { action } from "~/routes/api.contact";
 
 process.env.RESEND_API_KEY = "test-key";
@@ -12,10 +12,11 @@ vi.mock("resend", () => ({
     },
   }));
 
-const createRequest = (formData: Record<string, string>) => {
+const createRequest = (formData: Record<string, string>, ip = "1.2.3.4") => {
   const body = new URLSearchParams(formData);
   return new Request("http://localhost/api/contact", {
     body,
+    headers: { "x-nf-client-connection-ip": ip },
     method: "POST",
   });
 };
@@ -30,7 +31,16 @@ const parseResponse = async (response: unknown) => {
   return response;
 };
 
+const validPayload = {
+  email: "recruiter@google.com",
+  message: "We want to hire you immediately for a Staff Engineer role.",
+  name: "Recruiter",
+};
+
 describe("Contact Action Logic", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
 
   it("should validate empty fields", async () => {
     const request = createRequest({ email: "", message: "", name: "" });
@@ -60,12 +70,33 @@ describe("Contact Action Logic", () => {
   });
 
   it("should accept valid submission", async () => {
-    const request = createRequest({
-      email: "recruiter@google.com",
-      message: "We want to hire you immediately for a Staff Engineer role.",
-      name: "Recruiter",
-    });
+    const request = createRequest(validPayload, "10.0.0.1");
     const response = await action({ context: {}, params: {}, request });
+    const json = await parseResponse(response);
+
+    expect(json.success).toBe(true);
+  });
+
+  it("should rate limit after 3 requests from the same IP", async () => {
+    const ip = "192.168.1.1";
+    await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+    await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+    await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+
+    const response = await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+    const json = await parseResponse(response);
+
+    expect(json.error).toContain("Too many requests");
+  });
+
+  it("should not rate limit different IPs", async () => {
+    const ip = "172.16.0.1";
+    await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+    await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+    await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+
+    const otherIp = "172.16.0.2";
+    const response = await action({ context: {}, params: {}, request: createRequest(validPayload, otherIp) });
     const json = await parseResponse(response);
 
     expect(json.success).toBe(true);
