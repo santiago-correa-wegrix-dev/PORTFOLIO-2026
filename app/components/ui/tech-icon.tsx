@@ -1,6 +1,7 @@
 import { Terminal } from "lucide-react";
 import {
   siAngular,
+  siAnthropic,
   siDocker,
   siFigma,
   siGit,
@@ -43,6 +44,7 @@ interface SimpleIcon {
 
 const ICON_MAP: Record<string, SimpleIcon> = {
   Angular: siAngular,
+  "Anthropic API": siAnthropic,
   Docker: siDocker,
   Figma: siFigma,
   GSAP: siGreensock,

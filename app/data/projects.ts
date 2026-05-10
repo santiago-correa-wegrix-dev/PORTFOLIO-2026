@@ -17,15 +17,15 @@ export const realProjects: Project[] = [
   {
     category: "AI Newsletter",
     challenge:
-      "Filtering signal from noise across hundreds of daily AI publications, papers, and launches.",
-    description: "AI-curated daily brief on models, tools, and research. Human-edited, zero spam.",
+      "Hundreds of AI papers, model releases, and tool launches ship every day. Most coverage is noise. Finding what actually matters requires reading everything.",
+    description: "Daily AI brief built on Claude. Human-edited, zero spam.",
     id: "dispatch",
     imageColor: "#1a1a1a",
     imageUrl: "/images/projects/dispatch.webp",
-    role: "Curator & Editor",
+    role: "Builder & Editor",
     solution:
-      "Built a curation pipeline that surfaces the highest-impact stories, then applies human editorial judgement before every send.",
-    stack: ["AI Curation", "Editorial"],
+      "Built a curation pipeline powered by the Anthropic API. Claude reads and scores hundreds of sources daily, surfacing the highest-signal stories. Human editorial judgement makes the final call before every send.",
+    stack: ["Anthropic API", "Claude", "TypeScript", "Node.js"],
     title: "Dispatch",
     url: "https://deliver-ai.xyz/",
     year: "2025 - Present",
