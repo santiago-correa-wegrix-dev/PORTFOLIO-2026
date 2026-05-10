@@ -70,7 +70,7 @@ describe("isRateLimited", () => {
     isRateLimited(ipA);
     isRateLimited(ipA);
     isRateLimited(ipA);
-    isRateLimited(ipA); // blocked
+    isRateLimited(ipA); // Blocked — 4th request over limit
 
     expect(isRateLimited(ipB)).toBe(false);
   });

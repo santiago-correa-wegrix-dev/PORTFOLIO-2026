@@ -14,7 +14,7 @@ export function getClientIp(request: Request): string {
 export function isRateLimited(ip: string): boolean {
   const now = Date.now();
   const windowStart = now - WINDOW_MS;
-  const timestamps = (attempts.get(ip) ?? []).filter((t) => t > windowStart);
+  const timestamps = (attempts.get(ip) ?? []).filter((ts) => ts > windowStart);
 
   if (timestamps.length >= MAX_REQUESTS) { return true; }
 

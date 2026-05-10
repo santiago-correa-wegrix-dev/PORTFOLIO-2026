@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 
+import { SectionErrorBoundary } from "~/components/ui/section-error-boundary";
 import { SectionSkeleton } from "~/components/ui/skeleton";
 import { realProjects } from "~/data/projects";
 import { skillsList } from "~/data/skills";
@@ -75,13 +76,31 @@ export default function Index({ loaderData }: Route.ComponentProps) {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-zinc-800 selection:text-white">
       <Hero />
-      <Suspense fallback={<SectionSkeleton />}>
-        <Kudos />
-        <Projects id="projects" data={projects} />
-        <ExperienceTimeline />
-        <SkillsList data={skills} />
-        <Contact />
-      </Suspense>
+      <SectionErrorBoundary name="Kudos">
+        <Suspense fallback={<SectionSkeleton />}>
+          <Kudos />
+        </Suspense>
+      </SectionErrorBoundary>
+      <SectionErrorBoundary name="Projects">
+        <Suspense fallback={<SectionSkeleton />}>
+          <Projects id="projects" data={projects} />
+        </Suspense>
+      </SectionErrorBoundary>
+      <SectionErrorBoundary name="Experience">
+        <Suspense fallback={<SectionSkeleton />}>
+          <ExperienceTimeline />
+        </Suspense>
+      </SectionErrorBoundary>
+      <SectionErrorBoundary name="Skills">
+        <Suspense fallback={<SectionSkeleton />}>
+          <SkillsList data={skills} />
+        </Suspense>
+      </SectionErrorBoundary>
+      <SectionErrorBoundary name="Contact">
+        <Suspense fallback={<SectionSkeleton />}>
+          <Contact />
+        </Suspense>
+      </SectionErrorBoundary>
     </div>
   );
 }
