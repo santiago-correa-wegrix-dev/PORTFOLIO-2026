@@ -26,7 +26,7 @@ export function ExperienceTimeline() {
       ref={containerRef}
       className="relative overflow-hidden bg-background px-6 py-32 transition-colors duration-700 md:px-12 lg:px-24 dark:bg-black"
     >
-      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] opacity-[0.05] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_100%,transparent_0%)] dark:opacity-[0.1]" />
+      <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[40px_40px] opacity-[0.05] mask-[radial-gradient(ellipse_80%_80%_at_50%_50%,#000_100%,transparent_0%)] dark:opacity-[0.1]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         <motion.div
@@ -47,16 +47,16 @@ export function ExperienceTimeline() {
 
         <div className="relative flex flex-col gap-16 md:flex-row md:gap-24">
           <div className="relative flex flex-col gap-16 pl-8 md:w-2/3 md:pl-0">
-            <div className="absolute top-2 bottom-0 left-0 w-[2px] overflow-hidden rounded-full bg-border/50 md:left-[-40px]">
+            <div className="absolute top-2 bottom-0 left-0 w-0.5 overflow-hidden rounded-full bg-border/50 md:-left-10">
               <motion.div
                 style={{ scaleY, transformOrigin: "top" }}
-                className="absolute top-0 left-0 h-full w-full bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500"
+                className="absolute top-0 left-0 h-full w-full bg-linear-to-b from-blue-500 via-purple-500 to-pink-500"
               />
               <motion.div
                 style={{
                   top: useTransform(scrollYProgress, [0, 1], ["0%", "100%"]),
                 }}
-                className="absolute left-1/2 h-32 w-4 -translate-x-1/2 bg-gradient-to-b from-transparent via-white to-transparent opacity-50 blur-md"
+                className="absolute left-1/2 h-32 w-4 -translate-x-1/2 bg-linear-to-b from-transparent via-white to-transparent opacity-50 blur-md"
               />
             </div>
 

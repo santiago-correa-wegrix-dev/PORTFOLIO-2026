@@ -20,7 +20,7 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
 
   return (
     <section className="relative overflow-hidden px-6 py-24 transition-colors duration-700 md:px-12 lg:px-24">
-      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-muted/5" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-linear-to-b from-transparent via-transparent to-muted/5" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="flex flex-col items-center gap-8 text-center">
@@ -50,7 +50,7 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
             </div>
           </div>
 
-          <div className="relative min-h-[500px] w-full">
+          <div className="relative min-h-125 w-full">
             <AnimatePresence mode="wait">
               {viewMode === "3d" ? (
                 <motion.div
@@ -63,7 +63,7 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
                 >
                   <Suspense
                     fallback={
-                      <div className="flex min-h-[500px] items-center justify-center text-muted-foreground">
+                      <div className="flex min-h-125 items-center justify-center text-muted-foreground">
                         Loading 3D view…
                       </div>
                     }
@@ -86,7 +86,7 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
                         key={skill}
                         className="group relative flex cursor-default items-center gap-3 overflow-hidden rounded-xl border border-zinc-200 bg-zinc-50/50 p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg dark:border-zinc-800 dark:bg-zinc-900/50"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                        <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                         <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-background text-muted-foreground transition-all group-hover:border-primary/30 group-hover:text-primary">
                           <TechIcon name={skill} className="h-5 w-5" />
                         </div>
