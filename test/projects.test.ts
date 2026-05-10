@@ -10,8 +10,7 @@ const createLoaderArgs = (slug: string) => ({
 
 describe("Projects Loader Logic", () => {
   it("should return project, prev and next for valid slug", async () => {
-    const firstProject = realProjects[0];
-    const secondProject = realProjects[1];
+    const [firstProject, secondProject] = realProjects;
 
     const result = await loader(createLoaderArgs(secondProject.id));
     const data = result as { project: typeof secondProject; prev: typeof firstProject | null; next: typeof secondProject | null };
@@ -30,7 +29,7 @@ describe("Projects Loader Logic", () => {
   });
 
   it("should return null next for last project", async () => {
-    const last = realProjects[realProjects.length - 1];
+    const last = realProjects.at(-1)!;
     const result = await loader(createLoaderArgs(last.id));
     const data = result as { next: null };
 

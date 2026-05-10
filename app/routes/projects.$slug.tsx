@@ -4,7 +4,6 @@ import { useIntlayer } from "react-intlayer";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
-import { Magnetic } from "~/components/ui/magnetic";
 import { SplitText } from "~/components/ui/split-text";
 import { TechIcon } from "~/components/ui/tech-icon";
 import { realProjects } from "~/data/projects";
@@ -60,15 +59,13 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
   return (
     <div className="min-h-screen bg-background cursor-auto selection:bg-zinc-800 selection:text-white dark:selection:bg-white dark:selection:text-black">
       <div className="fixed top-5 left-5 md:top-6 md:left-8 z-50">
-        <Magnetic strength={0.2}>
-          <Link
-            to="/"
-            className="flex items-center gap-2 px-4 py-2.5 bg-background/80 backdrop-blur-md border border-border rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-all shadow-xl hover:scale-105 active:scale-95 group"
-          >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-            <span className="hidden sm:inline">{back}</span>
-          </Link>
-        </Magnetic>
+        <Link
+          to="/"
+          className="flex items-center gap-2 px-4 py-2.5 bg-background/80 backdrop-blur-md border border-border rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-all shadow-xl hover:scale-105 active:scale-95 group"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+          <span className="hidden sm:inline">{back}</span>
+        </Link>
       </div>
 
       <div className="pt-24 md:pt-32 pb-10 md:pb-14 px-5 sm:px-8 md:px-12 lg:px-24">
@@ -255,16 +252,14 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
 
       {project.url && (
         <div className="flex flex-col items-center justify-center pb-20 md:pb-28 px-5">
-          <Magnetic>
-            <a href={project.url} target="_blank" rel="noopener noreferrer">
-              <Button
-                size="lg"
-                className="rounded-full px-8 md:px-10 h-13 md:h-16 text-sm md:text-lg bg-foreground text-background hover:bg-foreground/90 hover:scale-105 transition-all shadow-[0_0_60px_-15px_rgba(255,255,255,0.3)]"
-              >
-                {visitSite} <ArrowUpRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
-              </Button>
-            </a>
-          </Magnetic>
+          <a href={project.url} target="_blank" rel="noopener noreferrer">
+            <Button
+              size="lg"
+              className="rounded-full px-8 md:px-10 h-13 md:h-16 text-sm md:text-lg bg-foreground text-background hover:bg-foreground/90 hover:scale-105 transition-all shadow-[0_0_60px_-15px_rgba(255,255,255,0.3)]"
+            >
+              {visitSite} <ArrowUpRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
+            </Button>
+          </a>
         </div>
       )}
     </div>

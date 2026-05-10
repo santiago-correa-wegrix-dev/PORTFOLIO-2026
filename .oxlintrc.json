@@ -30,10 +30,14 @@
     "no-negated-condition": "off",
     "no-shadow": "error",
     "require-await": "error",
-    "unicorn/no-null": "off",
+    "no-await-in-loop": "error",
+    "no-duplicate-imports": "error",
+    "prefer-destructuring": "warn",
     "unicorn/consistent-function-scoping": "error",
-    "unicorn/prefer-ternary": "off",
-    "unicorn/no-negated-condition": "off"
+    "unicorn/no-negated-condition": "off",
+    "unicorn/no-null": "off",
+    "unicorn/prefer-optional-catch-binding": "error",
+    "unicorn/prefer-ternary": "off"
   },
   "ignorePatterns": ["dist", "build", ".react-router", "node_modules"]
 }

@@ -42,7 +42,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 FROM base AS runtime
 
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=3000
 
 WORKDIR /app
 
@@ -53,6 +53,6 @@ COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/build ./build
 COPY --from=build /app/public ./public
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD ["pnpm", "start"]
