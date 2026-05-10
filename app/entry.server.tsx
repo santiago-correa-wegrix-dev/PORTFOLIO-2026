@@ -4,12 +4,10 @@ import { PassThrough } from "node:stream";
 import { renderToPipeableStream } from "react-dom/server";
 import { type AppLoadContext, type EntryContext, ServerRouter } from "react-router";
 
-import logger from "~/utils/logger";
-
 const REQUIRED_ENV_VARS = ["RESEND_API_KEY"] as const;
 for (const key of REQUIRED_ENV_VARS) {
   if (!process.env[key]) {
-    logger.warn({ event: "startup.missing_env", key }, `Missing env var: ${key}`);
+    console.warn(JSON.stringify({ event: "startup.missing_env", key }));
   }
 }
 
