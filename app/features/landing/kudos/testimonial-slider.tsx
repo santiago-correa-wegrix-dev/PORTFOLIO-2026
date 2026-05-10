@@ -7,7 +7,7 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import type { Testimonial } from "~/data/testimonials";
-import { cn } from "~/lib/utils";
+import { cn } from "~/utils/utils";
 
 import { TestimonialCard } from "./testimonial-card";
 

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getClientIp, isRateLimited } from "~/lib/rate-limit";
+import { getClientIp, isRateLimited } from "~/utils/rate-limit";
 
 describe("getClientIp", () => {
   it("returns Netlify header when present", () => {

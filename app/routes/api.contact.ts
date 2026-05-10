@@ -2,8 +2,8 @@ import { type ActionFunctionArgs, data } from "react-router";
 import { Resend } from "resend";
 import { z } from "zod";
 
-import logger from "~/lib/logger";
-import { getClientIp, isRateLimited } from "~/lib/rate-limit";
+import logger from "~/utils/logger";
+import { getClientIp, isRateLimited } from "~/utils/rate-limit";
 
 const escapeHtml = (str: string) =>
   str
