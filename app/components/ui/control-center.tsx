@@ -10,15 +10,14 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
 import { useUIStore } from "~/store/ui-store";
 
 export function ControlCenter() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme, showCustomCursor, toggleCustomCursor } = useUIStore();
-  const location = useLocation();
   const navigate = useNavigate();
 
   const cycleTheme = () => {
@@ -38,35 +37,12 @@ export function ControlCenter() {
   const themeLabels = { dark: "Dark", light: "Light", system: "System" };
   const themeLabel = themeLabels[theme];
 
-  const pendingNavId = useRef<string | null>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => () => {
-    if (timeoutRef.current) { clearTimeout(timeoutRef.current); }
-  }, []);
-
-  useEffect(() => {
-    if (location.pathname === "/" && pendingNavId.current) {
-      const id = pendingNavId.current;
-      pendingNavId.current = null;
-      timeoutRef.current = setTimeout(() => {
-        document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-    }
-  }, [location.pathname]);
-
   const handleNav = (id: string) => {
-    if (location.pathname !== "/") {
-      pendingNavId.current = id;
-      navigate("/");
-    } else {
-      document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
-    }
+    navigate(`/#${id}`);
   };
 
   const goHome = () => {
-    if (location.pathname !== "/") {navigate("/");}
-    window.scrollTo({ behavior: "smooth", top: 0 });
+    navigate("/");
   };
 
   return (
