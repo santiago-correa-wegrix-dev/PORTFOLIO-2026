@@ -1,4 +1,4 @@
-const WINDOW_MS = 60_000;
+const TIMEOUT_MS = 60_000;
 const MAX_REQUESTS = 3;
 
 const attempts = new Map<string, number[]>();
@@ -13,7 +13,7 @@ export function getClientIp(request: Request): string {
 
 export function isRateLimited(ip: string): boolean {
   const now = Date.now();
-  const windowStart = now - WINDOW_MS;
+  const windowStart = now - TIMEOUT_MS;
   const timestamps = (attempts.get(ip) ?? []).filter((ts) => ts > windowStart);
 
   if (timestamps.length >= MAX_REQUESTS) { return true; }
