@@ -3,27 +3,27 @@ import { useEffect, useState } from "react";
 import { useUIStore } from "~/store/ui-store";
 
 export function useIsDark() {
-    const { theme } = useUIStore();
-    const [isDark, setIsDark] = useState(false);
+  const { theme } = useUIStore();
+  const [isDark, setIsDark] = useState(false);
 
-    useEffect(() => {
-        // Safe check for SSR
-        if (typeof window === 'undefined') return;
+  useEffect(() => {
+    // Safe check for SSR
+    if (globalThis.window === undefined) {return;}
 
-        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
 
-        const update = () => {
-            if (theme === 'system') {
-                setIsDark(mediaQuery.matches);
-            } else {
-                setIsDark(theme === 'dark');
-            }
-        };
+    const update = () => {
+      if (theme === "system") {
+        setIsDark(mediaQuery.matches);
+      } else {
+        setIsDark(theme === "dark");
+      }
+    };
 
-        update();
-        mediaQuery.addEventListener("change", update);
-        return () => mediaQuery.removeEventListener("change", update);
-    }, [theme]);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, [theme]);
 
-    return isDark;
+  return isDark;
 }

@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Suspense, lazy } from "react";
 
 import { SectionSkeleton } from "~/components/ui/skeleton";
 import { realProjects } from "~/data/projects";
@@ -37,28 +37,28 @@ export function meta() {
   return [
     { title: "Santiago Correa | Senior Engineer" },
     {
-      name: "description",
       content: "Senior engineer building consumer products at scale.",
+      name: "description",
     },
     {
-      name: "keywords",
       content:
         "Senior Engineer, Frontend, React, Remix, TypeScript, Consumer Products, Performance, Accessibility",
+      name: "keywords",
     },
     {
-      property: "og:title",
       content: "Santiago Correa | Senior Engineer",
+      property: "og:title",
     },
     {
-      property: "og:description",
       content: "Senior engineer building consumer products at scale.",
+      property: "og:description",
     },
     {
-      property: "og:image",
       content: "https://wegrix.dev/og-image.jpg",
+      property: "og:image",
     },
-    { property: "twitter:card", content: "summary_large_image" },
-    { property: "twitter:creator", content: "@santicorrea" },
+    { content: "summary_large_image", property: "twitter:card" },
+    { content: "@santicorrea", property: "twitter:creator" },
   ];
 }
 

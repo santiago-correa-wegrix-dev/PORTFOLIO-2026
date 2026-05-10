@@ -1,4 +1,4 @@
-import { startTransition, StrictMode } from "react";
+import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { HydratedRouter } from "react-router/dom";
 
@@ -13,8 +13,8 @@ function hydrate() {
   });
 }
 
-if (window.requestIdleCallback) {
-  window.requestIdleCallback(hydrate);
+if (globalThis.requestIdleCallback) {
+  globalThis.requestIdleCallback(hydrate);
 } else {
-  window.setTimeout(hydrate, 1);
+  globalThis.setTimeout(hydrate, 1);
 }

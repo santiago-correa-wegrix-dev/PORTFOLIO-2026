@@ -1,12 +1,12 @@
 import "./app.css";
 
 import {
-  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse,
   useLocation,
 } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,33 +22,33 @@ import { Noise } from "~/components/ui/noise";
 import type { Route } from "./+types/root";
 
 export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
+  { href: "https://fonts.googleapis.com", rel: "preconnect" },
   {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
+    href: "https://fonts.gstatic.com",
+    rel: "preconnect",
   },
   {
-    rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap",
+    rel: "stylesheet",
   },
 ];
 
 export const meta: Route.MetaFunction = () => [
   { title: "Santiago Correa | Senior Engineer" },
   {
-    name: "description",
     content: "Senior engineer building consumer products at scale.",
+    name: "description",
   },
   {
-    name: "theme-color",
     content: "#ffffff",
     media: "(prefers-color-scheme: light)",
+    name: "theme-color",
   },
   {
-    name: "theme-color",
     content: "#000000",
     media: "(prefers-color-scheme: dark)",
+    name: "theme-color",
   },
 ];
 
@@ -74,9 +74,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <AnimatePresence mode="wait">
               <motion.main
                 key={location.pathname}
-                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+                animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                exit={{ filter: "blur(10px)", opacity: 0, y: -20 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               >
                 {children}
@@ -103,12 +103,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
     details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+      error.status === 404 ? "The requested page could not be found." : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
-    stack = error.stack;
+    ({ stack } = error);
   }
 
   return (
