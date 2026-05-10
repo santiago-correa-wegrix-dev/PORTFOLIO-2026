@@ -1,12 +1,9 @@
-/// <reference types="vitest" />
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import path from "path";
+import { defineConfig } from "vitest/config";
 import tsconfigPaths from "vite-tsconfig-paths";
 
-import path from "path";
-
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [tsconfigPaths({ projects: ["./tsconfig.test.json"] })],
   resolve: {
     alias: {
       "~": path.resolve(__dirname, "./app"),

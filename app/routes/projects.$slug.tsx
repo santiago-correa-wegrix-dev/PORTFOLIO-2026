@@ -207,7 +207,7 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
               {stackLabel}
             </p>
             <div className="flex flex-wrap gap-2.5 md:gap-3">
-              {project.stack.map((tech) => (
+              {project.stack.map((tech: string) => (
                 <span
                   key={tech}
                   className="flex items-center gap-2 px-3 py-2 bg-muted/10 border border-border text-xs sm:text-sm font-mono text-muted-foreground rounded-lg hover:bg-foreground/5 hover:text-foreground hover:border-foreground/20 transition-all duration-200 cursor-default"

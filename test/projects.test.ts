@@ -2,44 +2,40 @@ import { describe, expect, it } from "vitest";
 import { realProjects } from "~/data/projects";
 import { loader } from "~/routes/projects.$slug";
 
-const createLoaderArgs = (slug: string) => ({
-  context: {},
-  params: { slug },
-  request: new Request(`http://localhost/projects/${slug}`),
-});
+const mockArgs = (slug: string) =>
+  ({
+    context: {},
+    params: { slug },
+    request: new Request(`http://localhost/projects/${slug}`),
+  }) as unknown as Parameters<typeof loader>[0];
 
 describe("Projects Loader Logic", () => {
-  it("should return project, prev and next for valid slug", async () => {
+  it("should return project, prev and next for valid slug", () => {
     const [firstProject, secondProject] = realProjects;
+    const result = loader(mockArgs(secondProject.id));
 
-    const result = await loader(createLoaderArgs(secondProject.id));
-    const data = result as { project: typeof secondProject; prev: typeof firstProject | null; next: typeof secondProject | null };
-
-    expect(data.project).toBeDefined();
-    expect(data.project.id).toBe(secondProject.id);
-    expect(data.prev?.id).toBe(firstProject.id);
+    expect(result.project.id).toBe(secondProject.id);
+    expect(result.prev?.id).toBe(firstProject.id);
   });
 
-  it("should return null prev for first project", async () => {
+  it("should return null prev for first project", () => {
     const [first] = realProjects;
-    const result = await loader(createLoaderArgs(first.id));
-    const data = result as { prev: null };
+    const result = loader(mockArgs(first.id));
 
-    expect(data.prev).toBeNull();
+    expect(result.prev).toBeNull();
   });
 
-  it("should return null next for last project", async () => {
+  it("should return null next for last project", () => {
     const last = realProjects.at(-1)!;
-    const result = await loader(createLoaderArgs(last.id));
-    const data = result as { next: null };
+    const result = loader(mockArgs(last.id));
 
-    expect(data.next).toBeNull();
+    expect(result.next).toBeNull();
   });
 
   it("should throw 404 for invalid slug", () => {
     let thrown: unknown;
     try {
-      loader(createLoaderArgs("invalid-slug-123"));
+      loader(mockArgs("invalid-slug-123"));
     } catch (error) {
       thrown = error;
     }
