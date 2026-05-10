@@ -1,6 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { action } from "~/routes/api.contact";
 
+process.env.RESEND_API_KEY = "test-key";
+
 // Mock Resend to avoid actual emails
 vi.mock("resend", () => ({
     Resend: class {

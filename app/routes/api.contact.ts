@@ -2,6 +2,13 @@ import { type ActionFunctionArgs, data } from "react-router";
 import { Resend } from "resend";
 import { z } from "zod";
 
+const escapeHtml = (str: string) =>
+  str
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
 const contactSchema = z.object({
   email: z.email("Invalid email address"),
   message: z.string().min(10, "Message must be at least 10 characters"),
@@ -40,21 +47,24 @@ export async function action({ request }: ActionFunctionArgs) {
 
     const { name, email, message } = result.data;
 
-    // Initialize Resend
+    if (!process.env.RESEND_API_KEY) {
+      return data({ error: "Email service not configured" }, { status: 500 });
+    }
+
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     try {
       const emailResult = await resend.emails.send({
-        from: "onboarding@resend.dev",
+        from: process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev",
         html: `
                     <h2>New Message</h2>
-                    <p><strong>Name:</strong> ${name}</p>
-                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+                    <p><strong>Email:</strong> ${escapeHtml(email)}</p>
                     <p><strong>Message:</strong></p>
-                    <p>${message}</p>
+                    <p>${escapeHtml(message)}</p>
                 `,
-        subject: `New Contact from Portfolio: ${name}`,
-        to: "santiago.correa@wegrix.dev",
+        subject: `New Contact from Portfolio: ${escapeHtml(name)}`,
+        to: process.env.CONTACT_EMAIL ?? "santiago.correa@wegrix.dev",
       });
 
       if (emailResult.error) {
