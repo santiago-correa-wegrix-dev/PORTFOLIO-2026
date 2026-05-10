@@ -3,6 +3,8 @@ import { ArrowDown } from "lucide-react";
 import { Suspense, lazy } from "react";
 import { useIntlayer } from "react-intlayer";
 
+import { Link } from "react-router";
+
 import { SocialLinks } from "~/components/ui/social-links";
 import { Button } from "~/components/ui/button";
 import { useIsDark } from "~/hooks/use-is-dark";
@@ -66,10 +68,10 @@ export function Hero() {
             asChild
             className="group h-12 rounded-full bg-zinc-900 px-7 text-base font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
           >
-            <a href="#projects">
+            <Link to="#projects">
               {cta}
               <ArrowDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-            </a>
+            </Link>
           </Button>
 
           <SocialLinks />
