@@ -16,6 +16,20 @@ export interface Project {
 
 export const realProjects: Project[] = [
     {
+        id: "dispatch",
+        title: "Dispatch",
+        category: "AI Newsletter",
+        year: "2025 — Present",
+        description: "AI-curated daily brief on models, tools, and research. Human-edited, zero spam.",
+        imageColor: "#1a1a1a",
+        url: "https://deliver-ai.xyz/",
+        imageUrl: "/images/projects/dispatch.webp",
+        role: "Curator & Editor",
+        stack: ["AI Curation", "Editorial"],
+        challenge: "Filtering signal from noise across hundreds of daily AI publications, papers, and launches.",
+        solution: "Built a curation pipeline that surfaces the highest-impact stories, then applies human editorial judgement before every send."
+    },
+    {
         id: "statista",
         title: "Statista",
         category: "Data Platform",
