@@ -75,6 +75,7 @@ export function ControlCenter() {
       </AnimatePresence>
 
       <motion.button
+        aria-label="Tweak settings button"
         layoutId="control-trigger"
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
