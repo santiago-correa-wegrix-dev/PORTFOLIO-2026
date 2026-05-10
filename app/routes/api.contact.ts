@@ -44,7 +44,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     try {
-      const data = await resend.emails.send({
+      const emailResult = await resend.emails.send({
         from: "onboarding@resend.dev",
         html: `
                     <h2>New Message</h2>
@@ -57,8 +57,8 @@ export async function action({ request }: ActionFunctionArgs) {
         to: "santiago.correa@wegrix.dev",
       });
 
-      if (data.error) {
-        console.error("Resend API Error:", data.error);
+      if (emailResult.error) {
+        console.error("Resend API Error:", emailResult.error);
         throw new Error("Failed to send email via Resend");
       }
     } catch (emailError) {

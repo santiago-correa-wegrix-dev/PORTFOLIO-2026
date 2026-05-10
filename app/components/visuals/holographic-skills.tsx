@@ -134,7 +134,9 @@ function HelixStructure({ isDark }: { isDark: boolean }) {
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
 
-      const color = index % 2 === 0 ? (isDark ? "#4f46e5" : "#6366f1") : (isDark ? "#ec4899" : "#f472b6");
+      const primaryColor = isDark ? "#4f46e5" : "#6366f1";
+      const secondaryColor = isDark ? "#ec4899" : "#f472b6";
+      const color = index % 2 === 0 ? primaryColor : secondaryColor;
 
       return { color, name: skill, pos: new THREE.Vector3(x, y, z) };
     }), [isDark]);

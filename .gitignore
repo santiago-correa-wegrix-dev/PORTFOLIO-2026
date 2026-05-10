@@ -25,5 +25,8 @@ skills-lock.json
 .vscode/
 .idea/
 
+# Wireit cache
+.wireit/
+
 # OS
 Thumbs.db

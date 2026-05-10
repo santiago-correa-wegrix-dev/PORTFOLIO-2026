@@ -28,16 +28,15 @@ export function ControlCenter() {
     setTheme(order[nextIndex]);
   };
 
-  const themeIcon =
-    theme === "dark" ? (
-      <Moon className="h-4 w-4" />
-    ) : (theme === "system" ? (
-      <Monitor className="h-4 w-4" />
-    ) : (
-      <Sun className="h-4 w-4" />
-    ));
+  const themeIcons = {
+    dark: <Moon className="h-4 w-4" />,
+    light: <Sun className="h-4 w-4" />,
+    system: <Monitor className="h-4 w-4" />,
+  };
+  const themeIcon = themeIcons[theme];
 
-  const themeLabel = theme === "dark" ? "Dark" : (theme === "system" ? "System" : "Light");
+  const themeLabels = { dark: "Dark", light: "Light", system: "System" };
+  const themeLabel = themeLabels[theme];
 
   const handleNav = (id: string) => {
     if (location.pathname !== "/") {

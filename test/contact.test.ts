@@ -10,26 +10,25 @@ vi.mock("resend", () => ({
     },
   }));
 
-describe("Contact Action Logic", () => {
-  // Helper to mock request
-  const createRequest = (formData: Record<string, string>) => {
-    const body = new URLSearchParams(formData);
-    return new Request("http://localhost/api/contact", {
-      body,
-      method: "POST",
-    });
-  };
+const createRequest = (formData: Record<string, string>) => {
+  const body = new URLSearchParams(formData);
+  return new Request("http://localhost/api/contact", {
+    body,
+    method: "POST",
+  });
+};
 
-  // Helper to parse response
-  const parseResponse = async (response: unknown) => {
-    if (response instanceof Response) {
-      return response.json();
-    }
-    if (response !== null && typeof response === "object" && "data" in response) {
-      return (response as Record<string, unknown>).data;
-    }
-    return response;
-  };
+const parseResponse = async (response: unknown) => {
+  if (response instanceof Response) {
+    return await response.json();
+  }
+  if (response !== null && typeof response === "object" && "data" in response) {
+    return (response as Record<string, unknown>).data;
+  }
+  return response;
+};
+
+describe("Contact Action Logic", () => {
 
   it("should validate empty fields", async () => {
     const request = createRequest({ email: "", message: "", name: "" });

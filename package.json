@@ -6,12 +6,50 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router build && react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc -b",
+    "typecheck": "wireit",
     "lint": "oxlint --fix .",
+    "lint:check": "wireit",
     "fmt": "oxfmt --write .",
     "fmt:check": "oxfmt --check .",
     "test": "vitest",
+    "test:run": "wireit",
+    "check": "wireit",
     "prepare": "husky"
+  },
+  "wireit": {
+    "lint:check": {
+      "command": "oxlint .",
+      "files": [
+        "app/**/*.{ts,tsx}",
+        "test/**/*.ts",
+        ".oxlintrc.json"
+      ]
+    },
+    "test:run": {
+      "command": "vitest run",
+      "files": [
+        "app/**/*.{ts,tsx}",
+        "test/**/*.ts",
+        "vitest.config.ts"
+      ]
+    },
+    "typecheck": {
+      "command": "react-router typegen && tsc -b",
+      "files": [
+        "app/**/*.{ts,tsx}",
+        "tsconfig.json"
+      ],
+      "output": [
+        ".react-router/types/**"
+      ]
+    },
+    "check": {
+      "dependencies": [
+        "lint:check",
+        "test:run",
+        "typecheck"
+      ]
+    }
   },
   "dependencies": {
     "@netlify/vite-plugin": "^2.12.1",
@@ -66,6 +104,8 @@
     "typescript": "^5.9.3",
     "vite": "^8.0.11",
     "vite-intlayer": "^8.9.3",
-    "vitest": "^4.0.17"
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.0.17",
+    "wireit": "^0.14.12"
   }
 }
