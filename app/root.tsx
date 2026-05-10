@@ -1,7 +1,5 @@
 import "./app.css";
-import "./i18n"; // Initialize i18n
 
-import { ReactLenis } from "lenis/react";
 import {
   isRouteErrorResponse,
   Links,
@@ -11,6 +9,15 @@ import {
   ScrollRestoration,
   useLocation,
 } from "react-router";
+import { AnimatePresence, motion } from "framer-motion";
+import { IntlayerProvider } from "react-intlayer";
+
+import { Grain } from "~/components/layout/grain";
+import { MouseFollower } from "~/components/layout/mouse-follower";
+import { SmoothScroll } from "~/components/layout/smooth-scroll";
+import { ThemeManager } from "~/components/layout/theme-manager";
+import { ControlCenter } from "~/components/ui/control-center";
+import { Noise } from "~/components/ui/noise";
 
 import type { Route } from "./+types/root";
 
@@ -27,72 +34,60 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export const meta: Route.MetaFunction = () => {
-  return [
-    { title: "Santiago Correa | Front-End Engineer" },
-    { name: "description", content: "Portfolio of Santiago Correa, a Front-End Engineer & Creative Developer specializing in scalable, award-winning digital experiences." },
-    { name: "theme-color", content: "#ffffff", media: "(prefers-color-scheme: light)" },
-    { name: "theme-color", content: "#000000", media: "(prefers-color-scheme: dark)" },
-  ];
-};
-
-import { AnimatePresence, motion } from "framer-motion";
-
-import { Grain } from "~/components/layout/grain";
-import { MouseFollower } from "~/components/layout/mouse-follower";
-import { SmoothScroll } from "~/components/layout/smooth-scroll";
-import { ThemeManager } from "~/components/layout/theme-manager";
-import { ControlCenter } from "~/components/ui/control-center";
-import { Noise } from "~/components/ui/noise";
-
-import { useChangeLanguage } from "remix-i18next/react";
-import i18next from "./i18n.server";
-import { type LoaderFunctionArgs, useLoaderData } from "react-router";
-
-export async function loader({ request }: LoaderFunctionArgs) {
-  let locale = await i18next.getLocale(request);
-  return { locale };
-}
+export const meta: Route.MetaFunction = () => [
+  { title: "Santiago Correa | Senior Engineer" },
+  {
+    name: "description",
+    content: "Senior engineer building consumer products at scale.",
+  },
+  {
+    name: "theme-color",
+    content: "#ffffff",
+    media: "(prefers-color-scheme: light)",
+  },
+  {
+    name: "theme-color",
+    content: "#000000",
+    media: "(prefers-color-scheme: dark)",
+  },
+];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
-  const loaderData = useLoaderData<typeof loader>();
-  const locale = loaderData?.locale ?? "en";
-
-  useChangeLanguage(locale);
 
   return (
-    <html lang={locale}>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body className="bg-background text-foreground overflow-x-hidden selection:bg-zinc-200 selection:text-black dark:selection:bg-zinc-800 dark:selection:text-white">
-        {/* Theme & Chat Managers */}
-        <ThemeManager />
-        <SmoothScroll>
-          <MouseFollower />
-          <Grain />
-          <Noise />
-          <ControlCenter />
-          <AnimatePresence mode="wait">
-            <motion.main
-              key={location.pathname}
-              initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {children}
-            </motion.main>
-          </AnimatePresence>
-          <ScrollRestoration />
-          <Scripts />
-        </SmoothScroll>
+      <body className="overflow-x-hidden bg-background text-foreground selection:bg-zinc-200 selection:text-black dark:selection:bg-zinc-800 dark:selection:text-white">
+        <IntlayerProvider>
+          <ThemeManager />
+          <SmoothScroll>
+            <MouseFollower />
+            <Grain />
+            <Noise />
+            <ControlCenter />
+            <AnimatePresence mode="wait">
+              <motion.main
+                key={location.pathname}
+                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {children}
+              </motion.main>
+            </AnimatePresence>
+            <ScrollRestoration />
+            <Scripts />
+          </SmoothScroll>
+        </IntlayerProvider>
       </body>
-    </html >
+    </html>
   );
 }
 
@@ -117,11 +112,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="container mx-auto p-4 pt-16">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="w-full overflow-x-auto p-4">
           <code>{stack}</code>
         </pre>
       )}

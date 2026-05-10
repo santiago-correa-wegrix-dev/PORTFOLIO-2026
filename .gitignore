@@ -10,6 +10,12 @@
 # Engineering guidelines (local only)
 ENGINEERING_GUIDELINES.md
 
+# Intlayer generated
+.intlayer/
+
 # Agent skills (local tooling)
 .agents/
 skills-lock.json
+
+# Local Netlify folder
+.netlify
