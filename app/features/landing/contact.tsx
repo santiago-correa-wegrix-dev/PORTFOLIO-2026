@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleAlert, Send } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 import { Button } from "~/components/ui/button";
 import confetti from "canvas-confetti";
@@ -23,7 +23,8 @@ export function Contact() {
   const fetcher = useFetcher<ContactFormResponse>();
   const { data, state } = fetcher;
   const isSubmitting = state === "submitting";
-  const isSuccess = data?.success;
+  const [showForm, setShowForm] = useState(false);
+  const isSuccess = data?.success && !showForm;
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -124,7 +125,7 @@ export function Contact() {
                 <p className="max-w-sm text-lg text-muted-foreground">
                   {content.messageSentDescription}
                 </p>
-                <Button onClick={() => globalThis.location.reload()} variant="outline" className="mt-8">
+                <Button onClick={() => { setShowForm(true); formRef.current?.reset(); }} variant="outline" className="mt-8">
                   {content.sendAnother}
                 </Button>
               </motion.div>

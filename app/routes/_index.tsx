@@ -54,12 +54,15 @@ export function meta() {
       content: "Senior engineer building consumer products at scale.",
       property: "og:description",
     },
+    { content: "website", property: "og:type" },
+    { content: "https://wegrix.dev", property: "og:url" },
     {
       content: "https://wegrix.dev/og-image.jpg",
       property: "og:image",
     },
     { content: "summary_large_image", property: "twitter:card" },
     { content: "@santicorrea", property: "twitter:creator" },
+    { content: "https://wegrix.dev/og-image.jpg", property: "twitter:image" },
   ];
 }
 
