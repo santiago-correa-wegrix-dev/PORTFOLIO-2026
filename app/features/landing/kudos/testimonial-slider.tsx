@@ -60,14 +60,18 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
             <button
               key={testimonial.id}
               onClick={() => slideTo(idx)}
-              className={cn(
-                "h-1.5 rounded-full transition-all duration-500",
-                idx === activeIndex
-                  ? "w-12 bg-black dark:bg-white"
-                  : "w-2 bg-zinc-300 dark:bg-zinc-800 hover:bg-zinc-400",
-              )}
               aria-label={`Go to testimonial ${idx + 1}`}
-            />
+              className="flex h-11 w-11 items-center justify-center"
+            >
+              <span
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-500",
+                  idx === activeIndex
+                    ? "w-8 bg-black dark:bg-white"
+                    : "w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400",
+                )}
+              />
+            </button>
           ))}
         </div>
 

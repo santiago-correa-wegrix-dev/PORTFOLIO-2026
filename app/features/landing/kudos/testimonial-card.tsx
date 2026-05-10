@@ -25,7 +25,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
       {/* Visual/Highlight Side */}
       <div className="lg:col-span-4 hidden lg:flex flex-col justify-start border-l border-zinc-200 dark:border-zinc-800 pl-12 select-none">
-        <p className="text-sm text-zinc-400 font-mono uppercase tracking-wider mb-4">
+        <p className="text-sm text-zinc-600 dark:text-zinc-400 font-mono uppercase tracking-wider mb-4">
           Key Highlight
         </p>
         <p className="text-2xl text-zinc-600 dark:text-zinc-300 font-serif italic leading-relaxed">

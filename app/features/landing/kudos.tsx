@@ -23,8 +23,8 @@ export function Kudos() {
               {label}
             </span>
             <h2 className="max-w-2xl font-display text-4xl font-semibold tracking-tight text-foreground md:text-6xl">
-              {title} <span className="text-zinc-400">{titleAccent1}</span> &{" "}
-              <span className="text-zinc-400">{titleAccent2}</span>.
+              {title} <span className="text-zinc-500">{titleAccent1}</span> &{" "}
+              <span className="text-zinc-500">{titleAccent2}</span>.
             </h2>
           </div>
 
