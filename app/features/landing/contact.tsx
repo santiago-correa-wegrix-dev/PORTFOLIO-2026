@@ -27,6 +27,11 @@ export function Contact() {
   const isSuccess = data?.success && !showForm;
   const formRef = useRef<HTMLFormElement>(null);
 
+  const handleSendAnother = () => {
+    setShowForm(true);
+    formRef.current?.reset();
+  };
+
   useEffect(() => {
     if (!isSuccess) {return;}
     formRef.current?.reset();
@@ -125,7 +130,7 @@ export function Contact() {
                 <p className="max-w-sm text-lg text-muted-foreground">
                   {content.messageSentDescription}
                 </p>
-                <Button onClick={() => { setShowForm(true); formRef.current?.reset(); }} variant="outline" className="mt-8">
+                <Button type="button" onClick={handleSendAnother} variant="outline" className="mt-8">
                   {content.sendAnother}
                 </Button>
               </motion.div>

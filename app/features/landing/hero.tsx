@@ -63,13 +63,13 @@ export function Hero() {
           className="mt-10 flex flex-col items-center gap-5 sm:flex-row"
         >
           <Button
+            asChild
             className="group h-12 rounded-full bg-zinc-900 px-7 text-base font-medium text-white shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-            onClick={() => {
-              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-            }}
           >
-            {cta}
-            <ArrowDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+            <a href="#projects">
+              {cta}
+              <ArrowDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+            </a>
           </Button>
 
           <SocialLinks />
