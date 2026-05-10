@@ -7,7 +7,6 @@ import confetti from "canvas-confetti";
 import { SocialLinks } from "~/components/ui/social-links";
 import { useFetcher } from "react-router";
 
-
 interface ContactFormResponse {
   success?: boolean;
   error?: string;
@@ -33,7 +32,9 @@ export function Contact() {
   };
 
   useEffect(() => {
-    if (!isSuccess) {return;}
+    if (!isSuccess) {
+      return;
+    }
     formRef.current?.reset();
 
     const duration = 5_000;
@@ -49,7 +50,9 @@ export function Contact() {
 
     const interval = setInterval(() => {
       const timeLeft = animationEnd - Date.now();
-      if (timeLeft <= 0) {return clearInterval(interval);}
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
 
       const particleCount = 50 * (timeLeft / duration);
       confetti({
@@ -130,7 +133,12 @@ export function Contact() {
                 <p className="max-w-sm text-lg text-muted-foreground">
                   {content.messageSentDescription}
                 </p>
-                <Button type="button" onClick={handleSendAnother} variant="outline" className="mt-8">
+                <Button
+                  type="button"
+                  onClick={handleSendAnother}
+                  variant="outline"
+                  className="mt-8"
+                >
                   {content.sendAnother}
                 </Button>
               </motion.div>

@@ -17,7 +17,9 @@ export function MouseFollower() {
   const y = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    if (!showCustomCursor) {return;}
+    if (!showCustomCursor) {
+      return;
+    }
 
     const moveMouse = (event: MouseEvent) => {
       cursorX.set(event.clientX - 16); // Center the 32px cursor
@@ -47,7 +49,9 @@ export function MouseFollower() {
     };
   }, [cursorX, cursorY, showCustomCursor]);
 
-  if (!showCustomCursor) {return null;}
+  if (!showCustomCursor) {
+    return null;
+  }
 
   return (
     <motion.div

@@ -16,7 +16,9 @@ export function isRateLimited(ip: string): boolean {
   const windowStart = now - TIMEOUT_MS;
   const timestamps = (attempts.get(ip) ?? []).filter((ts) => ts > windowStart);
 
-  if (timestamps.length >= MAX_REQUESTS) { return true; }
+  if (timestamps.length >= MAX_REQUESTS) {
+    return true;
+  }
 
   timestamps.push(now);
   attempts.set(ip, timestamps);

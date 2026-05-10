@@ -46,7 +46,9 @@ export function ThemeManager() {
     applyTheme();
 
     const handler = () => {
-      if (theme === "system") {applyTheme();}
+      if (theme === "system") {
+        applyTheme();
+      }
     };
 
     mediaQuery.addEventListener("change", handler);

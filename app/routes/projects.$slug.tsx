@@ -11,7 +11,9 @@ import { realProjects } from "~/data/projects";
 import type { Route } from "./+types/projects.$slug";
 
 export function meta({ data }: Route.MetaArgs) {
-  if (!data) {return [{ title: "Project Not Found" }];}
+  if (!data) {
+    return [{ title: "Project Not Found" }];
+  }
   return [
     { title: `${data.title} | Case Study` },
     { content: data.description, name: "description" },
@@ -20,7 +22,9 @@ export function meta({ data }: Route.MetaArgs) {
 
 export function loader({ params }: Route.LoaderArgs) {
   const project = realProjects.find((item) => item.id === params.slug);
-  if (!project) {throw new Response("Not Found", { status: 404 });}
+  if (!project) {
+    throw new Response("Not Found", { status: 404 });
+  }
   return project;
 }
 
@@ -33,7 +37,9 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  if (!project) {return null;}
+  if (!project) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background pt-32 pb-20 px-6 md:px-12 lg:px-24 cursor-auto selection:bg-zinc-800 selection:text-white dark:selection:bg-white dark:selection:text-black">

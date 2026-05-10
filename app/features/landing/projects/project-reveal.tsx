@@ -10,7 +10,9 @@ interface ProjectRevealProps {
 }
 
 export function ProjectReveal({ hoveredProject, cursorPos, projects }: ProjectRevealProps) {
-  if (typeof document === "undefined") { return null; }
+  if (typeof document === "undefined") {
+    return null;
+  }
 
   const project = projects.find((item) => item.id === hoveredProject);
 
@@ -38,10 +40,7 @@ export function ProjectReveal({ hoveredProject, cursorPos, projects }: ProjectRe
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div
-                className="w-full h-full"
-                style={{ backgroundColor: project?.imageColor }}
-              />
+              <div className="w-full h-full" style={{ backgroundColor: project?.imageColor }} />
             )}
           </motion.div>
         )}

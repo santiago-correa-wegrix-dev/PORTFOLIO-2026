@@ -26,7 +26,10 @@ export async function action({ request }: ActionFunctionArgs) {
   const ip = getClientIp(request);
   if (isRateLimited(ip)) {
     logger.warn({ event: "contact.rate_limited", ip });
-    return data({ error: "Too many requests. Please wait a minute before trying again." }, { status: 429 });
+    return data(
+      { error: "Too many requests. Please wait a minute before trying again." },
+      { status: 429 },
+    );
   }
 
   try {
@@ -39,7 +42,9 @@ export async function action({ request }: ActionFunctionArgs) {
     if (!result.success) {
       const details = result.error.issues.reduce((acc: Record<string, string[]>, curr) => {
         const key = curr.path[0] as string;
-        if (!acc[key]) {acc[key] = [];}
+        if (!acc[key]) {
+          acc[key] = [];
+        }
         acc[key].push(curr.message);
         return acc;
       }, {});

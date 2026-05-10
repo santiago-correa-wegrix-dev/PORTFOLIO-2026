@@ -48,8 +48,15 @@ export const createParticle = (width: number, height: number): Particle => {
   };
 };
 
-export const createParticles = ({ count, height, width }: { count: number; height: number; width: number }): Particle[] =>
-  Array.from({ length: count }, () => createParticle(width, height));
+export const createParticles = ({
+  count,
+  height,
+  width,
+}: {
+  count: number;
+  height: number;
+  width: number;
+}): Particle[] => Array.from({ length: count }, () => createParticle(width, height));
 
 interface MousePos {
   posX: number;
@@ -58,7 +65,15 @@ interface MousePos {
 
 const radiusSq = REPULSION_RADIUS * REPULSION_RADIUS;
 
-export const updateParticle = ({ mouse, particle, time }: { mouse: MousePos; particle: Particle; time: number }): void => {
+export const updateParticle = ({
+  mouse,
+  particle,
+  time,
+}: {
+  mouse: MousePos;
+  particle: Particle;
+  time: number;
+}): void => {
   const targetX =
     particle.baseX + Math.cos(time * particle.speed + particle.phase) * particle.amplitude;
   const targetY =

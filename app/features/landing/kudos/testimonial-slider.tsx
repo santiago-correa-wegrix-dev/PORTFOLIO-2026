@@ -22,7 +22,9 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
   const slideTo = (idx: number) => swiperRef.current?.slideToLoop(idx);
   const slidePrev = () => swiperRef.current?.slidePrev();
   const slideNext = () => swiperRef.current?.slideNext();
-  const onSwiper = (swiper: SwiperType) => { swiperRef.current = swiper; };
+  const onSwiper = (swiper: SwiperType) => {
+    swiperRef.current = swiper;
+  };
   const onSlideChange = (swiper: SwiperType) => setActiveIndex(swiper.realIndex);
 
   return (
@@ -71,12 +73,14 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
 
         <div className="flex gap-4">
           <button
+            aria-label="Go to previous Slide"
             onClick={slidePrev}
             className="p-3 rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
+            aria-label="Go to next Slide"
             onClick={slideNext}
             className="p-3 rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
           >

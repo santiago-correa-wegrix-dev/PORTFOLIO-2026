@@ -50,7 +50,11 @@ export function ControlCenter() {
           >
             <div className="grid grid-cols-3 gap-1 p-1">
               <CapsuleAction to="/" icon={<Home className="h-4 w-4" />} label="Home" />
-              <CapsuleAction to="/#projects" icon={<LayoutGrid className="h-4 w-4" />} label="Work" />
+              <CapsuleAction
+                to="/#projects"
+                icon={<LayoutGrid className="h-4 w-4" />}
+                label="Work"
+              />
               <CapsuleAction to="/#contact" icon={<Mail className="h-4 w-4" />} label="Contact" />
             </div>
 
@@ -88,15 +92,7 @@ export function ControlCenter() {
   );
 }
 
-function CapsuleAction({
-  icon,
-  label,
-  to,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  to: string;
-}) {
+function CapsuleAction({ icon, label, to }: { icon: React.ReactNode; label: string; to: string }) {
   return (
     <Link
       to={to}

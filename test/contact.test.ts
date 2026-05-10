@@ -5,12 +5,12 @@ process.env.RESEND_API_KEY = "test-key";
 
 // Mock Resend to avoid actual emails
 vi.mock("resend", () => ({
-    Resend: class {
-      emails = {
-        send: vi.fn().mockResolvedValue({ id: "mock-id" }),
-      };
-    },
-  }));
+  Resend: class {
+    emails = {
+      send: vi.fn().mockResolvedValue({ id: "mock-id" }),
+    };
+  },
+}));
 
 const createRequest = (formData: Record<string, string>, ip = "1.2.3.4") => {
   const body = new URLSearchParams(formData);
@@ -83,7 +83,11 @@ describe("Contact Action Logic", () => {
     await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
     await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
 
-    const response = await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
+    const response = await action({
+      context: {},
+      params: {},
+      request: createRequest(validPayload, ip),
+    });
     const json = await parseResponse(response);
 
     expect(json.error).toContain("Too many requests");
@@ -96,7 +100,11 @@ describe("Contact Action Logic", () => {
     await action({ context: {}, params: {}, request: createRequest(validPayload, ip) });
 
     const otherIp = "172.16.0.2";
-    const response = await action({ context: {}, params: {}, request: createRequest(validPayload, otherIp) });
+    const response = await action({
+      context: {},
+      params: {},
+      request: createRequest(validPayload, otherIp),
+    });
     const json = await parseResponse(response);
 
     expect(json.success).toBe(true);

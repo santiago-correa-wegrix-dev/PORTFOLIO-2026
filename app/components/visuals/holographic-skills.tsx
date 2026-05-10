@@ -125,21 +125,25 @@ function HelixStructure({ isDark }: { isDark: boolean }) {
   const turns = 3.5;
 
   // Distribute skills along the helix
-  const nodes = useMemo(() => skills.map((skill, index) => {
-      const progress = index / Math.max(skills.length - 1, 1);
-      // Alternate strands
-      const strandOffset = index % 2 === 0 ? 0 : Math.PI;
-      const angle = progress * Math.PI * 2 * turns + strandOffset;
-      const y = (progress - 0.5) * height;
-      const x = Math.cos(angle) * radius;
-      const z = Math.sin(angle) * radius;
+  const nodes = useMemo(
+    () =>
+      skills.map((skill, index) => {
+        const progress = index / Math.max(skills.length - 1, 1);
+        // Alternate strands
+        const strandOffset = index % 2 === 0 ? 0 : Math.PI;
+        const angle = progress * Math.PI * 2 * turns + strandOffset;
+        const y = (progress - 0.5) * height;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
 
-      const primaryColor = isDark ? "#4f46e5" : "#6366f1";
-      const secondaryColor = isDark ? "#ec4899" : "#f472b6";
-      const color = index % 2 === 0 ? primaryColor : secondaryColor;
+        const primaryColor = isDark ? "#4f46e5" : "#6366f1";
+        const secondaryColor = isDark ? "#ec4899" : "#f472b6";
+        const color = index % 2 === 0 ? primaryColor : secondaryColor;
 
-      return { color, name: skill, pos: new THREE.Vector3(x, y, z) };
-    }), [isDark]);
+        return { color, name: skill, pos: new THREE.Vector3(x, y, z) };
+      }),
+    [isDark],
+  );
 
   useFrame((state) => {
     if (groupRef.current) {

@@ -33,7 +33,7 @@ describe("Projects Loader Logic", () => {
     } catch (error: unknown) {
       if (error instanceof Response) {
         const notFoundStatus = 404;
-        
+
         expect(error.status).toBe(notFoundStatus);
       } else {
         throw error;

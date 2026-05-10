@@ -39,10 +39,14 @@ export const QuantumField = ({ isDark }: { isDark: boolean }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) { return; }
+    if (!canvas) {
+      return;
+    }
 
     const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) { return; }
+    if (!ctx) {
+      return;
+    }
 
     let currentWidth = 0;
     let currentHeight = 0;
