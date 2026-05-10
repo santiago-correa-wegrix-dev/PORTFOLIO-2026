@@ -39,6 +39,28 @@ export default function handleRequest(
           const stream = createReadableStreamFromReadable(body);
 
           responseHeaders.set("Content-Type", "text/html");
+          responseHeaders.set(
+            "Content-Security-Policy",
+            [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline'",
+              "style-src 'self' 'unsafe-inline'",
+              "img-src 'self' data: blob:",
+              "font-src 'self'",
+              "connect-src 'self'",
+              "worker-src blob:",
+              "frame-ancestors 'none'",
+              "form-action 'self'",
+              "base-uri 'self'",
+            ].join("; "),
+          );
+          responseHeaders.set("X-Frame-Options", "DENY");
+          responseHeaders.set("X-Content-Type-Options", "nosniff");
+          responseHeaders.set("Referrer-Policy", "strict-origin-when-cross-origin");
+          responseHeaders.set(
+            "Permissions-Policy",
+            "camera=(), microphone=(), geolocation=()",
+          );
 
           resolve(
             new Response(stream, {

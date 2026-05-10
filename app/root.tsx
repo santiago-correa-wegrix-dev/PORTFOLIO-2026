@@ -9,7 +9,7 @@ import {
   isRouteErrorResponse,
   useLocation,
 } from "react-router";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { IntlayerProvider } from "react-intlayer";
 
 import { Grain } from "~/components/layout/grain";
@@ -90,28 +90,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="overflow-x-hidden bg-background text-foreground selection:bg-zinc-200 selection:text-black dark:selection:bg-zinc-800 dark:selection:text-white">
-        <IntlayerProvider>
-          <ThemeManager />
-          <SmoothScroll>
-            <MouseFollower />
-            <Grain />
-            <Noise />
-            <ControlCenter />
-            <AnimatePresence mode="wait">
-              <motion.main
-                key={location.pathname}
-                initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
-                animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                exit={{ filter: "blur(10px)", opacity: 0, y: -20 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {children}
-              </motion.main>
-            </AnimatePresence>
-            <ScrollRestoration />
-            <Scripts />
-          </SmoothScroll>
-        </IntlayerProvider>
+        <MotionConfig reducedMotion="user">
+          <IntlayerProvider>
+            <ThemeManager />
+            <SmoothScroll>
+              <MouseFollower />
+              <Grain />
+              <Noise />
+              <ControlCenter />
+              <AnimatePresence mode="wait">
+                <motion.main
+                  key={location.pathname}
+                  initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
+                  animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+                  exit={{ filter: "blur(10px)", opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {children}
+                </motion.main>
+              </AnimatePresence>
+              <ScrollRestoration />
+              <Scripts />
+            </SmoothScroll>
+          </IntlayerProvider>
+        </MotionConfig>
       </body>
     </html>
   );
