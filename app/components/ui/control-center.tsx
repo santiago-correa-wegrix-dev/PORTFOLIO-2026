@@ -11,14 +11,13 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 import { useUIStore } from "~/store/ui-store";
 
 export function ControlCenter() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme, showCustomCursor, toggleCustomCursor } = useUIStore();
-  const navigate = useNavigate();
 
   const cycleTheme = () => {
     const order = ["light", "dark", "system"] as const;
@@ -37,14 +36,6 @@ export function ControlCenter() {
   const themeLabels = { dark: "Dark", light: "Light", system: "System" };
   const themeLabel = themeLabels[theme];
 
-  const handleNav = (id: string) => {
-    navigate(`/#${id}`);
-  };
-
-  const goHome = () => {
-    navigate("/");
-  };
-
   return (
     <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start">
       <AnimatePresence mode="popLayout">
@@ -58,17 +49,9 @@ export function ControlCenter() {
             className="flex min-w-50 flex-col gap-2 rounded-3xl border border-border bg-card/90 p-2 shadow-2xl backdrop-blur-xl"
           >
             <div className="grid grid-cols-3 gap-1 p-1">
-              <CapsuleAction onClick={goHome} icon={<Home className="h-4 w-4" />} label="Home" />
-              <CapsuleAction
-                onClick={() => handleNav("projects")}
-                icon={<LayoutGrid className="h-4 w-4" />}
-                label="Work"
-              />
-              <CapsuleAction
-                onClick={() => handleNav("contact")}
-                icon={<Mail className="h-4 w-4" />}
-                label="Contact"
-              />
+              <CapsuleAction to="/" icon={<Home className="h-4 w-4" />} label="Home" />
+              <CapsuleAction to="/#projects" icon={<LayoutGrid className="h-4 w-4" />} label="Work" />
+              <CapsuleAction to="/#contact" icon={<Mail className="h-4 w-4" />} label="Contact" />
             </div>
 
             <div className="mx-2 h-px bg-border" />
@@ -107,22 +90,22 @@ export function ControlCenter() {
 function CapsuleAction({
   icon,
   label,
-  onClick,
+  to,
 }: {
   icon: React.ReactNode;
   label: string;
-  onClick: () => void;
+  to: string;
 }) {
   return (
-    <button
-      onClick={onClick}
+    <Link
+      to={to}
       className="group flex flex-col items-center justify-center gap-1 rounded-2xl p-2 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
     >
       {icon}
       <span className="pointer-events-none absolute -top-8 rounded-md bg-foreground px-2 py-1 text-[10px] font-medium text-background opacity-0 transition-opacity group-hover:opacity-100">
         {label}
       </span>
-    </button>
+    </Link>
   );
 }
 
