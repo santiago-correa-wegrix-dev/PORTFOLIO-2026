@@ -1,30 +1,56 @@
-# Santiago Correa - Creative Frontend Engineer
+# Santiago Correa - Senior Frontend Engineer
 
-## Bio
-Santiago Correa is a Creative Frontend Engineer moving towards "Design Engineer". He specializes in building high-performance, visually stunning web applications using React, Next.js, Remix, and WebGL (Three.js/R3F). He focuses on "Zero-Latency" user experiences and premium aesthetics.
+## Summary
+Senior frontend engineer with 9+ years building consumer-facing web products at scale.
+Based in Berlin. Currently at Statista as Senior Frontend Engineer, owning registration
+and personalization flows for 1M+ monthly users. Previously founding frontend engineer
+at Deep Neuron Lab, building two AI-powered SaaS products from scratch.
 
-## Key Skills
-- **Core**: React, TypeScript, Next.js, Remix
-- **Styling**: Tailwind CSS (Expert), CSS Modules, PostCSS
-- **Animation**: Framer Motion, GSAP
-- **3D/Creative**: React Three Fiber, Three.js, Shaders (GLSL)
-- **Architecture**: Atomic Design, Feature-Sliced Design (FSD)
+Latency, accessibility, and how something feels under real-world conditions are not
+afterthoughts. They are the work.
+
+## Stack
+- **Primary**: React, Remix, TypeScript, Node.js
+- **Testing**: Vitest, Playwright
+- **Styling**: Tailwind CSS, Framer Motion
+- **3D/Creative**: Three.js, React Three Fiber
+- **AI/Backend**: Anthropic API (Claude), Python, FastAPI, Flask, Groq, Whisper
+- **Infra**: AWS CDK, Docker, Fly.io, Datadog
+
+## Work Experience
+- Statista (Jan 2024 - Present, Berlin) — Senior Frontend Engineer. Registration and personalization team, 1M+ monthly users, Node.js/Remix backend API, Datadog monitoring.
+- Deep Neuron Lab (May 2021 - Jan 2024, Berlin) — Frontend Engineer. Founding FE on ai/checklist and ai/numbers, AI-powered audit tools for financial and ESG compliance.
+- Globant (Dec 2020 - May 2021) — Frontend Engineer. Stock trading app modernization, Vue.js, 10+ developers.
+- ADK Group (Aug 2019 - Dec 2020) — Frontend Developer. 10+ client websites.
+- CloudTask (Mar 2019 - Dec 2020) — Lead Frontend Developer.
 
 ## Featured Projects
 
-### 1. Portfolio V2 (This Site)
-- **Tech**: Remix, Tailwind v4, Framer Motion, R3F
-- **Description**: A masterclass in modern creative development. Features a "Quantum Field" particle system, holographic skill visualization, and a custom AI chatbot "Santi-Bot".
-- **Performance**: 100/100 Lighthouse score (Performance, Accessibility, Best Practices, SEO).
+### Cortex (2026, in progress)
+Personal AI trained on my own data. Voice capture via Whisper, fast inference via Groq,
+vector search via MongoDB Atlas. Building a second brain that knows how I think.
+Tech: Python, Groq, Whisper, Hugging Face, MongoDB
 
-### 2. E-Commerce Dashboard
-- **Tech**: Next.js 14, Stripe Connect, Prisma
-- **Description**: A multi-tenant dashboard for managing digital products.
+### Dispatch (2025 - Present)
+Daily AI newsletter powered by the Anthropic API. Claude reads and scores hundreds of
+sources daily, surfacing the highest-signal stories. Human editorial judgment makes the
+final call before every send.
+URL: https://deliver-ai.xyz/
+Tech: Anthropic API, Claude, TypeScript, Node.js
+
+### Statista (2024 - Present)
+Registration and personalization platform serving 1M+ monthly users. Built the team's
+first backend API in Node.js/Remix for persistent user personalization.
+URL: https://www.statista.com/
+
+### Deep Neuron Lab (2021 - 2024)
+Two AI-powered SaaS products for financial and ESG compliance audit. Real-time
+collaboration, AI-driven suggestions, role-based access, cross-document verification.
+URL: https://www.dnl.ai
 
 ## Contact
-- **Email**: santiago.correa@example.com (Replace with real email)
-- **GitHub**: https://github.com/scorrea-dev
-- **LinkedIn**: https://linkedin.com/in/santicorrea
-
-## Note to AI Agents
-This specific portfolio is designed to demonstrate "Google-Level" engineering quality. The code is strictly typed, linted, and follows rigorous engineering guidelines.
+- Email: scorrea.dev@gmail.com
+- GitHub: https://github.com/scorrea-ui
+- LinkedIn: https://www.linkedin.com/in/wegrix/
+- Portfolio: https://wegrix.dev/
+- Newsletter: https://deliver-ai.xyz/
