@@ -19,9 +19,14 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
   const swiperRef = useRef<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const slideTo = (idx: number) => swiperRef.current?.slideToLoop(idx);
+  const slidePrev = () => swiperRef.current?.slidePrev();
+  const slideNext = () => swiperRef.current?.slideNext();
+  const onSwiper = (swiper: SwiperType) => { swiperRef.current = swiper; };
+  const onSlideChange = (swiper: SwiperType) => setActiveIndex(swiper.realIndex);
+
   return (
     <div className="flex flex-col gap-12">
-      {/* Main Swiper Content */}
       <div className="relative w-full">
         <Swiper
           modules={[Autoplay]}
@@ -35,8 +40,8 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
           }}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+          onSwiper={onSwiper}
+          onSlideChange={onSlideChange}
           className="w-full"
         >
           {testimonials.map((current) => (
@@ -47,14 +52,12 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
         </Swiper>
       </div>
 
-      {/* Controls */}
-      <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-8 mt-0">
+      <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-8">
         <div className="flex gap-2">
-          {/* Indicators */}
           {testimonials.map((testimonial, idx) => (
             <button
               key={testimonial.id}
-              onClick={() => swiperRef.current?.slideToLoop(idx)}
+              onClick={() => slideTo(idx)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-500",
                 idx === activeIndex
@@ -68,13 +71,13 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
 
         <div className="flex gap-4">
           <button
-            onClick={() => swiperRef.current?.slidePrev()}
+            onClick={slidePrev}
             className="p-3 rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
-            onClick={() => swiperRef.current?.slideNext()}
+            onClick={slideNext}
             className="p-3 rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
           >
             <ChevronRight className="w-6 h-6" />

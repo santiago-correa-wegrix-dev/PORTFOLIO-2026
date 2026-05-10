@@ -7,8 +7,7 @@ export function useIsDark() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Safe check for SSR
-    if (globalThis.window === undefined) {return;}
+    if (globalThis.window === undefined) { return; }
 
     const mediaQuery = globalThis.matchMedia("(prefers-color-scheme: dark)");
 
