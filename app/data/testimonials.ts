@@ -12,7 +12,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "christopher",
     name: "Christopher Skoglund",
     quote:
-      "Santiago excels across all areas of development. No matter the size, scope, or complexity of the project he consistently produces code that is easy for his teammates to read, maintain, and build upon. He is a delight to work with. He is a delight to work with.",
+      "Santiago excels across all areas of development. No matter the size, scope, or complexity of the project he consistently produces code that is easy for his teammates to read, maintain, and build upon. He is a delight to work with.",
     role: "Software Development Team Lead",
   },
   {
@@ -29,7 +29,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Jean Roa",
     quote:
       "Santiago is one of the best professionals I've ever worked with. He's a great person, always open to help with soft skills and a lot of tech skills that make him a world class professional.",
-    role: "Software Wizard",
+    role: "Senior Software Engineer",
   },
   {
     highlight: "Super responsive and attentive.",
@@ -37,6 +37,6 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Michael Hanson",
     quote:
       "Santiago helped me create 2 great websites in the space of 4 weeks. He is super responsive and attentive. Highly recommend him as a web developer.",
-    role: "B2B Growth & News Stories",
+    role: "Founder",
   },
 ];

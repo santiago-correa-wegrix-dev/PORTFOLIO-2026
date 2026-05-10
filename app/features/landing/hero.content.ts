@@ -5,11 +5,9 @@ const heroContent: Dictionary = {
   content: {
     cta: t({ en: "Explore Work" }),
     scroll: t({ en: "Scroll" }),
-    subline: t({
-      en: "Let's build something great together.",
-    }),
+    subline: t({ en: "Open to what's next." }),
     tagline: t({
-      en: "Senior engineer building consumer products at scale. Nine years of closing the gap between what a product can do and what users actually experience.",
+      en: "Nine years building consumer products at scale. Latency, accessibility, and how something feels under real-world conditions are not afterthoughts in my work. They are the work.",
     }),
   },
   key: "hero",
