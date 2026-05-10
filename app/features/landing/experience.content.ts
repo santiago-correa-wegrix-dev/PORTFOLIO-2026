@@ -1,7 +1,7 @@
 // oxlint-disable-next-line id-length
 import { type Dictionary, t } from "intlayer";
 
-const experienceContent = {
+const experienceContent: Dictionary = {
   content: {
     description: t({
       en: "A proven track record of technical leadership and shipping mission-critical products.",
@@ -10,6 +10,6 @@ const experienceContent = {
     titleAccent: t({ en: "History" }),
   },
   key: "experience",
-} satisfies Dictionary;
+};
 
 export default experienceContent;

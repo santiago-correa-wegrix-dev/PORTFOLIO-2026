@@ -1,7 +1,7 @@
 // oxlint-disable-next-line id-length
 import { type Dictionary, t } from "intlayer";
 
-const heroContent = {
+const heroContent: Dictionary = {
   content: {
     cta: t({ en: "Explore Work" }),
     scroll: t({ en: "Scroll" }),
@@ -13,6 +13,6 @@ const heroContent = {
     }),
   },
   key: "hero",
-} satisfies Dictionary;
+};
 
 export default heroContent;
