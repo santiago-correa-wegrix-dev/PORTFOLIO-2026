@@ -28,7 +28,8 @@ export const links: Route.LinksFunction = () => [
 export const meta: Route.MetaFunction = () => [
   { title: "Santiago Correa | Senior Engineer" },
   {
-    content: "Senior engineer building consumer products at scale.",
+    content:
+      "Senior frontend engineer with 9+ years building consumer products at scale. React, Remix, TypeScript. Currently at Statista. Building with the Anthropic API.",
     name: "description",
   },
   {

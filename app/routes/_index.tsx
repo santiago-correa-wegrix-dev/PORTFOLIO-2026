@@ -36,32 +36,25 @@ const Kudos = lazy(() =>
 
 export function meta() {
   return [
-    { title: "Santiago Correa | Senior Engineer" },
+    { title: "Santiago Correa | Senior Frontend Engineer" },
     {
-      content: "Senior engineer building consumer products at scale.",
+      content:
+        "Senior frontend engineer with 9+ years building consumer products at scale. React, Remix, TypeScript. Currently at Statista. Building with the Anthropic API.",
       name: "description",
     },
     {
-      content:
-        "Senior Engineer, Frontend, React, Remix, TypeScript, Consumer Products, Performance, Accessibility",
-      name: "keywords",
-    },
-    {
-      content: "Santiago Correa | Senior Engineer",
+      content: "Santiago Correa | Senior Frontend Engineer",
       property: "og:title",
     },
     {
-      content: "Senior engineer building consumer products at scale.",
+      content:
+        "Senior frontend engineer with 9+ years building consumer products at scale. React, Remix, TypeScript. Currently at Statista. Building with the Anthropic API.",
       property: "og:description",
     },
     { content: "website", property: "og:type" },
     { content: "https://wegrix.dev", property: "og:url" },
-    {
-      content: "https://wegrix.dev/og-image.jpg",
-      property: "og:image",
-    },
+    { content: "https://wegrix.dev/og-image.jpg", property: "og:image" },
     { content: "summary_large_image", property: "twitter:card" },
-    { content: "@santicorrea", property: "twitter:creator" },
     { content: "https://wegrix.dev/og-image.jpg", property: "twitter:image" },
   ];
 }

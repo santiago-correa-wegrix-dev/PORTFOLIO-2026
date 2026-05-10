@@ -9,7 +9,6 @@ const contactContent: Dictionary = {
     }),
     emailLabel: t({ en: "Email" }),
     messageLabel: t({ en: "Message" }),
-    messagePlaceholder: t({ en: "Tell me about your project..." }),
     messageSentDescription: t({
       en: "Thanks for reaching out! I'll get back to you as soon as possible.",
     }),
