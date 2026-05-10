@@ -1,5 +1,6 @@
 import { Terminal } from "lucide-react";
 import {
+  siAngular,
   siDocker,
   siFigma,
   siGit,
@@ -10,8 +11,10 @@ import {
   siNextdotjs,
   siNodedotjs,
   siPostgresql,
+  siPython,
   siReact,
   siRemix,
+  siShopify,
   siSpotify,
   siTailwindcss,
   siThreedotjs,
@@ -29,7 +32,7 @@ interface SimpleIcon {
 }
 
 const ICON_MAP: Record<string, SimpleIcon> = {
-  Angular: siReact, // Placeholder
+  Angular: siAngular,
   Docker: siDocker,
   Figma: siFigma,
   Git: siGit,
@@ -40,10 +43,10 @@ const ICON_MAP: Record<string, SimpleIcon> = {
   "Next.js": siNextdotjs,
   "Node.js": siNodedotjs,
   PostgreSQL: siPostgresql,
-  Python: siNodedotjs, // Placeholder or need import
+  Python: siPython,
   React: siReact,
   Remix: siRemix,
-  Shopify: siWebflow, // Placeholder or need to import siShopify
+  Shopify: siShopify,
   Spotify: siSpotify,
   Tailwind: siTailwindcss,
   "Three.js": siThreedotjs,

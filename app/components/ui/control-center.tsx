@@ -10,7 +10,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 import { useUIStore } from "~/store/ui-store";
@@ -38,12 +38,27 @@ export function ControlCenter() {
   const themeLabels = { dark: "Dark", light: "Light", system: "System" };
   const themeLabel = themeLabels[theme];
 
-  const handleNav = (id: string) => {
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
+  const pendingNavId = useRef<string | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timeoutRef.current) { clearTimeout(timeoutRef.current); }
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname === "/" && pendingNavId.current) {
+      const id = pendingNavId.current;
+      pendingNavId.current = null;
+      timeoutRef.current = setTimeout(() => {
         document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
       }, 100);
+    }
+  }, [location.pathname]);
+
+  const handleNav = (id: string) => {
+    if (location.pathname !== "/") {
+      pendingNavId.current = id;
+      navigate("/");
     } else {
       document.querySelector(`#${id}`)?.scrollIntoView({ behavior: "smooth" });
     }
@@ -64,7 +79,7 @@ export function ControlCenter() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ damping: 25, stiffness: 300, type: "spring" }}
-            className="flex min-w-[200px] flex-col gap-2 rounded-3xl border border-border bg-card/90 p-2 shadow-2xl backdrop-blur-xl"
+            className="flex min-w-50 flex-col gap-2 rounded-3xl border border-border bg-card/90 p-2 shadow-2xl backdrop-blur-xl"
           >
             <div className="grid grid-cols-3 gap-1 p-1">
               <CapsuleAction onClick={goHome} icon={<Home className="h-4 w-4" />} label="Home" />
@@ -80,7 +95,7 @@ export function ControlCenter() {
               />
             </div>
 
-            <div className="mx-2 h-[1px] bg-border" />
+            <div className="mx-2 h-px bg-border" />
 
             <div className="flex flex-col gap-1 p-1">
               <CapsuleToggle

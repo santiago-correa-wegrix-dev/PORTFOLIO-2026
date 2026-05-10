@@ -51,9 +51,9 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
       <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-8 mt-0">
         <div className="flex gap-2">
           {/* Indicators */}
-          {testimonials.map((_testimonial, idx) => (
+          {testimonials.map((testimonial, idx) => (
             <button
-              key={idx}
+              key={testimonial.id}
               onClick={() => swiperRef.current?.slideToLoop(idx)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-500",

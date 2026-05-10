@@ -126,7 +126,7 @@ function HelixStructure({ isDark }: { isDark: boolean }) {
 
   // Distribute skills along the helix
   const nodes = useMemo(() => skills.map((skill, index) => {
-      const progress = index / (skills.length - 1);
+      const progress = index / Math.max(skills.length - 1, 1);
       // Alternate strands
       const strandOffset = index % 2 === 0 ? 0 : Math.PI;
       const angle = progress * Math.PI * 2 * turns + strandOffset;
@@ -164,9 +164,9 @@ function HelixStructure({ isDark }: { isDark: boolean }) {
   return (
     <group ref={groupRef}>
       <HelixStrand isDark={isDark} />
-      {nodes.map((node, index) => (
+      {nodes.map((node) => (
         <SkillNode
-          key={index}
+          key={node.name}
           name={node.name}
           position={node.pos}
           color={node.color}

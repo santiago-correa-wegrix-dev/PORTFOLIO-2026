@@ -8,17 +8,19 @@ import { SocialLinks } from "~/components/ui/social-links";
 import { useFetcher } from "react-router";
 
 
+interface ContactFormResponse {
+  success?: boolean;
+  error?: string;
+  details?: {
+    name?: string[];
+    email?: string[];
+    message?: string[];
+  };
+}
+
 export function Contact() {
   const content = useIntlayer("contact");
-  const fetcher = useFetcher<{
-    success?: boolean;
-    error?: string;
-    details?: {
-      name?: string[];
-      email?: string[];
-      message?: string[];
-    };
-  }>();
+  const fetcher = useFetcher<ContactFormResponse>();
   const { data, state } = fetcher;
   const isSubmitting = state === "submitting";
   const isSuccess = data?.success;
@@ -91,7 +93,7 @@ export function Contact() {
 
             <div className="mt-8 border-t border-border pt-8">
               <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-                &copy; 2026 Santiago Correa. All rights reserved.
+                {content.copyright}
               </span>
             </div>
           </div>
@@ -116,14 +118,14 @@ export function Contact() {
                 <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-green-500/10">
                   <Send className="h-10 w-10 text-green-500" />
                 </div>
-                <h3 className="mb-4 bg-gradient-to-r from-green-400 to-emerald-600 bg-clip-text text-3xl font-bold text-transparent">
-                  Message Sent!
+                <h3 className="mb-4 bg-linear-to-r from-green-400 to-emerald-600 bg-clip-text text-3xl font-bold text-transparent">
+                  {content.messageSentTitle}
                 </h3>
                 <p className="max-w-sm text-lg text-muted-foreground">
-                  Thanks for reaching out! I'll get back to you as soon as possible.
+                  {content.messageSentDescription}
                 </p>
                 <Button onClick={() => globalThis.location.reload()} variant="outline" className="mt-8">
-                  Send Another
+                  {content.sendAnother}
                 </Button>
               </motion.div>
             ) : (
@@ -163,7 +165,7 @@ export function Contact() {
                     rows={4}
                     required
                     className="resize-none rounded-lg border border-border bg-background p-3 text-foreground transition-colors focus:border-zinc-500 focus:outline-none"
-                    placeholder="Tell me about your project..."
+                    placeholder={content.messagePlaceholder as string}
                   />
                   <AnimatePresence mode="wait">
                     {data?.details?.message && (
@@ -184,7 +186,7 @@ export function Contact() {
                   disabled={isSubmitting}
                   className="mt-2 h-14 w-full rounded-xl bg-foreground text-lg font-medium text-background shadow-lg transition-all hover:scale-[1.02] hover:opacity-90 hover:shadow-xl active:scale-[0.98]"
                 >
-                  {isSubmitting ? "Sending..." : content.sendButton}
+                  {isSubmitting ? content.sending : content.sendButton}
                   <Send className="ml-2 h-4 w-4" />
                 </Button>
 
@@ -207,7 +209,7 @@ export function Contact() {
         </motion.div>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.03] dark:opacity-[0.07]" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px] opacity-[0.03] dark:opacity-[0.07]" />
     </section>
   );
 }
