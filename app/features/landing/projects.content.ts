@@ -5,7 +5,7 @@ const projectsContent: Dictionary = {
   content: {
     title: t({ en: "Selected" }),
     titleAccent: t({ en: "Work" }),
-    years: t({ en: "(2017 — 2025)" }),
+    years: t({ en: "(2017 — 2026)" }),
   },
   key: "projects",
 };

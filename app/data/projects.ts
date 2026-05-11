@@ -45,7 +45,7 @@ export const realProjects: Project[] = [
     stack: ["Anthropic API", "Claude", "TypeScript", "Node.js"],
     title: "Dispatch",
     url: "https://deliver-ai.xyz/",
-    year: "2025 - Present",
+    year: "2026 - Present",
   },
   {
     category: "Data Platform",
