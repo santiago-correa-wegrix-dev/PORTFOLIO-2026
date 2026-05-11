@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useIntlayer } from "react-intlayer";
 import { Link, useLoaderData } from "react-router";
 
@@ -29,10 +29,20 @@ export function loader() {
 
 export default function Writing() {
   const { posts } = useLoaderData<typeof loader>();
-  const { title, subtitle, minRead } = useIntlayer("writing");
+  const { back, title, subtitle, minRead } = useIntlayer("writing");
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <div className="fixed top-5 left-5 md:top-6 md:left-8 z-50">
+        <Link
+          to="/"
+          className="flex items-center gap-2 px-4 py-2.5 bg-background/80 backdrop-blur-md border border-border rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-all shadow-xl hover:scale-105 active:scale-95 group"
+        >
+          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+          <span className="hidden sm:inline">{back}</span>
+        </Link>
+      </div>
+
       <div className="px-6 pt-32 pb-24 md:px-12 lg:px-24">
         <div className="mx-auto max-w-4xl">
           <motion.div
