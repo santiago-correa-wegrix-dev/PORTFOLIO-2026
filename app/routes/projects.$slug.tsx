@@ -128,7 +128,7 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-auto flex items-center gap-2 px-4 py-2.5 border border-border rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-all hover:scale-105 active:scale-95 group"
+                className="ml-auto flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-medium transition-all hover:scale-105 active:scale-95 group bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
               >
                 <span>{visitSite}</span>
                 <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
