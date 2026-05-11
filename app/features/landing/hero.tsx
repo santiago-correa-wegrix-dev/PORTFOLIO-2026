@@ -16,7 +16,7 @@ const QuantumField = lazy(() =>
 );
 
 export function Hero() {
-  const { tagline, subline, cta, scroll } = useIntlayer("hero");
+  const { tagline, subline, cta, writing, scroll } = useIntlayer("hero");
   const { scrollY } = useScroll();
   const isDark = useIsDark();
 
@@ -72,6 +72,14 @@ export function Hero() {
               {cta}
               <ArrowDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-0.5" />
             </Link>
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            className="h-12 rounded-full border-zinc-300 px-7 text-base font-medium transition-all duration-300 hover:scale-105 dark:border-zinc-700"
+          >
+            <Link to="/writing">{writing}</Link>
           </Button>
 
           <SocialLinks />

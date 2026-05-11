@@ -52,6 +52,7 @@ COPY --from=prod-deps /app/node_modules ./node_modules
 
 COPY --from=build /app/build ./build
 COPY --from=build /app/public ./public
+COPY --from=build /app/content ./content
 
 EXPOSE 3000
 

@@ -4,6 +4,7 @@ import { type Dictionary, t } from "intlayer";
 const heroContent: Dictionary = {
   content: {
     cta: t({ en: "Explore Work" }),
+    writing: t({ en: "Writing" }),
     scroll: t({ en: "Scroll" }),
     subline: t({ en: "Open to what's next." }),
     tagline: t({

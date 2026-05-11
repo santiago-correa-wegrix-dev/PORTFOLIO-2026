@@ -6,6 +6,7 @@ import {
   Monitor,
   Moon,
   MousePointer2,
+  Pencil,
   Settings,
   Sun,
   X,
@@ -63,13 +64,14 @@ export function ControlCenter() {
             transition={{ damping: 25, stiffness: 300, type: "spring" }}
             className="flex min-w-50 flex-col gap-2 rounded-3xl border border-border bg-card/90 p-2 shadow-2xl backdrop-blur-xl"
           >
-            <div className="grid grid-cols-3 gap-1 p-1">
+            <div className="grid grid-cols-4 gap-1 p-1">
               <CapsuleAction to="/" icon={<Home className="h-4 w-4" />} label="Home" />
               <CapsuleAction
                 to="/#projects"
                 icon={<LayoutGrid className="h-4 w-4" />}
                 label="Work"
               />
+              <CapsuleAction to="/writing" icon={<Pencil className="h-4 w-4" />} label="Writing" />
               <CapsuleAction to="/#contact" icon={<Mail className="h-4 w-4" />} label="Contact" />
             </div>
 
