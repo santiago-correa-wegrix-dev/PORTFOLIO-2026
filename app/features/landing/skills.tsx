@@ -2,7 +2,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Suspense, lazy, useState } from "react";
 import { useIntlayer } from "react-intlayer";
 
+import { Button } from "~/components/ui/button";
 import { TechIcon } from "~/components/ui/tech-icon";
+import { cn } from "~/utils/utils";
 
 const HolographicSkills = lazy(() =>
   import("~/components/visuals/holographic-skills").then((module) => ({
@@ -35,18 +37,30 @@ export function SkillGalaxy({ data: skillsList }: SkillGalaxyProps) {
             </div>
 
             <div className="flex items-center gap-1 rounded-full border border-border/50 bg-zinc-100 p-1 dark:bg-zinc-900/50">
-              <button
+              <Button
+                variant="ghost"
                 onClick={() => setViewMode("3d")}
-                className={`rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${viewMode === "3d" ? "bg-white text-foreground shadow-sm dark:bg-zinc-800" : "text-muted-foreground hover:text-foreground"}`}
+                className={cn(
+                  "h-auto rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wider",
+                  viewMode === "3d"
+                    ? "bg-white text-foreground shadow-sm dark:bg-zinc-800 hover:bg-white dark:hover:bg-zinc-800"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
               >
                 3D
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="ghost"
                 onClick={() => setViewMode("list")}
-                className={`rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${viewMode === "list" ? "bg-white text-foreground shadow-sm dark:bg-zinc-800" : "text-muted-foreground hover:text-foreground"}`}
+                className={cn(
+                  "h-auto rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wider",
+                  viewMode === "list"
+                    ? "bg-white text-foreground shadow-sm dark:bg-zinc-800 hover:bg-white dark:hover:bg-zinc-800"
+                    : "text-muted-foreground hover:text-foreground",
+                )}
               >
                 List
-              </button>
+              </Button>
             </div>
           </div>
 

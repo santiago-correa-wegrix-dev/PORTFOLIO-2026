@@ -21,25 +21,10 @@ export function ThemeManager() {
         effectiveDark = theme === "dark";
       }
 
-      // Apply to DOM
       if (effectiveDark) {
         root.classList.add("dark");
-        // Update meta theme-color
-        document
-          .querySelector('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')
-          ?.setAttribute("content", "#000000");
-        document
-          .querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]')
-          ?.setAttribute("content", "#000000");
       } else {
         root.classList.add("light");
-        // Update meta theme-color
-        document
-          .querySelector('meta[name="theme-color"][media="(prefers-color-scheme: dark)"]')
-          ?.setAttribute("content", "#ffffff");
-        document
-          .querySelector('meta[name="theme-color"][media="(prefers-color-scheme: light)"]')
-          ?.setAttribute("content", "#ffffff");
       }
     };
 

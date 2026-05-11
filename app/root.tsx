@@ -18,6 +18,7 @@ import { SmoothScroll } from "~/components/layout/smooth-scroll";
 import { ThemeManager } from "~/components/layout/theme-manager";
 import { ControlCenter } from "~/components/ui/control-center";
 import { Noise } from "~/components/ui/noise";
+import { useIsDark } from "~/hooks/use-is-dark";
 
 import type { Route } from "./+types/root";
 
@@ -31,16 +32,6 @@ export const meta: Route.MetaFunction = () => [
     content:
       "Senior frontend engineer with 9+ years building consumer products at scale. React, Remix, TypeScript. Currently at Statista. Building with the Anthropic API.",
     name: "description",
-  },
-  {
-    content: "#ffffff",
-    media: "(prefers-color-scheme: light)",
-    name: "theme-color",
-  },
-  {
-    content: "#000000",
-    media: "(prefers-color-scheme: dark)",
-    name: "theme-color",
   },
   {
     "script:ld+json": {
@@ -80,12 +71,14 @@ export const meta: Route.MetaFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  const isDark = useIsDark();
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content={isDark ? "#000000" : "#ffffff"} />
         <Meta />
         <Links />
       </head>

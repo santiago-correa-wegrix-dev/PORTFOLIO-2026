@@ -6,6 +6,7 @@ import type { Swiper as SwiperType } from "swiper";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Button } from "~/components/ui/button";
 import type { Testimonial } from "~/data/testimonials";
 import { cn } from "~/utils/utils";
 
@@ -57,11 +58,12 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
       <div className="flex items-center justify-between border-t border-zinc-200 dark:border-zinc-800 pt-8">
         <div className="flex gap-2">
           {testimonials.map((testimonial, idx) => (
-            <button
+            <Button
               key={testimonial.id}
+              variant="ghost"
               onClick={() => slideTo(idx)}
               aria-label={`Go to testimonial ${idx + 1}`}
-              className="flex h-11 w-11 items-center justify-center"
+              className="h-11 w-11 p-0"
             >
               <span
                 className={cn(
@@ -71,25 +73,27 @@ export function TestimonialSlider({ testimonials }: TestimonialSliderProps) {
                     : "w-2 bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400",
                 )}
               />
-            </button>
+            </Button>
           ))}
         </div>
 
         <div className="flex gap-4">
-          <button
+          <Button
+            variant="ghost"
             aria-label="Go to previous Slide"
             onClick={slidePrev}
-            className="p-3 rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            className="h-auto w-auto rounded-full border border-zinc-200 p-3 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
           >
             <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="ghost"
             aria-label="Go to next Slide"
             onClick={slideNext}
-            className="p-3 rounded-full border border-zinc-200 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
+            className="h-auto w-auto rounded-full border border-zinc-200 p-3 dark:border-zinc-800 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
           >
             <ChevronRight className="w-6 h-6" />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

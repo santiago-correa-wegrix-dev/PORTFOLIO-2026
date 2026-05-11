@@ -13,6 +13,9 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
+import { Button } from "~/components/ui/button";
+import { cn } from "~/utils/utils";
+
 import { useUIStore } from "~/store/ui-store";
 
 export function ControlCenter() {
@@ -132,17 +135,21 @@ function CapsuleToggle({
   active: boolean;
 }) {
   return (
-    <button
+    <Button
+      variant="ghost"
       onClick={onClick}
-      className={`flex items-center justify-between rounded-2xl p-3 transition-all ${active ? "bg-foreground text-background shadow-md" : "text-muted-foreground hover:bg-foreground/10"}`}
+      className={cn(
+        "h-auto w-full justify-between rounded-2xl p-3",
+        active
+          ? "bg-foreground text-background shadow-md hover:bg-foreground/90 hover:text-background"
+          : "text-muted-foreground hover:bg-foreground/10",
+      )}
     >
       <div className="flex items-center gap-3">
         {icon}
         <span className="text-xs font-medium">{label}</span>
       </div>
-      <div
-        className={`h-2 w-2 rounded-full ${active ? "bg-background" : "bg-muted-foreground/30"}`}
-      />
-    </button>
+      <div className={cn("h-2 w-2 rounded-full", active ? "bg-background" : "bg-muted-foreground/30")} />
+    </Button>
   );
 }

@@ -3,7 +3,6 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useIntlayer } from "react-intlayer";
 import { Link } from "react-router";
 
-import { Button } from "~/components/ui/button";
 import { SplitText } from "~/components/ui/split-text";
 import { TechIcon } from "~/components/ui/tech-icon";
 import { realProjects } from "~/data/projects";
@@ -82,7 +81,8 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
         </Link>
       </div>
 
-      <div className="pt-24 md:pt-32 pb-10 md:pb-14 px-5 sm:px-8 md:px-12 lg:px-24">
+
+<div className="pt-24 md:pt-32 pb-10 md:pb-14 px-5 sm:px-8 md:px-12 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -102,7 +102,7 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
             <SplitText>{project.title.toUpperCase()}</SplitText>
           </h1>
 
-          <div className="flex flex-wrap gap-x-8 gap-y-5 border-t border-border pt-6 md:pt-8">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-border pt-6 md:pt-8">
             {project.role && (
               <div>
                 <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">
@@ -123,6 +123,17 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
               </p>
               <p className="text-sm md:text-base font-medium text-foreground">{project.category}</p>
             </div>
+            {project.url && (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-auto flex items-center gap-2 px-4 py-2.5 border border-border rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-all hover:scale-105 active:scale-95 group"
+              >
+                <span>{visitSite}</span>
+                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+            )}
           </div>
         </motion.div>
       </div>
@@ -257,18 +268,6 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
         </div>
       </motion.div>
 
-      {project.url && (
-        <div className="flex flex-col items-center justify-center pb-20 md:pb-28 px-5">
-          <a href={project.url} target="_blank" rel="noopener noreferrer">
-            <Button
-              size="lg"
-              className="rounded-full px-8 md:px-10 h-13 md:h-16 text-sm md:text-lg bg-foreground text-background hover:bg-foreground/90 hover:scale-105 transition-all shadow-[0_0_60px_-15px_rgba(255,255,255,0.3)]"
-            >
-              {visitSite} <ArrowUpRight className="ml-2 w-4 h-4 md:w-5 md:h-5" />
-            </Button>
-          </a>
-        </div>
-      )}
     </div>
   );
 }
