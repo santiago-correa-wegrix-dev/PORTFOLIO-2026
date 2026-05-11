@@ -46,19 +46,55 @@ export function meta({ data }: Route.MetaArgs) {
     {
       "script:ld+json": {
         "@context": "https://schema.org",
-        "@type": "CreativeWork",
-        author: {
-          "@type": "Person",
-          name: "Santiago Correa",
-          url: "https://wegrix.dev",
-        },
-        description: project.description,
-        headline: project.title,
-        image,
-        keywords: stack,
-        url: projectUrl,
-      },
-    },
+        "@graph": [
+          {
+            "@id": projectUrl,
+            "@type": "WebPage",
+            name: project.title,
+            url: projectUrl
+          },
+          {
+            "@id": `${projectUrl}#project`,
+            "@type": "SoftwareSourceCode",
+            author: {
+              "@id": "https://wegrix.dev/#person"
+            },
+            creator: {
+              "@id": "https://wegrix.dev/#person"
+            },
+            description: project.description,
+            image: {
+              "@type": "ImageObject",
+              url: image
+            },
+            keywords: stack,
+            mainEntityOfPage: {
+              "@id": projectUrl
+            },
+            name: project.title,
+            programmingLanguage: stack,
+            url: projectUrl
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                item: "https://wegrix.dev",
+                name: "Projects",
+                position: 1
+              },
+              {
+                "@type": "ListItem",
+                item: projectUrl,
+                name: project.title,
+                position: 2
+              }
+            ]
+          }
+        ]
+      }
+    }
   ];
 }
 
@@ -163,7 +199,7 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
         transition={{ delay: 0.25 }}
         className="px-4 sm:px-6 md:px-8 lg:px-16 mb-14 md:mb-24"
       >
-        <div className="max-w-7xl mx-auto h-[56vw] min-h-[240px] max-h-[680px] rounded-2xl md:rounded-3xl overflow-hidden border border-border/40 shadow-[0_0_80px_-20px_rgba(255,255,255,0.07)]">
+        <div className="max-w-7xl mx-auto h-[56vw] min-h-60 max-h-170 rounded-2xl md:rounded-3xl overflow-hidden border border-border/40 shadow-[0_0_80px_-20px_rgba(255,255,255,0.07)]">
           <HeroMedia project={project} />
         </div>
       </motion.div>

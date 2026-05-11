@@ -36,37 +36,52 @@ export const meta: Route.MetaFunction = () => [
   {
     "script:ld+json": {
       "@context": "https://schema.org",
-      "@type": "Person",
-      address: {
-        "@type": "PostalAddress",
-        addressCountry: "DE",
-        addressLocality: "Berlin",
-      },
-      email: "scorrea.dev@gmail.com",
-      jobTitle: "Senior Frontend Engineer",
-      knowsAbout: [
-        "React",
-        "TypeScript",
-        "Remix",
-        "Node.js",
-        "Anthropic API",
-        "Claude",
-        "Python",
-        "Three.js",
-      ],
-      name: "Santiago Correa",
-      sameAs: [
-        "https://github.com/scorrea-ui",
-        "https://www.linkedin.com/in/wegrix/",
-        "https://deliver-ai.xyz/",
-      ],
-      url: "https://wegrix.dev",
-      worksFor: {
-        "@type": "Organization",
-        name: "Statista",
-      },
-    },
-  },
+      "@graph": [
+        {
+          "@id": "https://wegrix.dev/#person",
+          "@type": "Person",
+          address: {
+            "@type": "PostalAddress",
+            addressCountry: "DE",
+            addressLocality: "Berlin"
+          },
+          email: "mailto:scorrea.dev@gmail.com",
+          image: "https://wegrix.dev/og-image.jpg",
+          jobTitle: "Senior Frontend Engineer",
+          knowsAbout: [
+            "React",
+            "TypeScript",
+            "Remix",
+            "Node.js",
+            "Anthropic API",
+            "Claude",
+            "Python",
+            "Three.js"
+          ],
+          name: "Santiago Correa",
+          sameAs: [
+            "https://github.com/scorrea-ui",
+            "https://www.linkedin.com/in/wegrix/",
+            "https://deliver-ai.xyz/"
+          ],
+          url: "https://wegrix.dev",
+          worksFor: {
+            "@type": "Organization",
+            name: "Statista"
+          }
+        },
+        {
+          "@id": "https://wegrix.dev/#website",
+          "@type": "WebSite",
+          name: "Wegrix",
+          publisher: {
+            "@id": "https://wegrix.dev/#person"
+          },
+          url: "https://wegrix.dev"
+        }
+      ]
+    }
+  }
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

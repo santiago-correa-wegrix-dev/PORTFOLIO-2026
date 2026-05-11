@@ -32,24 +32,57 @@ export function meta({ matches }: { matches: { data?: unknown }[] }) {
     {
       "script:ld+json": {
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        author: {
-          "@type": "Person",
-          name: "Santiago Correa",
-          url: "https://wegrix.dev",
-        },
-        datePublished: post.date,
-        description: post.description,
-        headline: post.title,
-        image: "https://wegrix.dev/og-image.jpg",
-        keywords: tags,
-        mainEntityOfPage: {
-          "@id": postUrl,
-          "@type": "WebPage",
-        },
-        url: postUrl,
-      },
-    },
+        "@graph": [
+          {
+            "@id": postUrl,
+            "@type": "WebPage",
+            name: post.title,
+            url: postUrl
+          },
+          {
+            "@id": `${postUrl}#article`,
+            "@type": "BlogPosting",
+            author: {
+              "@id": "https://wegrix.dev/#person"
+            },
+            dateModified: post.date,
+            datePublished: post.date,
+            description: post.description,
+            headline: post.title,
+            image: {
+              "@type": "ImageObject",
+              url: "https://wegrix.dev/og-image.jpg"
+            },
+            inLanguage: "en",
+            keywords: tags,
+            mainEntityOfPage: {
+              "@id": postUrl
+            },
+            publisher: {
+              "@id": "https://wegrix.dev/#person"
+            },
+            url: postUrl
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                item: "https://wegrix.dev/writing",
+                name: "Writing",
+                position: 1
+              },
+              {
+                "@type": "ListItem",
+                item: postUrl,
+                name: post.title,
+                position: 2
+              }
+            ]
+          }
+        ]
+      }
+    }
   ];
 }
 
