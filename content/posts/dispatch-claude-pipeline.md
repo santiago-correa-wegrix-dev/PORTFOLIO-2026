@@ -5,7 +5,7 @@ date: "2026-05-11"
 tags: ["claude", "anthropic", "mcp", "ai-engineering", "pipelines"]
 ---
 
-*How I architected a trust-scored AI news brief using Haiku 4.5, Sonnet 4.6, and the Model Context Protocol*
+_How I architected a trust-scored AI news brief using Haiku 4.5, Sonnet 4.6, and the Model Context Protocol_
 
 ---
 
@@ -67,4 +67,4 @@ The MCP server was the last piece. It turned a daily brief into a knowledge base
 
 ---
 
-*Dispatch is live at [deliver-ai.xyz](https://deliver-ai.xyz). The MCP server is public at [deliver-ai.xyz/mcp-info](https://deliver-ai.xyz/mcp-info).*
+_Dispatch is live at [deliver-ai.xyz](https://deliver-ai.xyz). The MCP server is public at [deliver-ai.xyz/mcp-info](https://deliver-ai.xyz/mcp-info)._

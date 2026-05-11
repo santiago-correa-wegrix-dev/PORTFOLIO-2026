@@ -27,18 +27,38 @@ export function meta({ data }: Route.MetaArgs) {
   const image = project.imageUrl
     ? `https://wegrix.dev${project.imageUrl}`
     : "https://wegrix.dev/og-image.jpg";
+  const projectUrl = `https://wegrix.dev/projects/${project.id}`;
+  const stack = project.stack?.join(", ") || "";
   return [
     { title },
     { content: project.description, name: "description" },
+    { content: stack, name: "keywords" },
+    { content: projectUrl, rel: "canonical" },
     { content: title, property: "og:title" },
     { content: project.description, property: "og:description" },
     { content: "website", property: "og:type" },
-    { content: `https://wegrix.dev/projects/${project.id}`, property: "og:url" },
+    { content: projectUrl, property: "og:url" },
     { content: image, property: "og:image" },
     { content: "summary_large_image", property: "twitter:card" },
     { content: title, property: "twitter:title" },
     { content: project.description, property: "twitter:description" },
     { content: image, property: "twitter:image" },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        author: {
+          "@type": "Person",
+          name: "Santiago Correa",
+          url: "https://wegrix.dev",
+        },
+        description: project.description,
+        headline: project.title,
+        image,
+        keywords: stack,
+        url: projectUrl,
+      },
+    },
   ];
 }
 
@@ -81,8 +101,7 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
         </Link>
       </div>
 
-
-<div className="pt-24 md:pt-32 pb-10 md:pb-14 px-5 sm:px-8 md:px-12 lg:px-24">
+      <div className="pt-24 md:pt-32 pb-10 md:pb-14 px-5 sm:px-8 md:px-12 lg:px-24">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -267,7 +286,6 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
           )}
         </div>
       </motion.div>
-
     </div>
   );
 }

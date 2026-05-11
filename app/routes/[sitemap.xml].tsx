@@ -1,10 +1,14 @@
 import { realProjects } from "~/data/projects";
+import { getAllPosts } from "~/utils/posts.server";
 
 export const loader = () => {
   const baseUrl = "https://wegrix.dev";
 
   // Static Routes
-  const staticRoutes = [{ changefreq: "weekly", priority: 1, url: "/" }];
+  const staticRoutes = [
+    { changefreq: "weekly", priority: 1, url: "/" },
+    { changefreq: "weekly", priority: 0.9, url: "/writing" },
+  ];
 
   // Dynamic Routes (Projects)
   const projectRoutes = realProjects.map((project) => ({
@@ -13,7 +17,15 @@ export const loader = () => {
     url: `/projects/${project.id}`,
   }));
 
-  const allRoutes = [...staticRoutes, ...projectRoutes];
+  // Dynamic Routes (Writing Posts)
+  const posts = getAllPosts();
+  const postRoutes = posts.map((post) => ({
+    changefreq: "monthly",
+    priority: 0.7,
+    url: `/writing/${post.slug}`,
+  }));
+
+  const allRoutes = [...staticRoutes, ...projectRoutes, ...postRoutes];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

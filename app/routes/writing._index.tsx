@@ -20,6 +20,13 @@ export function meta() {
       content: "Thoughts on engineering, AI, and building products.",
       name: "description",
     },
+    { content: "https://wegrix.dev/writing", rel: "canonical" },
+    { content: "Writing | Santiago Correa", property: "og:title" },
+    { content: "Thoughts on engineering, AI, and building products.", property: "og:description" },
+    { content: "website", property: "og:type" },
+    { content: "https://wegrix.dev/writing", property: "og:url" },
+    { content: "https://wegrix.dev/og-image.jpg", property: "og:image" },
+    { content: "summary_large_image", property: "twitter:card" },
   ];
 }
 

@@ -185,7 +185,10 @@ export function HolographicSkills() {
   const isDark = useIsDark();
 
   return (
-    <div aria-hidden="true" className="w-full h-150 relative cursor-grab active:cursor-grabbing -mt-12">
+    <div
+      aria-hidden="true"
+      className="w-full h-150 relative cursor-grab active:cursor-grabbing -mt-12"
+    >
       <Canvas camera={{ fov: 45, position: [0, 0, 14] }} gl={{ alpha: true, antialias: true }}>
         <Suspense fallback={null}>
           <ambientLight intensity={1} />

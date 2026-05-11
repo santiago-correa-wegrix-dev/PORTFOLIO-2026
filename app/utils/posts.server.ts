@@ -36,7 +36,10 @@ export function getAllPosts(): PostMeta[] {
       const frontmatter = data as PostFrontmatter;
       return Object.assign(frontmatter, { readingTime: readingTime(content), slug });
     })
-    .toSorted((prev: PostMeta, next: PostMeta) => new Date(next.date).getTime() - new Date(prev.date).getTime());
+    .toSorted(
+      (prev: PostMeta, next: PostMeta) =>
+        new Date(next.date).getTime() - new Date(prev.date).getTime(),
+    );
 }
 
 export function getPost(slug: string): Post {

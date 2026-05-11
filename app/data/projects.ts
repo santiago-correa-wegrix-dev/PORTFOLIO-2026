@@ -51,7 +51,8 @@ export const realProjects: Project[] = [
     category: "Data Platform",
     challenge:
       "Owning the registration and personalization flows for a platform serving 1M+ monthly users, where every millisecond and every form step directly affects conversion.",
-    description: "Registration and personalization platform powering the primary conversion funnel for 1M+ monthly users.",
+    description:
+      "Registration and personalization platform powering the primary conversion funnel for 1M+ monthly users.",
     id: "statista",
     imageColor: "#004e93",
     imageUrl: "/images/projects/statista.webp",
@@ -80,7 +81,8 @@ export const realProjects: Project[] = [
     category: "AI SaaS",
     challenge:
       "Building two AI-powered compliance products from scratch as the sole frontend engineer, with real-time collaboration, role-based access, and cross-document verification, before handing off to a growing team.",
-    description: "AI-powered audit tools for financial and ESG compliance. Two SaaS products built from the ground up.",
+    description:
+      "AI-powered audit tools for financial and ESG compliance. Two SaaS products built from the ground up.",
     id: "dnl",
     imageColor: "#4f46e5",
     imageUrl: "/images/projects/dnl.webp",

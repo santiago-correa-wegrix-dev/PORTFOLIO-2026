@@ -42,6 +42,7 @@ export function meta() {
         "Senior frontend engineer with 9+ years building consumer products at scale. React, Remix, TypeScript. Currently at Statista. Building with the Anthropic API.",
       name: "description",
     },
+    { content: "https://wegrix.dev", rel: "canonical" },
     {
       content: "Santiago Correa | Senior Frontend Engineer",
       property: "og:title",

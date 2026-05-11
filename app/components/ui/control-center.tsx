@@ -25,7 +25,9 @@ export function ControlCenter() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isOpen) { return; }
+    if (!isOpen) {
+      return;
+    }
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
@@ -118,7 +120,10 @@ function CapsuleAction({ icon, label, to }: { icon: React.ReactNode; label: stri
       className="group relative flex flex-col items-center justify-center gap-1 rounded-2xl p-2 text-muted-foreground transition-colors hover:bg-foreground/10 hover:text-foreground"
     >
       {icon}
-      <span aria-hidden="true" className="pointer-events-none absolute -top-8 rounded-md bg-foreground px-2 py-1 text-[10px] font-medium text-background opacity-0 transition-opacity group-hover:opacity-100">
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-8 rounded-md bg-foreground px-2 py-1 text-[10px] font-medium text-background opacity-0 transition-opacity group-hover:opacity-100"
+      >
         {label}
       </span>
     </Link>
@@ -151,7 +156,9 @@ function CapsuleToggle({
         {icon}
         <span className="text-xs font-medium">{label}</span>
       </div>
-      <div className={cn("h-2 w-2 rounded-full", active ? "bg-background" : "bg-muted-foreground/30")} />
+      <div
+        className={cn("h-2 w-2 rounded-full", active ? "bg-background" : "bg-muted-foreground/30")}
+      />
     </Button>
   );
 }

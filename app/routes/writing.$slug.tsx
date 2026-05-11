@@ -9,19 +9,49 @@ import { type Post, getPost } from "~/utils/posts.server";
 
 export function meta({ matches }: { matches: { data?: unknown }[] }) {
   const data = matches.at(-1)?.data as { post: Post } | undefined;
-  if (!data) { return [{ title: "Post not found" }]; }
+  if (!data) {
+    return [{ title: "Post not found" }];
+  }
   const { post } = data;
+  const postUrl = `https://wegrix.dev/writing/${post.slug}`;
+  const tags = post.tags.join(", ");
   return [
     { title: `${post.title} | Santiago Correa` },
     { content: post.description, name: "description" },
+    { content: tags, name: "keywords" },
+    { content: postUrl, rel: "canonical" },
     { content: `${post.title} | Santiago Correa`, property: "og:title" },
     { content: post.description, property: "og:description" },
     { content: "article", property: "og:type" },
-    { content: `https://wegrix.dev/writing/${post.slug}`, property: "og:url" },
+    { content: postUrl, property: "og:url" },
     { content: "https://wegrix.dev/og-image.jpg", property: "og:image" },
     { content: "summary_large_image", property: "twitter:card" },
+    { content: new Date(post.date).toISOString(), property: "article:published_time" },
+    { content: "Santiago Correa", property: "article:author" },
+    { content: tags, property: "article:tag" },
+    {
+      "script:ld+json": {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        author: {
+          "@type": "Person",
+          name: "Santiago Correa",
+          url: "https://wegrix.dev",
+        },
+        datePublished: post.date,
+        description: post.description,
+        headline: post.title,
+        image: "https://wegrix.dev/og-image.jpg",
+        keywords: tags,
+        mainEntityOfPage: {
+          "@id": postUrl,
+          "@type": "WebPage",
+        },
+        url: postUrl,
+      },
+    },
   ];
-};
+}
 
 export function loader({ params }: LoaderFunctionArgs) {
   try {
@@ -92,9 +122,7 @@ export default function WritingPost() {
             transition={{ delay: 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-foreground prose-a:underline-offset-4 prose-code:font-mono prose-code:text-sm prose-pre:border prose-pre:border-border prose-pre:bg-zinc-950 dark:prose-pre:bg-zinc-900"
           >
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {post.content}
-            </ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
           </motion.div>
         </div>
       </div>
