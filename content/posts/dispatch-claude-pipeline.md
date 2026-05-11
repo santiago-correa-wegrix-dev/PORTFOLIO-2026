@@ -5,8 +5,6 @@ date: "2026-05-11"
 tags: ["claude", "anthropic", "mcp", "ai-engineering", "pipelines"]
 ---
 
-# Building Dispatch: an AI-powered news pipeline with Claude and an MCP server
-
 *How I architected a trust-scored AI news brief using Haiku 4.5, Sonnet 4.6, and the Model Context Protocol*
 
 ---
