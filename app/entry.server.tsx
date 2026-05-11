@@ -54,6 +54,7 @@ export default function handleRequest(
               "base-uri 'self'",
             ].join("; "),
           );
+          responseHeaders.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
           responseHeaders.set("X-Frame-Options", "DENY");
           responseHeaders.set("X-Content-Type-Options", "nosniff");
           responseHeaders.set("Referrer-Policy", "strict-origin-when-cross-origin");
