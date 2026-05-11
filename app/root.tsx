@@ -107,6 +107,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <AnimatePresence mode="wait">
                 <motion.main
                   id="main-content"
+                  tabIndex={-1}
                   key={location.pathname}
                   initial={{ filter: "blur(10px)", opacity: 0, y: 20 }}
                   animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
