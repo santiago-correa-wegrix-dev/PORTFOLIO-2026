@@ -24,7 +24,10 @@
     "no-nested-ternary": "error",
     "no-magic-numbers": "off",
     "no-inline-comments": "off",
-    "max-lines-per-function": ["warn", { "max": 345, "skipComments": true, "skipBlankLines": true }],
+    "max-lines-per-function": [
+      "warn",
+      { "max": 345, "skipComments": true, "skipBlankLines": true }
+    ],
     "max-statements": "off",
     "init-declarations": "off",
     "no-negated-condition": "off",

@@ -17,8 +17,10 @@ import { MouseFollower } from "~/components/layout/mouse-follower";
 import { SmoothScroll } from "~/components/layout/smooth-scroll";
 import { ThemeManager } from "~/components/layout/theme-manager";
 import { ControlCenter } from "~/components/ui/control-center";
+import { JsonLd } from "~/components/ui/json-ld";
 import { Noise } from "~/components/ui/noise";
 import { useIsDark } from "~/hooks/use-is-dark";
+import { rootSchema } from "~/schemas/person-website";
 
 import type { Route } from "./+types/root";
 
@@ -33,55 +35,6 @@ export const meta: Route.MetaFunction = () => [
       "Senior frontend engineer with 9+ years building consumer products at scale. React, Remix, TypeScript. Currently at Statista. Building with the Anthropic API.",
     name: "description",
   },
-  {
-    "script:ld+json": {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@id": "https://wegrix.dev/#person",
-          "@type": "Person",
-          address: {
-            "@type": "PostalAddress",
-            addressCountry: "DE",
-            addressLocality: "Berlin"
-          },
-          email: "mailto:scorrea.dev@gmail.com",
-          image: "https://wegrix.dev/og-image.jpg",
-          jobTitle: "Senior Frontend Engineer",
-          knowsAbout: [
-            "React",
-            "TypeScript",
-            "Remix",
-            "Node.js",
-            "Anthropic API",
-            "Claude",
-            "Python",
-            "Three.js"
-          ],
-          name: "Santiago Correa",
-          sameAs: [
-            "https://github.com/scorrea-ui",
-            "https://www.linkedin.com/in/wegrix/",
-            "https://deliver-ai.xyz/"
-          ],
-          url: "https://wegrix.dev",
-          worksFor: {
-            "@type": "Organization",
-            name: "Statista"
-          }
-        },
-        {
-          "@id": "https://wegrix.dev/#website",
-          "@type": "WebSite",
-          name: "Wegrix",
-          publisher: {
-            "@id": "https://wegrix.dev/#person"
-          },
-          url: "https://wegrix.dev"
-        }
-      ]
-    }
-  }
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -98,6 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="overflow-x-hidden bg-background text-foreground selection:bg-zinc-200 selection:text-black dark:selection:bg-zinc-800 dark:selection:text-white">
+        <JsonLd data={rootSchema()} />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-9999 focus:rounded-lg focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background focus:outline-none"

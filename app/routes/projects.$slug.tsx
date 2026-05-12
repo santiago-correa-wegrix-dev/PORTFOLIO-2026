@@ -3,9 +3,11 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { useIntlayer } from "react-intlayer";
 import { Link } from "react-router";
 
+import { JsonLd } from "~/components/ui/json-ld";
 import { SplitText } from "~/components/ui/split-text";
 import { TechIcon } from "~/components/ui/tech-icon";
 import { realProjects } from "~/data/projects";
+import { projectSchema } from "~/schemas/project";
 import { HeroMedia } from "~/features/projects/hero-media";
 import type { Route } from "./+types/projects.$slug";
 
@@ -43,58 +45,6 @@ export function meta({ data }: Route.MetaArgs) {
     { content: title, property: "twitter:title" },
     { content: project.description, property: "twitter:description" },
     { content: image, property: "twitter:image" },
-    {
-      "script:ld+json": {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@id": projectUrl,
-            "@type": "WebPage",
-            name: project.title,
-            url: projectUrl
-          },
-          {
-            "@id": `${projectUrl}#project`,
-            "@type": "SoftwareSourceCode",
-            author: {
-              "@id": "https://wegrix.dev/#person"
-            },
-            creator: {
-              "@id": "https://wegrix.dev/#person"
-            },
-            description: project.description,
-            image: {
-              "@type": "ImageObject",
-              url: image
-            },
-            keywords: stack,
-            mainEntityOfPage: {
-              "@id": projectUrl
-            },
-            name: project.title,
-            programmingLanguage: stack,
-            url: projectUrl
-          },
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                item: "https://wegrix.dev",
-                name: "Projects",
-                position: 1
-              },
-              {
-                "@type": "ListItem",
-                item: projectUrl,
-                name: project.title,
-                position: 2
-              }
-            ]
-          }
-        ]
-      }
-    }
   ];
 }
 
@@ -112,6 +62,7 @@ export function loader({ params }: Route.LoaderArgs) {
 
 export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
   const { project, prev, next } = loaderData;
+
   const {
     back,
     challengeLabel,
@@ -126,202 +77,207 @@ export default function ProjectDetail({ loaderData }: Route.ComponentProps) {
   } = useIntlayer("project-detail");
 
   return (
-    <div className="min-h-screen bg-background cursor-auto selection:bg-zinc-800 selection:text-white dark:selection:bg-white dark:selection:text-black">
-      <div className="fixed top-5 left-5 md:top-6 md:left-8 z-50">
-        <Link
-          to="/"
-          className="flex items-center gap-2 px-4 py-2.5 bg-background/80 backdrop-blur-md border border-border rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-all shadow-xl hover:scale-105 active:scale-95 group"
-        >
-          <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
-          <span className="hidden sm:inline">{back}</span>
-        </Link>
-      </div>
+    <>
+      <JsonLd data={projectSchema(project)} />
+      <div className="min-h-screen bg-background cursor-auto selection:bg-zinc-800 selection:text-white dark:selection:bg-white dark:selection:text-black">
+        <div className="fixed top-5 left-5 md:top-6 md:left-8 z-50">
+          <Link
+            to="/"
+            className="flex items-center gap-2 px-4 py-2.5 bg-background/80 backdrop-blur-md border border-border rounded-full text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/20 transition-all shadow-xl hover:scale-105 active:scale-95 group"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+            <span className="hidden sm:inline">{back}</span>
+          </Link>
+        </div>
 
-      <div className="pt-24 md:pt-32 pb-10 md:pb-14 px-5 sm:px-8 md:px-12 lg:px-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-7xl mx-auto"
-        >
-          <p className="text-[10px] sm:text-xs font-mono text-muted-foreground uppercase tracking-widest mb-5 md:mb-7">
-            {project.category}
-          </p>
+        <div className="pt-24 md:pt-32 pb-10 md:pb-14 px-5 sm:px-8 md:px-12 lg:px-24">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-7xl mx-auto"
+          >
+            <p className="text-[10px] sm:text-xs font-mono text-muted-foreground uppercase tracking-widest mb-5 md:mb-7">
+              {project.category}
+            </p>
 
-          {project.comingSoon && (
-            <span className="inline-block mb-4 md:mb-6 px-3 py-1 rounded-full border border-border text-xs font-mono text-muted-foreground">
-              Coming Soon
-            </span>
-          )}
+            {project.comingSoon && (
+              <span className="inline-block mb-4 md:mb-6 px-3 py-1 rounded-full border border-border text-xs font-mono text-muted-foreground">
+                Coming Soon
+              </span>
+            )}
 
-          <h1 className="text-[13vw] sm:text-7xl md:text-9xl font-display font-bold tracking-tighter mb-8 md:mb-12 text-foreground leading-[0.9]">
-            <SplitText>{project.title.toUpperCase()}</SplitText>
-          </h1>
+            <h1 className="text-[13vw] sm:text-7xl md:text-9xl font-display font-bold tracking-tighter mb-8 md:mb-12 text-foreground leading-[0.9]">
+              <SplitText>{project.title.toUpperCase()}</SplitText>
+            </h1>
 
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-border pt-6 md:pt-8">
-            {project.role && (
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-5 border-t border-border pt-6 md:pt-8">
+              {project.role && (
+                <div>
+                  <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">
+                    {roleLabel}
+                  </p>
+                  <p className="text-sm md:text-base font-medium text-foreground">{project.role}</p>
+                </div>
+              )}
               <div>
                 <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">
-                  {roleLabel}
+                  {yearLabel}
                 </p>
-                <p className="text-sm md:text-base font-medium text-foreground">{project.role}</p>
+                <p className="text-sm md:text-base font-medium text-foreground">{project.year}</p>
               </div>
-            )}
-            <div>
-              <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">
-                {yearLabel}
-              </p>
-              <p className="text-sm md:text-base font-medium text-foreground">{project.year}</p>
+              <div>
+                <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">
+                  {industryLabel}
+                </p>
+                <p className="text-sm md:text-base font-medium text-foreground">
+                  {project.category}
+                </p>
+              </div>
+              {project.url && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-auto flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-medium transition-all hover:scale-105 active:scale-95 group bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+                >
+                  <span>{visitSite}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              )}
             </div>
-            <div>
-              <p className="text-[9px] font-mono text-muted-foreground uppercase tracking-widest mb-1">
-                {industryLabel}
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.25 }}
+          className="px-4 sm:px-6 md:px-8 lg:px-16 mb-14 md:mb-24"
+        >
+          <div className="max-w-7xl mx-auto h-[56vw] min-h-60 max-h-170 rounded-2xl md:rounded-3xl overflow-hidden border border-border/40 shadow-[0_0_80px_-20px_rgba(255,255,255,0.07)]">
+            <HeroMedia project={project} />
+          </div>
+        </motion.div>
+
+        {project.challenge && (
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            transition={sectionTransition}
+            className="px-5 sm:px-8 md:px-12 lg:px-24 mb-16 md:mb-24 border-t border-border pt-12 md:pt-18"
+          >
+            <div className="max-w-5xl mx-auto">
+              <p className="text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-6 md:mb-8">
+                {challengeLabel}
               </p>
-              <p className="text-sm md:text-base font-medium text-foreground">{project.category}</p>
+              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-semibold tracking-tighter text-foreground leading-tight">
+                {project.challenge}
+              </p>
             </div>
-            {project.url && (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-auto flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-medium transition-all hover:scale-105 active:scale-95 group bg-zinc-900 text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+          </motion.div>
+        )}
+
+        {project.solution && (
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            transition={sectionTransition}
+            className="px-5 sm:px-8 md:px-12 lg:px-24 mb-16 md:mb-24 border-t border-border pt-12 md:pt-18"
+          >
+            <div className="max-w-5xl mx-auto">
+              <p className="text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-6 md:mb-8">
+                {solutionLabel}
+              </p>
+              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-semibold tracking-tighter text-foreground leading-tight">
+                {project.solution}
+              </p>
+            </div>
+          </motion.div>
+        )}
+
+        {project.stack && project.stack.length > 0 && (
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            transition={sectionTransition}
+            className="px-5 sm:px-8 md:px-12 lg:px-24 mb-16 md:mb-24 border-t border-border pt-12 md:pt-18"
+          >
+            <div className="max-w-5xl mx-auto">
+              <p className="text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-8 md:mb-10">
+                {stackLabel}
+              </p>
+              <div className="flex flex-wrap gap-2.5 md:gap-3">
+                {project.stack.map((tech: string) => (
+                  <span
+                    key={tech}
+                    className="flex items-center gap-2 px-3 py-2 bg-muted/10 border border-border text-xs sm:text-sm font-mono text-muted-foreground rounded-lg hover:bg-foreground/5 hover:text-foreground hover:border-foreground/20 transition-all duration-200 cursor-default"
+                  >
+                    <TechIcon name={tech} className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          transition={sectionTransition}
+          className="px-5 sm:px-8 md:px-12 lg:px-24 border-t border-border pt-10 md:pt-14 mb-14 md:mb-20"
+        >
+          <div className="max-w-7xl mx-auto grid grid-cols-2 gap-3 md:gap-6">
+            {prev ? (
+              <Link
+                to={`/projects/${prev.id}`}
+                className="group flex flex-col gap-1 p-4 md:p-6 rounded-xl md:rounded-2xl border border-border hover:bg-muted/10 hover:border-foreground/20 transition-all duration-300"
               >
-                <span>{visitSite}</span>
-                <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+                <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2">
+                  <ArrowLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:-translate-x-1 transition-transform" />
+                  {prevLabel}
+                </span>
+                <span className="text-sm sm:text-base md:text-xl font-display font-semibold tracking-tight text-foreground line-clamp-1">
+                  {prev.title}
+                </span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground font-mono mt-0.5">
+                  {prev.category}
+                </span>
+              </Link>
+            ) : (
+              <div />
+            )}
+
+            {next ? (
+              <Link
+                to={`/projects/${next.id}`}
+                className="group flex flex-col gap-1 p-4 md:p-6 rounded-xl md:rounded-2xl border border-border hover:bg-muted/10 hover:border-foreground/20 transition-all duration-300 items-end text-right"
+              >
+                <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2">
+                  {nextLabel}
+                  <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
+                <span className="text-sm sm:text-base md:text-xl font-display font-semibold tracking-tight text-foreground line-clamp-1">
+                  {next.title}
+                </span>
+                <span className="text-[10px] sm:text-xs text-muted-foreground font-mono mt-0.5">
+                  {next.category}
+                </span>
+              </Link>
+            ) : (
+              <div />
             )}
           </div>
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.25 }}
-        className="px-4 sm:px-6 md:px-8 lg:px-16 mb-14 md:mb-24"
-      >
-        <div className="max-w-7xl mx-auto h-[56vw] min-h-60 max-h-170 rounded-2xl md:rounded-3xl overflow-hidden border border-border/40 shadow-[0_0_80px_-20px_rgba(255,255,255,0.07)]">
-          <HeroMedia project={project} />
-        </div>
-      </motion.div>
-
-      {project.challenge && (
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          transition={sectionTransition}
-          className="px-5 sm:px-8 md:px-12 lg:px-24 mb-16 md:mb-24 border-t border-border pt-12 md:pt-18"
-        >
-          <div className="max-w-5xl mx-auto">
-            <p className="text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-6 md:mb-8">
-              {challengeLabel}
-            </p>
-            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-semibold tracking-tighter text-foreground leading-tight">
-              {project.challenge}
-            </p>
-          </div>
-        </motion.div>
-      )}
-
-      {project.solution && (
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          transition={sectionTransition}
-          className="px-5 sm:px-8 md:px-12 lg:px-24 mb-16 md:mb-24 border-t border-border pt-12 md:pt-18"
-        >
-          <div className="max-w-5xl mx-auto">
-            <p className="text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-6 md:mb-8">
-              {solutionLabel}
-            </p>
-            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-semibold tracking-tighter text-foreground leading-tight">
-              {project.solution}
-            </p>
-          </div>
-        </motion.div>
-      )}
-
-      {project.stack && project.stack.length > 0 && (
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewport}
-          transition={sectionTransition}
-          className="px-5 sm:px-8 md:px-12 lg:px-24 mb-16 md:mb-24 border-t border-border pt-12 md:pt-18"
-        >
-          <div className="max-w-5xl mx-auto">
-            <p className="text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-8 md:mb-10">
-              {stackLabel}
-            </p>
-            <div className="flex flex-wrap gap-2.5 md:gap-3">
-              {project.stack.map((tech: string) => (
-                <span
-                  key={tech}
-                  className="flex items-center gap-2 px-3 py-2 bg-muted/10 border border-border text-xs sm:text-sm font-mono text-muted-foreground rounded-lg hover:bg-foreground/5 hover:text-foreground hover:border-foreground/20 transition-all duration-200 cursor-default"
-                >
-                  <TechIcon name={tech} className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      )}
-
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewport}
-        transition={sectionTransition}
-        className="px-5 sm:px-8 md:px-12 lg:px-24 border-t border-border pt-10 md:pt-14 mb-14 md:mb-20"
-      >
-        <div className="max-w-7xl mx-auto grid grid-cols-2 gap-3 md:gap-6">
-          {prev ? (
-            <Link
-              to={`/projects/${prev.id}`}
-              className="group flex flex-col gap-1 p-4 md:p-6 rounded-xl md:rounded-2xl border border-border hover:bg-muted/10 hover:border-foreground/20 transition-all duration-300"
-            >
-              <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2">
-                <ArrowLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:-translate-x-1 transition-transform" />
-                {prevLabel}
-              </span>
-              <span className="text-sm sm:text-base md:text-xl font-display font-semibold tracking-tight text-foreground line-clamp-1">
-                {prev.title}
-              </span>
-              <span className="text-[10px] sm:text-xs text-muted-foreground font-mono mt-0.5">
-                {prev.category}
-              </span>
-            </Link>
-          ) : (
-            <div />
-          )}
-
-          {next ? (
-            <Link
-              to={`/projects/${next.id}`}
-              className="group flex flex-col gap-1 p-4 md:p-6 rounded-xl md:rounded-2xl border border-border hover:bg-muted/10 hover:border-foreground/20 transition-all duration-300 items-end text-right"
-            >
-              <span className="flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono text-muted-foreground uppercase tracking-widest mb-2">
-                {nextLabel}
-                <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 group-hover:translate-x-1 transition-transform" />
-              </span>
-              <span className="text-sm sm:text-base md:text-xl font-display font-semibold tracking-tight text-foreground line-clamp-1">
-                {next.title}
-              </span>
-              <span className="text-[10px] sm:text-xs text-muted-foreground font-mono mt-0.5">
-                {next.category}
-              </span>
-            </Link>
-          ) : (
-            <div />
-          )}
-        </div>
-      </motion.div>
-    </div>
+    </>
   );
 }
